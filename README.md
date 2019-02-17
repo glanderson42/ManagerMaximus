@@ -34,6 +34,12 @@ ManagerMaximus is a free and open source, web-based project management and issue
 * MySQL
 * Rest API
 
+### Database
+![Database model](files/database.png)
+You can generate database with `Backend/SQL/generate_db.sql` file.
+This SQL will make the database, datatables, table connections and one database user.
+You can connect to the database called `manager_maximus` with username `manager_maximus` and password `3Pi14159265`.
+
 ### Status
 - [ ] Registartion and login system
 - [ ] Project creating system
