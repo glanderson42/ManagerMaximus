@@ -55,5 +55,3 @@ You can connect to the database called `manager_maximus` with username `manager_
 - [ ] Deadline calendar
 - [ ] Email notifications
 - [ ] Comment section on widgets
-
-Test github webhook
