@@ -25,7 +25,7 @@ const hasinit = () => {
 }
 
 const query = (query, callback)=>{
-  connection.query("SELECT * FROM users", callback);
+  connection.query(query, callback);
 
 };
 
