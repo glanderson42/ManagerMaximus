@@ -1,7 +1,8 @@
-USE manager_maximus
-INSERT INTO `users` (`id`, `username`, `password`, `tries`, `email`, `status`, `confirmID`, `regdate`, `disabledon`) VALUES
-(1, 'admin', MD5('admin'), '0', 'admin@managermaximus.com', 'NEW', 'asdfasdf', CURRENT_TIMESTAMP, NULL),
-(2, 'user', MD5('user'), '0', 'user@managermaximus.com', 'NEW', '132123', CURRENT_TIMESTAMP, NULL);
+USE manager_maximus;
+
+INSERT INTO `users` (`id`, `username`, `password`, `tries`, `email`, `name`, `status`, `disabledon`) VALUES
+(1, 'admin', MD5('admin'), '0', 'admin@managermaximus.com', 'Admin Name', 'NEW', NULL),
+(2, 'user', MD5('user'), '0', 'user@managermaximus.com', 'User Name', 'NEW', NULL);
 
 INSERT INTO `project` (`id`, `authorid`, `parentid`, `title`, `description`, `created`, `deadline`, `category`, `priority`) VALUES
 (1, '1', NULL, 'First project', 'Description of first project', CURRENT_TIMESTAMP, NULL, 'NEW', 'LOW'),
