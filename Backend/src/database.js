@@ -26,9 +26,15 @@ const hasinit = () => {
 
 const query = (query, callback)=>{
   connection.query(query, callback);
-
 };
+
+const validateEmail = (email) => {
+  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
 
 module.exports.init = init
 module.exports.hasinit = hasinit
 module.exports.query = query
+module.exports.escape = mysql.escape
+module.exports.validateEmail = validateEmail

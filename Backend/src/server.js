@@ -15,5 +15,6 @@ database.init("127.0.0.1","manager_maximus","3Pi14159265","manager_maximus");
 
 app.get('/', user.getUsersTable);
 app.post('/login', user.login);
+app.post('/registration', user.registration);
 
 app.listen(port, () => console.log(`Application listening on port ${port}!`));

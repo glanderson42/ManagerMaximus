@@ -1,5 +1,5 @@
 const database = require('../database');
-var md5 = require('md5');
+const md5 = require('md5');
 
 const getUsersTable = (req, res) => {
   database.query("SELECT * FROM users", (err, result, fields) => {
@@ -7,15 +7,16 @@ const getUsersTable = (req, res) => {
     res.send(JSON.stringify(result));
   });
 }
+
 const login = (req, res) => {
   res.set({
     'Content-Type': 'application/json',
   })
 
-  let username = req.body.username;
-  let password = md5(req.body.password);
+  const username = req.body.username || '';
+  const password = md5(req.body.password);
 
-  database.query("SELECT * FROM `users` WHERE (`username`='"+username+"' OR `email`='"+username+"') AND `password`='"+password+"' AND `status`!='REMOVED'", (err, result, fields) => {
+  database.query("SELECT * FROM `users` WHERE (`username`="+database.escape(username)+" OR `email`="+database.escape(username)+") AND `password`='"+password+"' AND `status`!='REMOVED'", (err, result, fields) => {
     let data = {
       statusCode: 403,
       label: "Incorrect username or password.",
@@ -40,11 +41,84 @@ const login = (req, res) => {
         data.statusCode = 200;
         data.label = 'Logged in successfully.'
         data.token = 'TODO';
+        console.log(`User '${username}' logged in`);
       }
     }
     res.send(JSON.stringify(data));
   });
 }
 
+const registration = (req, res) => {
+  res.set({
+    'Content-Type': 'application/json',
+  })
+
+  const username = req.body.username || '';
+  const password = req.body.password || '';
+  const password2 = req.body.password2 || '';
+  const email = req.body.email || '';
+  const name = req.body.name || '';
+
+  let data = {
+    statusCode: 200,
+    label: "Registration was successful.",
+  }
+
+  if(username === '') {       data.statusCode=403; data.label="Username is empty."; }
+  else if(password === '') {  data.statusCode=403; data.label="Password is empty."; }
+  else if(password2 === '') { data.statusCode=403; data.label="Password2 is empty."; }
+  else if(email === '') {     data.statusCode=403; data.label="Email is empty."; }
+  else if(name === '') {      data.statusCode=403; data.label="Name is empty."; }
+  else if(!database.validateEmail(email)) { data.statusCode=403; data.label="Email is not valid."; }
+  else if(password !== password2) {         data.statusCode=403; data.label="Password and password2 is different."; }
+
+  if(data.statusCode !== 200){
+    res.send(JSON.stringify(data));
+    return;
+  }
+
+  database.query("SELECT * FROM `users` WHERE `username`="+database.escape(username), (err, result, fields) => {
+    if(err) {
+      data.statusCode = 500;
+      data.label = err.sqlMessage;
+      res.send(JSON.stringify(data));
+      throw err;
+    }
+    if(result.length > 0) {
+      data.statusCode = 403;
+      data.label="This username is taken.";
+      res.send(JSON.stringify(data));
+      return;
+    }
+    database.query("SELECT * FROM `users` WHERE `email`="+database.escape(email), (err, result, fields) => {
+      if(err) {
+        data.statusCode = 500;
+        data.label = err.sqlMessage;
+        res.send(JSON.stringify(data));
+        throw err;
+      }
+      if(result.length > 0) {
+        data.statusCode = 403;
+        data.label="This email is already registrated.";
+        res.send(JSON.stringify(data));
+        return;
+      }
+
+      const query = "INSERT INTO `users` (`username`, `password`, `email`, `name`) VALUES ("+database.escape(username)+", '"+md5(password)+"', "+database.escape(email)+", "+database.escape(name)+")";
+      database.query(query, (err, result, fields) => {
+        if(err) {
+          data.statusCode = 500;
+          data.label = err.sqlMessage;
+          res.send(JSON.stringify(data));
+          throw err;
+        }
+        console.log(`New user '${username}' registrated`);
+        res.send(JSON.stringify(data));
+      });
+    });
+  });
+}
+
 module.exports.getUsersTable = getUsersTable;
 module.exports.login = login;
+module.exports.registration = registration;
