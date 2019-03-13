@@ -16,9 +16,10 @@ CREATE TABLE `users` (
   `password` varchar(32) NOT NULL,
   `tries` int(2) NOT NULL DEFAULT 0,
   `email` varchar(50) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `status` enum('NEW','CONFIRMED','USER','DISABLED','REMOVED') NOT NULL DEFAULT 'NEW',
-  `confirmID` varchar(20) NOT NULL,
   `regdate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `lastdate` datetime DEFAULT NULL,
   `disabledon` datetime DEFAULT NULL
 );
 CREATE TABLE `project` (
