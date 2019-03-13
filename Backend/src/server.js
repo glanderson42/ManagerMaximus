@@ -4,6 +4,7 @@ const user = require('./models/user');
 const bodyParser = require('body-parser');
 const smtp = require('./smtp');
 const config = require('config');
+const tokenGenerator = require('./tokenGenerator');
 
 const app = express();
 const port = config.get('port');
@@ -18,6 +19,8 @@ database.init();
 smtp.init();
 
 app.get('/', user.getUsersTable);
+app.get('/confirm/:token', user.confirm);
+
 app.post('/login', user.login);
 app.post('/registration', user.registration);
 

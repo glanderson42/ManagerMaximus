@@ -2,6 +2,7 @@ const database = require('../database');
 const md5 = require('md5');
 const smtp = require('../smtp');
 const config = require('config');
+const tokenGenerator = require('../tokenGenerator');
 
 const getUsersTable = (req, res) => {
   database.query("SELECT * FROM users", (err, result, fields) => {
@@ -116,8 +117,13 @@ const registration = (req, res) => {
         }
         console.log(`New user '${username}' registrated`);
 
-        const token = 'TODO';
-        const tokenURL = config.get('hostUrl') + ":" + config.get('port') + "/token/" + token;
+        const token = tokenGenerator.sign({
+          userid: result.insertId
+        }, {
+          issuer: "Confirm",
+          audience: ""
+        });
+        const tokenURL = config.get('hostUrl') + ":" + config.get('port') + "/confirm/" + token;
         smtp.sendMail(email, 'Confirm your e-mail address', `Dear ${name}!<br><br>Welcome on ManagerMaximus.<br><a href="${tokenURL}">Click here</a> to confirm your e-mail address, or open this link:<br><a href="${tokenURL}">${tokenURL}</a>`, (error, info)=>{});
 
         res.send(JSON.stringify(data));
@@ -126,6 +132,41 @@ const registration = (req, res) => {
   });
 }
 
+const confirm = (req, res) => {
+  const token = req.params.token;
+  res.status(302);
+
+  const tokenData = tokenGenerator.verify(token, {
+    issuer: "Confirm",
+    audience: ""
+  });
+
+  if(tokenData) {
+    database.query("UPDATE users SET `status`='CONFIRMED' WHERE `status`='NEW' AND `id`="+database.escape(tokenData.userid), (err, result, fields) => {
+      if(err || result.affectedRows==0) {
+        res.set({
+          'Location': config.get('frontendUrl')+'emailconfirm/error',
+        })
+        res.send("ERROR");
+      } else {
+        res.set({
+          'Location': config.get('frontendUrl')+'emailconfirm/success',
+        })
+        res.send("SUCCESS");
+      }
+      if(err) {
+        throw err;
+      }
+    });
+  } else {
+    res.set({
+      'Location': config.get('frontendUrl')+'emailconfirm/wrongtoken',
+    })
+    res.send("WRONG TOKEN");
+  }
+}
+
 module.exports.getUsersTable = getUsersTable;
 module.exports.login = login;
 module.exports.registration = registration;
+module.exports.confirm = confirm;
