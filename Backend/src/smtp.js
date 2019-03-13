@@ -1,17 +1,10 @@
 const nodemailer = require('nodemailer');
+const config = require('config');
 
 let transporter;
 
-const init = (host, port, secure, user, password)=>{
-  transporter = nodemailer.createTransport({
-    host: host,
-    port: port,
-    secure: secure,
-    auth: {
-      user: user,
-      pass: password
-    }
-  });
+const init = () => {
+  transporter = nodemailer.createTransport(config.get('smtp'));
   transporter.verify(function(error, success) {
     if (error) {
       console.error(error);
@@ -23,7 +16,7 @@ const init = (host, port, secure, user, password)=>{
 
 const sendMail = (to, subject, text, callback)=>{
   transporter.sendMail({
-    from: 'ManagerMaximus <managermaximus@heatnet.hu>',
+    from: `${config.get('projectName')} <${config.get('projectEmail')}>`,
     to: to,
     subject: subject,
     text: text.replace(/<.+?>/g, ''),

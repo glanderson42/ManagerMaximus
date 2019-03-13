@@ -1,0 +1,24 @@
+{
+  projectName: "ManagerMaximus",
+  projectEmail: "managermaximus@heatnet.hu",
+  hostUrl: 'http://127.0.0.1',
+  port: 3000,
+  frontendUrl: 'http://127.0.0.1:4200/',
+
+  database: {
+    host: "127.0.0.1",
+    user: "manager_maximus",
+    password: "3Pi14159265",
+    database: "manager_maximus",
+  },
+
+  smtp: {
+    host: "cloud.s1.spaceweb.hu",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "managermaximus@heatnet.hu",
+      pass: "3Pi141592",
+    },
+  },
+}

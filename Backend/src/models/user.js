@@ -1,6 +1,7 @@
 const database = require('../database');
 const md5 = require('md5');
 const smtp = require('../smtp');
+const config = require('config');
 
 const getUsersTable = (req, res) => {
   database.query("SELECT * FROM users", (err, result, fields) => {
@@ -115,7 +116,8 @@ const registration = (req, res) => {
         }
         console.log(`New user '${username}' registrated`);
 
-        const tokenURL = 'http://example.com/';
+        const token = 'TODO';
+        const tokenURL = config.get('hostUrl') + ":" + config.get('port') + "/token/" + token;
         smtp.sendMail(email, 'Confirm your e-mail address', `Dear ${name}!<br><br>Welcome on ManagerMaximus.<br><a href="${tokenURL}">Click here</a> to confirm your e-mail address, or open this link:<br><a href="${tokenURL}">${tokenURL}</a>`, (error, info)=>{});
 
         res.send(JSON.stringify(data));
