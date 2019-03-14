@@ -1,6 +1,6 @@
-#POST /login
+# POST /login
 
-##Request:
+## Request:
 `username` can be username or e-mail address
 ```
 {
@@ -9,7 +9,7 @@
 }
 ```
 
-##Response:
+## Response:
 When the username or e-mail address or password is not correct:
 ```
 {
