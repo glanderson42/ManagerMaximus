@@ -178,8 +178,8 @@ const confirm = (req, res) => {
 }
 
 const getLoggedInUser = req => {
-  token = req.headers.authorization;
-  if(token.substr(0, 7) === "Bearer ") {
+  token = req.headers.authorization || "";
+  if(token.length > 7 && token.substr(0, 7) === "Bearer ") {
     token = token.substr(7);
   } else {
     return false;
