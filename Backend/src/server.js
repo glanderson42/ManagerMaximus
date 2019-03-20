@@ -1,6 +1,7 @@
 const express = require('express');
 const database = require('./database');
 const user = require('./models/user');
+const project = require('./models/project');
 const bodyParser = require('body-parser');
 const smtp = require('./smtp');
 const config = require('config');
@@ -20,6 +21,7 @@ smtp.init();
 
 app.get('/', user.getUsersTable);
 app.get('/confirm/:token', user.confirm);
+app.get('/projects/list', project.list);
 
 app.post('/login', user.login);
 app.post('/registration', user.registration);

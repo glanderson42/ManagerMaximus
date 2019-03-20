@@ -177,7 +177,27 @@ const confirm = (req, res) => {
   }
 }
 
+const getLoggedInUser = req => {
+  token = req.headers.authorization;
+  if(token.substr(0, 7) === "Bearer ") {
+    token = token.substr(7);
+  } else {
+    return false;
+  }
+  const tokenData = tokenGenerator.verify(token, {
+    issuer: "Login",
+    audience: md5(req.headers['user-agent'])
+  });
+  if(tokenData) {
+    const userdata = database.asyncQuery("SELECT * FROM `users` WHERE `id`='" + tokenData.userid + "'")[0];
+    return userdata || false;
+  } else {
+    return false;
+  }
+}
+
 module.exports.getUsersTable = getUsersTable;
 module.exports.login = login;
 module.exports.registration = registration;
 module.exports.confirm = confirm;
+module.exports.getLoggedInUser = getLoggedInUser;
