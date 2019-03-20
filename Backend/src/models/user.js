@@ -40,10 +40,21 @@ const login = (req, res) => {
         data.statusCode = 403;
         data.label = "User account is disabled.";
       } else {
+        const token = tokenGenerator.sign({
+          userid: result[0].id
+        }, {
+          issuer: "Login",
+          audience: md5(req.headers['user-agent'])
+        });
+
+        result[0].id = undefined;
+        result[0].tries = undefined;
+        result[0].status = undefined;
+        result[0].disabledon = undefined;
         data = result[0];
         data.statusCode = 200;
         data.label = 'Logged in successfully.'
-        data.token = 'TODO';
+        data.token = token;
         console.log(`User '${username}' logged in`);
       }
     }

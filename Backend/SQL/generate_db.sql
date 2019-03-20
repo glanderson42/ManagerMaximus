@@ -64,6 +64,11 @@ CREATE TABLE `chat` (
   INDEX `author_chat_ind` (`authorid`),
   INDEX `project_chat_ind` (`projectid`)
 );
+CREATE TABLE `tokens` (
+  `hash` varchar(32) PRIMARY KEY NOT NULL,
+  `token` text NOT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
 /* GENERATE CONNECTIONS */
 ALTER TABLE `project`

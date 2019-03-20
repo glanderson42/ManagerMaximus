@@ -26,6 +26,7 @@
     "md5": "^2.2.1",
     "mysql": "^2.16.0",
     "nodemailer": "^5.1.1",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "synchronized-promise": "0.0.4"
   }
 }

@@ -1,5 +1,7 @@
 const mysql = require('mysql');
 const config = require('config');
+const util = require('util');
+const sp = require('synchronized-promise');
 
 let connection;
 
@@ -20,8 +22,13 @@ const hasinit = () => {
   console.log(!!connection);
 }
 
-const query = (query, callback)=>{
+const query = (query, callback) => {
   connection.query(query, callback);
+};
+
+const asyncQuery = query => {
+  const q = sp(util.promisify(connection.query).bind(connection));
+  return q(query);
 };
 
 const validateEmail = (email) => {
@@ -29,8 +36,9 @@ const validateEmail = (email) => {
   return re.test(email);
 }
 
-module.exports.init = init
-module.exports.hasinit = hasinit
-module.exports.query = query
-module.exports.escape = mysql.escape
-module.exports.validateEmail = validateEmail
+module.exports.init = init;
+module.exports.hasinit = hasinit;
+module.exports.query = query;
+module.exports.escape = mysql.escape;
+module.exports.validateEmail = validateEmail;
+module.exports.asyncQuery = asyncQuery;
