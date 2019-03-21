@@ -1,12 +1,29 @@
 const express = require('express');
 const database = require('./database');
 const user = require('./models/user');
+const project = require('./models/project');
+const bodyParser = require('body-parser');
+const smtp = require('./smtp');
+const config = require('config');
+const tokenGenerator = require('./tokenGenerator');
 
 const app = express();
-const port = 3000;
+const port = config.get('port');
 
-database.init("127.0.0.1","manager_maximus","3Pi14159265","manager_maximus");
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
+
+database.init();
+
+smtp.init();
 
 app.get('/', user.getUsersTable);
+app.get('/confirm/:token', user.confirm);
+app.get('/projects/list', project.list);
+
+app.post('/login', user.login);
+app.post('/registration', user.registration);
 
 app.listen(port, () => console.log(`Application listening on port ${port}!`));

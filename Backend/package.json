@@ -18,8 +18,15 @@
   },
   "homepage": "https://github.com/glanderson42/ManagerMaximus#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "config": "^3.0.1",
     "express": "^4.16.4",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.5.0",
+    "md5": "^2.2.1",
     "mysql": "^2.16.0",
-    "nodemon": "^1.18.10"
+    "nodemailer": "^5.1.1",
+    "nodemon": "^1.18.10",
+    "synchronized-promise": "0.0.4"
   }
 }
