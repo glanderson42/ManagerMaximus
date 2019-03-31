@@ -7,18 +7,28 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 import { AppRoutingModule } from './services/routing/app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './sites/login/login.component';
 import { RegistrationComponent } from './sites/registration/registration.component';
 import { AuthService } from './services/auth/auth.service';
+import { SuccessComponent } from './sites/emailconfirm/success/success.component';
+import { FailedComponent } from './sites/emailconfirm/failed/failed.component';
+import { WrongtokenComponent } from './sites/emailconfirm/wrongtoken/wrongtoken.component';
+import { PageNotFoundComponent } from './sites/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    SuccessComponent,
+    FailedComponent,
+    WrongtokenComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +40,7 @@ import { AuthService } from './services/auth/auth.service';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    ToastModule,
     RouterModule.forRoot([
       {
         path: '',
@@ -38,7 +49,8 @@ import { AuthService } from './services/auth/auth.service';
     ])
   ],
   providers: [
-    AuthService
+    AuthService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })
