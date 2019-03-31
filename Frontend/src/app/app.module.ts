@@ -10,12 +10,18 @@ import { AppRoutingModule } from './services/routing/app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './sites/login/login.component';
 import { RegistrationComponent } from './sites/registration/registration.component';
+import { SuccessComponent } from './sites/emailconfirm/success/success.component';
+import { FailedComponent } from './sites/emailconfirm/failed/failed.component';
+import { WrongtokenComponent } from './sites/emailconfirm/wrongtoken/wrongtoken.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    SuccessComponent,
+    FailedComponent,
+    WrongtokenComponent
   ],
   imports: [
     BrowserModule,
