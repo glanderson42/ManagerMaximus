@@ -13,9 +13,9 @@ export class AuthService {
 
   login(user: User) {
       console.log(user);
-    return this.httpClient.post('BACKENDURL', user)
+      return this.httpClient.post('BACKENDURL', user)
       .subscribe(
-          (data:any) => {
+          (data: any) => {
             console.log('LOGIN');
           }
       );
@@ -24,7 +24,7 @@ export class AuthService {
   logout() {
   return this.httpClient.get('BACKENDURL')
     .subscribe(
-        (data:any[]) => {
+        (data: any[]) => {
           console.log('LOGOUT');
         }
     );
