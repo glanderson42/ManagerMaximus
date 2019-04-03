@@ -17,7 +17,7 @@ const login = (req, res) => {
   })
 
   const username = req.body.username || '';
-  const password = md5(req.body.password);
+  const password = md5(req.body.password || '');
 
   database.query("SELECT * FROM `users` WHERE (`username`="+database.escape(username)+" OR `email`="+database.escape(username)+") AND `password`='"+password+"' AND `status`!='REMOVED'", (err, result, fields) => {
     let data = {

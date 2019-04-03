@@ -1,0 +1,31 @@
+.PageNotFound {
+    height: 100vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+
+    > * {
+        margin-bottom: 5px;
+    }
+    .PageNotFound-inner {
+      height: 100vh;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      background-image: url("../../../assets/dead_link.jpg");
+      background-repeat: no-repeat;
+      background-position: center;
+
+      width:100%;
+      height:550px;
+    }
+    p-button {
+      position: relative;
+      bottom: 10px;
+    }
+}
