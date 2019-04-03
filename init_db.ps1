@@ -1,9 +1,15 @@
+$pass = Read-Host 'What is your mysql password for root user?' -AsSecureString
+$pass = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($pass))
+
 try {
-	cd Backend
-	cd SQL
-    iex "mysql -h manager_maximus -u manager_maximus -p 3Pi14159265 manager_maximus < generate_db.sql"
-    iex "mysql -h manager_maximus -u manager_maximus -p 3Pi14159265 manager_maximus < insert_data.sql"
+	if($pass -eq ""){
+		Get-Content ./Backend/SQL/generate_db.sql | mysql -u root
+		Get-Content ./Backend/SQL/insert_data.sql | mysql -u root
+	} else {
+		Get-Content ./Backend/SQL/generate_db.sql | mysql -u root -p$pass
+		Get-Content ./Backend/SQL/insert_data.sql | mysql -u root -p$pass
+	}
 } catch {
-    echo "Mysql is not set to the path or not installed!"
-    exit -1
+	echo "Mysql is not set to the path or not installed!"
+	exit -1
 }
