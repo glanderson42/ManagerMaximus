@@ -14,7 +14,7 @@ const getUsersTable = (req, res) => {
 const login = (req, res) => {
   res.set({
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin:': '*',
+    'Access-Control-Allow-Origin': '*',
   })
 
   const username = req.body.username || '';
@@ -66,7 +66,7 @@ const login = (req, res) => {
 const registration = (req, res) => {
   res.set({
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin:': '*',
+    'Access-Control-Allow-Origin': '*',
   })
 
   const username = req.body.username || '';
