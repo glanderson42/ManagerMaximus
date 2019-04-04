@@ -21,7 +21,12 @@ const sendMail = (to, subject, text, callback)=>{
     subject: subject,
     text: text.replace(/<.+?>/g, ''),
     html: text
-  }, callback);
+  }, (error, info)=>{
+    if(error){
+      console.log(error)
+    }
+    callback(error, info);
+  });
 };
 
 module.exports.init = init
