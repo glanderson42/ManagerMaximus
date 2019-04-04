@@ -9,9 +9,9 @@ const sign = (payloadIn, $Options) => {
   const starts = database.escape(now.toISOString().slice(0, 19).replace('T', ' '));
   now.setDate(now.getDate() + 10);
   const expires = database.escape(now.toISOString().slice(0, 19).replace('T', ' '));
-  const token = database.escape(md5(issuer+audience+starts+expires));
+  const token = md5(issuer+audience+starts+expires);
 
-  const sql = "INSERT INTO `tokens` (`token`, `issuer`, `audience`, `payload`, `starts`, `expires`) VALUES ("+token+", "+issuer+", "+audience+", "+payload+", "+starts+", "+expires+")";
+  const sql = "INSERT INTO `tokens` (`token`, `issuer`, `audience`, `payload`, `starts`, `expires`) VALUES ('"+token+"', "+issuer+", "+audience+", "+payload+", "+starts+", "+expires+")";
 
   database.query(sql, (err, result, fields) => {
     if(err) {
