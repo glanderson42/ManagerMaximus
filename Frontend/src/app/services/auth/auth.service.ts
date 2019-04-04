@@ -1,33 +1,19 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {User} from '../../model/User';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { config } from '../../../../config/config';
 
 @Injectable()
 export class AuthService {
-  user: User;
-  isLoggedIn = false;
 
   constructor(private httpClient: HttpClient) {
-    this.user = new User();
   }
 
-  login(user: User) {
-      console.log(user);
-      return this.httpClient.post('BACKENDURL', user)
-      .subscribe(
-          (data: any) => {
-            console.log('LOGIN');
-          }
-      );
+  login(loginData) {
+      return this.httpClient.post(config.backendUrl + 'login', loginData);
   }
 
   logout() {
-  return this.httpClient.get('BACKENDURL')
-    .subscribe(
-        (data: any[]) => {
-          console.log('LOGOUT');
-        }
-    );
+  return this.httpClient.get(config.backendUrl + 'logout');
 }
 
   /*register(user: User) {
