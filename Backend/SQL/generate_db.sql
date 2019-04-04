@@ -65,9 +65,12 @@ CREATE TABLE `chat` (
   INDEX `project_chat_ind` (`projectid`)
 );
 CREATE TABLE `tokens` (
-  `hash` varchar(32) PRIMARY KEY NOT NULL,
-  `token` text NOT NULL,
-  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `token` varchar(32) PRIMARY KEY NOT NULL,
+  `issuer` varchar(100) NOT NULL DEFAULT "",
+  `audience` varchar(32) NOT NULL DEFAULT "",
+  `payload` text NOT NULL,
+  `starts` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `expires` datetime NULL
 );
 
 /* GENERATE CONNECTIONS */
