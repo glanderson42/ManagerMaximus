@@ -32,15 +32,6 @@ export class LoginComponent implements OnInit {
       },
       (response: any ) => {
         this.messageService.add({severity: 'error', summary: 'Error Message', detail: response.error.label});
-        console.log(response.error.label);
-      }
-    );
-  }
-
-  submitLogout() {
-    this.authService.logout().subscribe(
-      (data: any[]) => {
-        console.log('LOGOUT');
       }
     );
   }
