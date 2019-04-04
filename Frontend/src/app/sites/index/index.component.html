@@ -7,118 +7,60 @@
 
 <p-panelMenu [model]="PanelMenu" [style]="{'width':'300px'}"></p-panelMenu> -->
 
-<div class="ui-g">
-  <div class="ui-g-12 ui-md-2">
-    <p-panelMenu [model]="PanelMenu" [style]="{'width':'300px'}"></p-panelMenu>
+<div class="layout-wrapper">
+  <div class="layout-topbar">
+    <p-menubar [model]="items">
+      <div>
+        <input type="text" pInputText placeholder="Search">
+        <button pButton label="Logout" icon="fa fa-sign-out" style="margin-left:.25em"></button>
+      </div>
+    </p-menubar>
   </div>
-  <div class="ui-g-12 ui-md-10 ui-g-nopad">
-    <div class="ui-g-12">
-      <p-menubar [model]="items">
-        <div>
-          <input type="text" pInputText placeholder="Search">
-          <button pButton label="Logout" icon="fa fa-sign-out" style="margin-left:.25em"></button>
-        </div>
-      </p-menubar>
+  <div class="layout-site">
+    <div class="layout-sidebar">
+      <p-panelMenu [model]="PanelMenu"></p-panelMenu>
     </div>
-    <div class="ui-g-12 ui-g-nopad">
-      <div class="ui-g">
-
-        <div class="ui-g-12 ui-md-3">
-          <p-card header="Advanced Card" subheader="Subheader" [style]="{width: auto}" styleClass="ui-card-shadow">
-            <p-header>
-              <img src="Card" src="assets/showcase/images/usercard.png">
-            </p-header>
-            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
-              numquam deserunt
-              quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
-              neque quas!</div>
-            <p-footer>
-              <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em"></button>
-              <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-secondary"></button>
-            </p-footer>
-          </p-card>
-        </div>
-
-        <div class="ui-g-12 ui-md-3">
-          <p-card header="Advanced Card" subheader="Subheader" [style]="{width: auto}" styleClass="ui-card-shadow">
-            <p-header>
-              <img src="Card" src="assets/showcase/images/usercard.png">
-            </p-header>
-            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
-              numquam deserunt
-              quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
-              neque quas!</div>
-            <p-footer>
-              <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em"></button>
-              <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-secondary"></button>
-            </p-footer>
-          </p-card>
-        </div>
-
-        <div class="ui-g-12 ui-md-3">
-          <p-card header="Advanced Card" subheader="Subheader" [style]="{width: auto}" styleClass="ui-card-shadow">
-            <p-header>
-              <img src="Card" src="assets/showcase/images/usercard.png">
-            </p-header>
-            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
-              numquam deserunt
-              quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
-              neque quas!</div>
-            <p-footer>
-              <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em"></button>
-              <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-secondary"></button>
-            </p-footer>
-          </p-card>
-        </div>
-        <!-- </div> -->
-
-        <!-- <div class="ui-g"> -->
-        <div class="ui-g-12 ui-md-3">
-          <p-card header="Advanced Card" subheader="Subheader" [style]="{width: auto}" styleClass="ui-card-shadow">
-            <p-header>
-              <img src="Card" src="assets/showcase/images/usercard.png">
-            </p-header>
-            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
-              numquam deserunt
-              quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
-              neque quas!</div>
-            <p-footer>
-              <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em"></button>
-              <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-secondary"></button>
-            </p-footer>
-          </p-card>
-        </div>
-        <div class="ui-g-12 ui-md-3">
-          <p-card header="Advanced Card" subheader="Subheader" [style]="{width: auto}" styleClass="ui-card-shadow">
-            <p-header>
-              <img src="Card" src="assets/showcase/images/usercard.png">
-            </p-header>
-            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
-              numquam deserunt
-              quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
-              neque quas!</div>
-            <p-footer>
-              <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em"></button>
-              <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-secondary"></button>
-            </p-footer>
-          </p-card>
-        </div>
-        <div class="ui-g-12 ui-md-3" id="newCard">
-            <p-card header="Add New Card" subheader="Subheader" [style]="{width: auto}" styleClass="ui-card-shadow">
+    <div class="layout-content">
+      <div class="layout-content-inner">
+        <h1>ManagerMaximus - Projects</h1>
+        <h2>Own projects</h2>
+        <div class="ui-g layout-card-container">
+          <div class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3">
+            <p-card header="Advanced Card" subheader="Subheader" [style]="{width: auto}" styleClass="ui-card-shadow">
               <p-header>
-                <img src="Card" src="assets/showcase/images/usercard.png">
+                <img src="Card" src="http://www.illuminationworksllc.com/wp-content/uploads/2017/04/ProjectManagement-1.jpg">
               </p-header>
-              <div>szar</div>
+              <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
+                numquam deserunt
+                quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
+                neque quas!</div>
               <p-footer>
                 <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em"></button>
                 <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-secondary"></button>
               </p-footer>
             </p-card>
           </div>
+          <div class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3">
+            <p-card header="Advanced Card" subheader="Subheader" [style]="{width: auto}" styleClass="ui-card-shadow">
+              <p-header>
+                <img src="Card" src="http://www.illuminationworksllc.com/wp-content/uploads/2017/04/ProjectManagement-1.jpg">
+              </p-header>
+              <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
+                numquam deserunt
+                quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
+                neque quas!</div>
+              <p-footer>
+                <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em"></button>
+                <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-secondary"></button>
+              </p-footer>
+            </p-card>
+          </div>
+        </div>
+        <h2>Contributed projects</h2>
+      </div>
+      <div class="layout-footer">
+        Footer
       </div>
     </div>
-  </div>
-  <div class="ui-g-12">
-    Footer
   </div>
 </div>

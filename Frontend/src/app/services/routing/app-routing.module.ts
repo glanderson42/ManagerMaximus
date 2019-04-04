@@ -13,7 +13,7 @@ const routes: Routes = [ {path: 'login', component: LoginComponent },
                          {path: 'emailconfirm/success', component: SuccessComponent },
                          {path: 'emailconfirm/error', component: FailedComponent },
                          {path: 'emailconfirm/wrongtoken', component: WrongtokenComponent },
-                         {path: 'index', component: IndexComponent },
+                         {path: '', component: IndexComponent },
                          {path: '**', component: PageNotFoundComponent} ];
 
 @NgModule({
