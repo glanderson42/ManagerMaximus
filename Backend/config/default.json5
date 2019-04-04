@@ -3,7 +3,7 @@
   projectEmail: "managermaximus@heatnet.hu",
   hostUrl: 'http://127.0.0.1',
   port: 3000,
-  frontendUrl: 'http://127.0.0.1:4200/',
+  frontendUrl: 'http://managermaximus.tk/',
 
   database: {
     host: "127.0.0.1",
