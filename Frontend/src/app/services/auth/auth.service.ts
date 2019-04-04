@@ -9,25 +9,11 @@ export class AuthService {
   }
 
   login(loginData) {
-      return this.httpClient.post(config.backendUrl + 'login', loginData)
-      .subscribe(
-          (data: any) => {
-            localStorage.setItem('user', JSON.stringify(data));
-            // TODO navigate to main page
-          },
-        (error: any ) => {
-            console.log(error.label);
-        }
-      );
+      return this.httpClient.post(config.backendUrl + 'login', loginData);
   }
 
   logout() {
-  return this.httpClient.get(config.backendUrl + 'logout')
-    .subscribe(
-        (data: any[]) => {
-          console.log('LOGOUT');
-        }
-    );
+  return this.httpClient.get(config.backendUrl + 'logout');
 }
 
   /*register(user: User) {
