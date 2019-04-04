@@ -13,7 +13,7 @@ echo -e "Running npm install in Frontend\n"
 
 sleep 1
 
-cd Frontend/ && sudo npm install
+cd Frontend/ && npm install
 
 IS_FAILED=$?
 
@@ -36,7 +36,7 @@ echo -e "\nRunning build in Frontend\n"
 
 sleep 1
 
-sudo npm run build
+npm run build
 
 IS_FAILED=$?
 
@@ -59,7 +59,7 @@ echo -e "Running npm install in backend\n"
 
 cd ..
 
-cd Backend/ && sudo npm install
+cd Backend/ && npm install
 
 IS_FAILED=$?
 
