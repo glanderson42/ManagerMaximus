@@ -22,7 +22,7 @@ then
     
     echo -e "${RED}Error while npm install! ${NC}" 1>&2
     echo -e "${RED}Build stop, exiting! ${NC} \n" 1>&2
-    exit
+    exit 1
 
 fi
 
@@ -45,7 +45,7 @@ then
     
     echo -e "${RED}Error while npm build! ${NC}" 1>&2
     echo -e "${RED}Build stop, exiting! ${NC} \n" 1>&2
-    exit
+    exit 1
 
 fi
 
@@ -68,7 +68,7 @@ then
     
     echo -e "${RED}Error while npm install ${NC}" 1>&2
     echo -e "${RED}Build stop, exiting!\n ${NC}" 1>&2
-    exit
+    exit 1
 
 fi
 
