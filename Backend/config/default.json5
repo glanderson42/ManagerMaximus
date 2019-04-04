@@ -13,12 +13,14 @@
   },
 
   smtp: {
-    host: "",
+    host: "cloud.s1.spaceweb.hu",
     port: 465,
     secure: true,
     auth: {
-      user: "",
-      pass: "",
+      user: "managermaximus@heatnet.hu",
+      pass: "3Pi141592",
     },
   },
+
+  smtpList: []
 }
