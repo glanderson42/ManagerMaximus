@@ -1,12 +1,14 @@
 USE manager_maximus;
 
 INSERT INTO `users` (`id`, `username`, `password`, `tries`, `email`, `name`, `status`, `disabledon`) VALUES
-(1, 'admin', MD5('admin'), '0', 'admin@managermaximus.com', 'Admin Name', 'NEW', NULL),
-(2, 'user', MD5('user'), '0', 'user@managermaximus.com', 'User Name', 'NEW', NULL);
+(1, 'admin', MD5('admin'), '0', 'admin@managermaximus.com', 'Admin Name', 'CONFIRMED', NULL),
+(2, 'user', MD5('user'), '0', 'user@managermaximus.com', 'User Name', 'CONFIRMED', NULL);
 
 INSERT INTO `project` (`id`, `authorid`, `parentid`, `title`, `description`, `created`, `deadline`, `category`, `priority`) VALUES
 (1, '1', NULL, 'First project', 'Description of first project', CURRENT_TIMESTAMP, NULL, 'NEW', 'LOW'),
-(2, '1', '1', 'First subproject', 'First project description', CURRENT_TIMESTAMP, '2019-09-18 06:22:05', 'NEW', 'MID');
+(2, '1', '1', 'First subproject', 'First project description', CURRENT_TIMESTAMP, '2019-09-18 06:22:05', 'NEW', 'MID'),
+(3, '1', NULL, 'Second project', 'Description of second project', CURRENT_TIMESTAMP, NULL, 'NEW', 'HIGH'),
+(4, '2', NULL, 'Third project', 'Description of third project', CURRENT_TIMESTAMP, NULL, 'NEW', 'HIGH');
 
 INSERT INTO `contributors` (`id`, `userid`, `projectid`) VALUES (NULL, '2', '2');
 
