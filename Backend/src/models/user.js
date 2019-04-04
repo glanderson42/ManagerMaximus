@@ -12,10 +12,6 @@ const getUsersTable = (req, res) => {
 }
 
 const login = (req, res) => {
-  res.set({
-    'Content-Type': 'application/json',
-  })
-
   const username = req.body.username || '';
   const password = md5(req.body.password || '');
 
@@ -27,6 +23,10 @@ const login = (req, res) => {
     if(err) {
       data.statusCode = 500;
       data.label = err.sqlMessage;
+      res.status(data.statusCode);
+      res.set({
+        'Content-Type': 'application/json',
+      })
       res.send(JSON.stringify(data));
       throw err;
     }
@@ -58,15 +58,15 @@ const login = (req, res) => {
         console.log(`User '${username}' logged in`);
       }
     }
+    res.status(data.statusCode);
+    res.set({
+      'Content-Type': 'application/json',
+    })
     res.send(JSON.stringify(data));
   });
 }
 
 const registration = (req, res) => {
-  res.set({
-    'Content-Type': 'application/json',
-  })
-
   const username = req.body.username || '';
   const password = req.body.password || '';
   const password2 = req.body.password2 || '';
@@ -87,6 +87,10 @@ const registration = (req, res) => {
   else if(password !== password2) {         data.statusCode=403; data.label="Password and password2 is different."; }
 
   if(data.statusCode !== 200){
+    res.status(data.statusCode);
+    res.set({
+      'Content-Type': 'application/json',
+    })
     res.send(JSON.stringify(data));
     return;
   }
@@ -95,12 +99,20 @@ const registration = (req, res) => {
     if(err) {
       data.statusCode = 500;
       data.label = err.sqlMessage;
+      res.status(data.statusCode);
+      res.set({
+        'Content-Type': 'application/json',
+      })
       res.send(JSON.stringify(data));
       throw err;
     }
     if(result.length > 0) {
       data.statusCode = 403;
       data.label="This username is taken.";
+      res.status(data.statusCode);
+      res.set({
+        'Content-Type': 'application/json',
+      })
       res.send(JSON.stringify(data));
       return;
     }
@@ -108,12 +120,20 @@ const registration = (req, res) => {
       if(err) {
         data.statusCode = 500;
         data.label = err.sqlMessage;
+        res.status(data.statusCode);
+        res.set({
+          'Content-Type': 'application/json',
+        })
         res.send(JSON.stringify(data));
         throw err;
       }
       if(result.length > 0) {
         data.statusCode = 403;
         data.label="This email is already registrated.";
+        res.status(data.statusCode);
+        res.set({
+          'Content-Type': 'application/json',
+        })
         res.send(JSON.stringify(data));
         return;
       }
@@ -123,6 +143,10 @@ const registration = (req, res) => {
         if(err) {
           data.statusCode = 500;
           data.label = err.sqlMessage;
+          res.status(data.statusCode);
+          res.set({
+            'Content-Type': 'application/json',
+          })
           res.send(JSON.stringify(data));
           throw err;
         }
@@ -137,6 +161,10 @@ const registration = (req, res) => {
         const tokenURL = config.get('hostUrl') + ":" + config.get('port') + "/confirm/" + token;
         smtp.sendMail(email, 'Confirm your e-mail address', `Dear ${name}!<br><br>Welcome on ManagerMaximus.<br><a href="${tokenURL}">Click here</a> to confirm your e-mail address, or open this link:<br><a href="${tokenURL}">${tokenURL}</a>`, (error, info)=>{});
 
+        res.status(data.statusCode);
+        res.set({
+          'Content-Type': 'application/json',
+        })
         res.send(JSON.stringify(data));
       });
     });

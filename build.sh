@@ -13,7 +13,7 @@ echo -e "Running npm install in Frontend\n"
 
 sleep 1
 
-cd Frontend/ && sudo npm install
+cd Frontend/ && npm install
 
 IS_FAILED=$?
 
@@ -22,7 +22,7 @@ then
     
     echo -e "${RED}Error while npm install! ${NC}" 1>&2
     echo -e "${RED}Build stop, exiting! ${NC} \n" 1>&2
-    exit
+    exit 1
 
 fi
 
@@ -36,7 +36,7 @@ echo -e "\nRunning build in Frontend\n"
 
 sleep 1
 
-sudo npm run build
+npm run build
 
 IS_FAILED=$?
 
@@ -45,7 +45,7 @@ then
     
     echo -e "${RED}Error while npm build! ${NC}" 1>&2
     echo -e "${RED}Build stop, exiting! ${NC} \n" 1>&2
-    exit
+    exit 1
 
 fi
 
@@ -59,7 +59,7 @@ echo -e "Running npm install in backend\n"
 
 cd ..
 
-cd Backend/ && sudo npm install
+cd Backend/ && npm install
 
 IS_FAILED=$?
 
@@ -68,7 +68,7 @@ then
     
     echo -e "${RED}Error while npm install ${NC}" 1>&2
     echo -e "${RED}Build stop, exiting!\n ${NC}" 1>&2
-    exit
+    exit 1
 
 fi
 

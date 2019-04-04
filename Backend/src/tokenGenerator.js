@@ -1,50 +1,50 @@
-const fs  = require('fs');
-const jwt = require('jsonwebtoken');
 const md5 = require('md5');
 const database = require('./database');
 
-var privateKEY  = fs.readFileSync('./private.key', 'utf8');
-var publicKEY  = fs.readFileSync('./public.key', 'utf8');
+const sign = (payloadIn, $Options) => {
+  const now = new Date();
+  const issuer = database.escape($Options.issuer || "");
+  const audience = database.escape($Options.audience || "");
+  const payload = database.escape(JSON.stringify(payloadIn || "{}"));
+  const starts = database.escape(now.toISOString().slice(0, 19).replace('T', ' '));
+  now.setDate(now.getDate() + 10);
+  const expires = database.escape(now.toISOString().slice(0, 19).replace('T', ' '));
+  const token = md5(issuer+audience+starts+expires);
 
-const token2hash = token => {
-  const hash = md5(token);
-  try {
-    const q = database.asyncQuery("INSERT INTO `tokens` (`hash`, `token`) VALUES ('"+hash+"', '"+token+"')");
-  } catch {}
-  return hash;
+  const sql = "INSERT INTO `tokens` (`token`, `issuer`, `audience`, `payload`, `starts`, `expires`) VALUES ('"+token+"', "+issuer+", "+audience+", "+payload+", "+starts+", "+expires+")";
+
+  database.query(sql, (err, result, fields) => {
+    if(err) {
+      throw err;
+    }
+  });
+
+  return token;
 };
 
-const hash2token = hash => {
+const verify = (token, $Options) => {
+  const now = new Date();
+  const issuer = $Options.issuer || "";
+  const audience = $Options.audience || "";
+
   try {
-    const q = database.asyncQuery("SELECT `token` FROM `tokens` WHERE `hash`='"+hash+"'");
-    return q[0].token;
+    const q = database.asyncQuery("SELECT `issuer`, `audience`, `payload`, `starts`, `expires` FROM `tokens` WHERE `token`='"+token+"'");
+    if(q[0]){
+      let correct = true;
+      correct = correct && (q[0].issuer === issuer);
+      correct = correct && (q[0].audience === audience);
+      correct = correct && (q[0].starts <= now);
+      correct = correct && (q[0].expires >= now);
+      if(correct) {
+        return JSON.parse(q[0].payload || "{}");
+      } else {
+        return "";
+      }
+    } else {
+      return "";
+    }
   } catch {
     return "";
-  }
-};
-
-const sign = (payload, $Options) => {
-  var signOptions = {
-    issuer:  $Options.issuer,
-    audience:  $Options.audience,
-    expiresIn:  "10d",
-    algorithm:  "RS256"
-  };
-  const token = jwt.sign(payload, privateKEY, signOptions);
-  return token2hash(token);
-};
-
-const verify = (hash, $Option) => {
-  var verifyOptions = {
-    issuer:  $Option.issuer,
-    audience:  $Option.audience,
-    expiresIn:  "10d",
-    algorithm:  ["RS256"]
-  };
-  try {
-    return jwt.verify(hash2token(hash), publicKEY, verifyOptions);
-  } catch (err) {
-    return false;
   }
 };
 
@@ -55,5 +55,3 @@ const decode = (hash) => {
 module.exports.sign   = sign;
 module.exports.verify = verify;
 module.exports.decode = decode;
-module.exports.token2hash = token2hash;
-module.exports.hash2token = hash2token;

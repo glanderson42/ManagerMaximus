@@ -11,7 +11,7 @@ import { PageNotFoundComponent } from '../../sites/page-not-found/page-not-found
 const routes: Routes = [ {path: 'login', component: LoginComponent },
                          {path: 'registration', component: RegistrationComponent },
                          {path: 'emailconfirm/success', component: SuccessComponent },
-                         {path: 'emailconfirm/failed', component: FailedComponent },
+                         {path: 'emailconfirm/error', component: FailedComponent },
                          {path: 'emailconfirm/wrongtoken', component: WrongtokenComponent },
                          {path: 'index', component: IndexComponent },
                          {path: '**', component: PageNotFoundComponent} ];
