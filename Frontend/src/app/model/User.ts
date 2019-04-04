@@ -1,19 +1,19 @@
-export class Role {
-    static GUEST: String = 'GUEST';
-    static USER: String = 'USER';
-    static ADMIN: String = 'ADMIN';
-  }
-  
-  export class User {
-    username: String;
-    password: String;
-    email: String;
-    role: String;
-  
-    constructor(username?: String, password?: String, email?: String, role?: String) {
+export class User {
+  username: String;
+  email: String;
+  label: String;
+  lastdate: String;
+  name: String;
+  regdate: String;
+  token: String;
+
+constructor(username?: String, email?: String, label?: String, lastdate?: String, name?: String, regdate?: String, token?: String) {
       this.username = username || '';
-      this.password = password || '';
       this.email = email || '';
-      this.role = role || Role.GUEST;
+      this.label = label || '';
+      this.lastdate = lastdate || '';
+      this.name = name || '';
+      this.regdate = regdate || '';
+      this.token = token || '';
     }
-  }
+}
