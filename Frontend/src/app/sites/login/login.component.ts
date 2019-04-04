@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup, FormControl, Validators } from '@angular/forms';
-import {AuthService} from '../../services/auth/auth.service';
-import {User} from '../../model/User';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +19,12 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin() {
-    this.authService.login(new User(this.username.value, this.password.value));
+    const loginData = {
+      username: this.username.value,
+      password: this.password.value
+    };
+
+    this.authService.login(loginData);
   }
 
   get username(): AbstractControl {
