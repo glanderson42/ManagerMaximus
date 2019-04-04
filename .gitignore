@@ -1,2 +1,3 @@
 Backend/node_modules/
 Backend/config/local.json5
+Frontend/config/local_config.js
