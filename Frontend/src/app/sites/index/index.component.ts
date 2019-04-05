@@ -11,6 +11,7 @@ export class IndexComponent implements OnInit {
   constructor() { }
   MenuBar: MenuItem[];
   PanelMenu: MenuItem[];
+  Projects = {};
 
   ngOnInit() {
     this.MenuBar = [
@@ -96,6 +97,27 @@ export class IndexComponent implements OnInit {
       }
     ];
 
+    this.Projects = {
+      own: [
+        {
+            id: 4,
+            authorid: 2,
+            parentid: null,
+            title: "First project",
+            description: "Description of first project",
+            created: "2019-04-02T14:15:40.000Z",
+            deadline: null,
+            category: "NEW",
+            priority: "HIGH"
+        },
+        {id: 4,authorid: 2,parentid: null,title: "Second project",description: "Description of second project",created: "2019-04-02T14:15:40.000Z",deadline: null,category: "NEW",priority: "HIGH"},
+        {id: 4,authorid: 2,parentid: null,title: "Third project",description: "Description of third project",created: "2019-04-02T14:15:40.000Z",deadline: null,category: "NEW",priority: "HIGH"},
+      ],
+      contributed: [
+        {id: 4,authorid: 2,parentid: null,title: "Second project",description: "Description of second project",created: "2019-04-02T14:15:40.000Z",deadline: null,category: "NEW",priority: "HIGH"},
+        {id: 4,authorid: 2,parentid: null,title: "Third project",description: "Description of third project",created: "2019-04-02T14:15:40.000Z",deadline: null,category: "NEW",priority: "HIGH"},
+      ]
+    }
   }
 
 }

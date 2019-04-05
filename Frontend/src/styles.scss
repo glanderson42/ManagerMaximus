@@ -18,6 +18,11 @@ h2 {
   color: #888;
 }
 
+.align-left    { text-align: left;    }
+.align-right   { text-align: right;   }
+.align-center  { text-align: center;  }
+.align-justify { text-align: justify; }
+
 .layout-wrapper {
   display: flex;
   flex-direction: column;
@@ -37,15 +42,38 @@ h2 {
 
 }
 
+$close-sidebar: 600px;
+$close-sidebar-smaller: 1200px;
 .layout-sidebar {
-  width: 300px;
-  background: #fafafa;
-  box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
-  z-index: 10;
-  padding-top: 20px;
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
+  width: 50px;
+  overflow-x: visible;
+  p-panelmenu {
+    background: #fafafa;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+    z-index: 10;
+    padding-top: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height:100%;
+    width: 300px;
+    display: block;
+
+    @media screen and (max-width: $close-sidebar-smaller) {
+      width: 220px;
+    }
+    @media screen and (max-width: $close-sidebar) {
+      width: 100%;
+      min-width: 220px;
+    }
+  }
+  @media screen and (max-width: $close-sidebar) {
+    max-width: 100px;
+    transition: max-width .5s;
+
+    &:hover {
+      max-width: $close-sidebar;
+    }
+  }
 }
 
 .layout-content {
@@ -71,3 +99,66 @@ h2 {
     margin: 20px;
   }
 }
+
+// Special elements
+
+#addProjectCard .ui-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  opacity: .6;
+  cursor: pointer;
+  transition: opacity .5s;
+
+  &:hover {
+    opacity: 1;
+  }
+  .ui-card-header {
+    flex-grow: 1;
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzIgMzI7IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMycHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxnIGlkPSJMYXllcl8xIi8+PGcgaWQ9InBsdXNfeDVGX2FsdCI+PHBhdGggZD0iTTE2LDBDNy4xNjQsMCwwLDcuMTY0LDAsMTZzNy4xNjQsMTYsMTYsMTZzMTYtNy4xNjQsMTYtMTZTMjQuODM2LDAsMTYsMHogTTI0LDE4aC02djZoLTR2LTZIOHYtNGg2ICAgVjhoNHY2aDZWMTh6IiBzdHlsZT0iZmlsbDojNEU0RTUwOyIvPjwvZz48L3N2Zz4=');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50%;
+    opacity: .7;
+  }
+  .ui-card-title {
+    text-align: center;
+  }
+}
+
+.ui-card.ui-own-card-ani {
+  display: flex;
+  flex-direction: column;
+
+  .ui-card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+
+    .ui-card-content {
+      flex-grow: 1;
+    }
+  }
+  .ui-description {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height .5s;
+  }
+  &:hover .ui-description {
+    max-height: 200px;
+  }
+  .ui-card-header {
+    max-height: 200px;
+    overflow: hidden;
+    transition: max-height .5s;
+  }
+  &:hover .ui-card-header {
+    max-height: 50px;
+  }
+}
+
+// Overrides
+
+p-footer { display: block !important; }
+
+.ui-card { min-height: 340px !important; }
