@@ -45,34 +45,47 @@ h2 {
 $close-sidebar: 600px;
 $close-sidebar-smaller: 1200px;
 .layout-sidebar {
-  width: 50px;
-  overflow-x: visible;
+  background:red;
+  z-index: 10;
+  max-width: $close-sidebar;
+  transition: max-width .5s;
+
   p-panelmenu {
     background: #fafafa;
     box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
-    z-index: 10;
     padding-top: 20px;
     overflow-y: auto;
     overflow-x: hidden;
     height:100%;
-    width: 300px;
+    width: fit-content;
+    max-width: $close-sidebar-smaller;
     display: block;
+    transition: max-width .5s;
 
-    @media screen and (max-width: $close-sidebar-smaller) {
-      width: 220px;
+    .ui-panelmenu {
+      width: 300px;
+      transition: width .5s;
+      transition-delay: .5s;
+
+      @media screen and (max-width: $close-sidebar-smaller) {
+        width: 220px;
+      }
+      @media screen and (max-width: $close-sidebar) {
+        width: 100vw;
+      }
     }
     @media screen and (max-width: $close-sidebar) {
-      width: 100%;
-      min-width: 220px;
+      max-width: 0;
     }
   }
   @media screen and (max-width: $close-sidebar) {
-    max-width: 100px;
-    transition: max-width .5s;
+    max-width: 0;
 
     &:hover {
-      max-width: $close-sidebar;
     }
+  }
+  &.opened p-panelmenu {
+    max-width: $close-sidebar-smaller;
   }
 }
 
