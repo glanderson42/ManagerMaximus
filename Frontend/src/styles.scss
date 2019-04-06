@@ -4,3 +4,207 @@
     margin: 0;
     box-sizing: border-box;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Open-sans", arial;
+}
+
+h1 {
+  margin: 10px;
+  color: #555;
+}
+h2 {
+  margin: 20px;
+  color: #888;
+}
+
+.align-left    { text-align: left;    }
+.align-right   { text-align: right;   }
+.align-center  { text-align: center;  }
+.align-justify { text-align: justify; }
+
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .layout-topbar {
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    z-index: 30;
+  }
+
+  .layout-site {
+    display: flex;
+
+    flex-grow: 1;
+    background: green;
+  }
+
+}
+
+$close-sidebar: 600px;
+$close-sidebar-smaller: 1200px;
+.layout-sidebar {
+  background:red;
+  z-index: 10;
+  max-width: $close-sidebar;
+  transition: max-width .5s;
+
+  p-panelmenu {
+    background: #fafafa;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+    padding-top: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height:100%;
+    width: fit-content;
+    max-width: $close-sidebar-smaller;
+    display: block;
+    transition: max-width .5s;
+
+    .ui-panelmenu {
+      width: 300px;
+      transition: width .5s;
+      transition-delay: .5s;
+
+      @media screen and (max-width: $close-sidebar-smaller) {
+        width: 220px;
+      }
+      @media screen and (max-width: $close-sidebar) {
+        width: 100vw;
+      }
+    }
+    @media screen and (max-width: $close-sidebar) {
+      max-width: 0;
+    }
+  }
+  @media screen and (max-width: $close-sidebar) {
+    max-width: 0;
+
+    &:hover {
+    }
+  }
+  &.opened p-panelmenu {
+    max-width: $close-sidebar-smaller;
+  }
+}
+
+.layout-content {
+  width: 0px;
+  display: flex;
+  flex-direction: column;
+
+  flex-grow: 1;
+  background: #eee;
+  height: 100%;
+  overflow: auto;
+
+  .layout-content-inner {
+    flex-grow: 1;
+  }
+
+  .layout-footer {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .layout-card-container {
+    margin: 20px;
+  }
+}
+
+// Special elements
+
+#addProjectCard .ui-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  opacity: .6;
+  cursor: pointer;
+  transition: opacity .5s;
+
+  &:hover {
+    opacity: 1;
+  }
+  .ui-card-header {
+    flex-grow: 1;
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzIgMzI7IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMycHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxnIGlkPSJMYXllcl8xIi8+PGcgaWQ9InBsdXNfeDVGX2FsdCI+PHBhdGggZD0iTTE2LDBDNy4xNjQsMCwwLDcuMTY0LDAsMTZzNy4xNjQsMTYsMTYsMTZzMTYtNy4xNjQsMTYtMTZTMjQuODM2LDAsMTYsMHogTTI0LDE4aC02djZoLTR2LTZIOHYtNGg2ICAgVjhoNHY2aDZWMTh6IiBzdHlsZT0iZmlsbDojNEU0RTUwOyIvPjwvZz48L3N2Zz4=');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50%;
+    opacity: .7;
+  }
+  .ui-card-title {
+    text-align: center;
+  }
+}
+
+.ui-card.ui-own-card-ani {
+  display: flex;
+  flex-direction: column;
+
+  .ui-card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+
+    .ui-card-content {
+      flex-grow: 1;
+    }
+  }
+  .ui-description {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height .5s;
+  }
+  &:hover .ui-description {
+    max-height: 200px;
+  }
+  .ui-card-header {
+    max-height: 200px;
+    overflow: hidden;
+    transition: max-height .5s;
+  }
+  &:hover .ui-card-header {
+    max-height: 50px;
+  }
+}
+
+menubar p-menubar {
+  .ui-menubar-custom {
+    padding: 0 !important;
+    width: 100%;
+    display: flex;
+    > .menu-divider {
+      flex-grow: 1;
+    }
+    > * {
+      height: 50px;
+      margin: 0 !important;
+      border-radius: 0;
+      @media screen and (max-width: $close-sidebar) {
+        display: none;
+      }
+
+      &#btnOpenSidebar {
+        width: 50px;
+        display: none;
+        transition: display 0s;
+        transition-delay: .5s;
+        @media screen and (max-width: $close-sidebar) {
+          display: block;
+        }
+      }
+      &.menu-logo {
+        margin: 0 10px !important;
+        display: block;
+      }
+    }
+  }
+}
+
+// Overrides
+
+p-footer { display: block !important; }
+
+.ui-card { min-height: 340px !important; }

@@ -5,6 +5,7 @@ import { RegistrationComponent } from '../../sites/registration/registration.com
 import { SuccessComponent } from '../../sites/emailconfirm/success/success.component';
 import { FailedComponent } from '../../sites/emailconfirm/failed/failed.component';
 import { WrongtokenComponent } from '../../sites/emailconfirm/wrongtoken/wrongtoken.component'
+import { IndexComponent } from '../../sites/index/index.component';
 import { PageNotFoundComponent } from '../../sites/page-not-found/page-not-found.component';
 
 const routes: Routes = [ {path: 'login', component: LoginComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [ {path: 'login', component: LoginComponent },
                          {path: 'emailconfirm/success', component: SuccessComponent },
                          {path: 'emailconfirm/error', component: FailedComponent },
                          {path: 'emailconfirm/wrongtoken', component: WrongtokenComponent },
+                         {path: '', component: IndexComponent },
                          {path: '**', component: PageNotFoundComponent} ];
 
 @NgModule({
