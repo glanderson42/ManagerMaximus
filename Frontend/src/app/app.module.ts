@@ -24,6 +24,7 @@ import { SuccessComponent } from './sites/emailconfirm/success/success.component
 import { FailedComponent } from './sites/emailconfirm/failed/failed.component';
 import { WrongtokenComponent } from './sites/emailconfirm/wrongtoken/wrongtoken.component';
 import { PageNotFoundComponent } from './sites/page-not-found/page-not-found.component';
+import { MenubarComponent } from './elements/menubar/menubar.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { PageNotFoundComponent } from './sites/page-not-found/page-not-found.com
     SuccessComponent,
     FailedComponent,
     WrongtokenComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    MenubarComponent
   ],
   imports: [
     BrowserModule,

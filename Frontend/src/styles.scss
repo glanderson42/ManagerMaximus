@@ -170,6 +170,39 @@ $close-sidebar-smaller: 1200px;
   }
 }
 
+menubar p-menubar {
+  .ui-menubar-custom {
+    padding: 0 !important;
+    width: 100%;
+    display: flex;
+    > .menu-divider {
+      flex-grow: 1;
+    }
+    > * {
+      height: 50px;
+      margin: 0 !important;
+      border-radius: 0;
+      @media screen and (max-width: $close-sidebar) {
+        display: none;
+      }
+
+      &#btnOpenSidebar {
+        width: 50px;
+        display: none;
+        transition: display 0s;
+        transition-delay: .5s;
+        @media screen and (max-width: $close-sidebar) {
+          display: block;
+        }
+      }
+      &.menu-logo {
+        margin: 0 10px !important;
+        display: block;
+      }
+    }
+  }
+}
+
 // Overrides
 
 p-footer { display: block !important; }

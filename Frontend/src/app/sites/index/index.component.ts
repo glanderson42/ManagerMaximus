@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -8,18 +9,17 @@ import { MenuItem } from 'primeng/api';
 })
 export class IndexComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
   MenuBar: MenuItem[];
   PanelMenu: MenuItem[];
   Projects = {};
 
   ngOnInit() {
-    this.MenuBar = [
-      {
-        label: 'Icon',
-        icon: 'pi pi-fw pi-image',
-      }
-    ];
+
+    if(!localStorage.getItem('user')){
+      this.router.navigateByUrl('/login');
+      return;
+    }
 
     this.PanelMenu = [
       {
