@@ -15,55 +15,57 @@ const login = (req, res) => {
   const username = req.body.username || '';
   const password = md5(req.body.password || '');
 
-  database.query("SELECT * FROM `users` WHERE (`username`="+database.escape(username)+" OR `email`="+database.escape(username)+") AND `password`='"+password+"' AND `status`!='REMOVED'", (err, result, fields) => {
-    let data = {
-      statusCode: 403,
-      label: "Incorrect username or password.",
-    }
-    if(err) {
-      data.statusCode = 500;
-      data.label = err.sqlMessage;
+  let data = {
+    statusCode: 403,
+    label: "Incorrect username or password.",
+  }
+  database.asyncQuery("SELECT * FROM `users` WHERE (`username`="+database.escape(username)+" OR `email`="+database.escape(username)+") AND `password`='"+password+"' AND `status`!='REMOVED'")
+    .then(result => {
+      if(result[0]){
+        result[0].password = undefined;
+        if(result[0].status === 'NEW') {
+          data.statusCode = 403;
+          data.label = "E-mail address not confirmed.";
+        } else if(result[0].status === 'DISABLED') {
+          data.statusCode = 403;
+          data.label = "User account is disabled.";
+        } else {
+          const token = tokenGenerator.sign({
+            userid: result[0].id
+          }, {
+            issuer: "Login",
+            audience: md5(req.headers['user-agent'])
+          });
+
+          result[0].id = undefined;
+          result[0].tries = undefined;
+          result[0].status = undefined;
+          result[0].disabledon = undefined;
+          data = result[0];
+          data.statusCode = 200;
+          data.label = 'Logged in successfully.'
+          data.token = token;
+          console.log(`User '${username}' logged in`);
+        }
+      }
+    })
+    .then(()=>{
       res.status(data.statusCode);
       res.set({
         'Content-Type': 'application/json',
       })
       res.send(JSON.stringify(data));
-      throw err;
-    }
-    if(result[0]){
-      result[0].password = undefined;
-
-      if(result[0].status === 'NEW') {
-        data.statusCode = 403;
-        data.label = "E-mail address not confirmed.";
-      } else if(result[0].status === 'DISABLED') {
-        data.statusCode = 403;
-        data.label = "User account is disabled.";
-      } else {
-        const token = tokenGenerator.sign({
-          userid: result[0].id
-        }, {
-          issuer: "Login",
-          audience: md5(req.headers['user-agent'])
-        });
-
-        result[0].id = undefined;
-        result[0].tries = undefined;
-        result[0].status = undefined;
-        result[0].disabledon = undefined;
-        data = result[0];
-        data.statusCode = 200;
-        data.label = 'Logged in successfully.'
-        data.token = token;
-        console.log(`User '${username}' logged in`);
-      }
-    }
-    res.status(data.statusCode);
-    res.set({
-      'Content-Type': 'application/json',
     })
-    res.send(JSON.stringify(data));
-  });
+    .catch(err=>{
+      res.status(500);
+      res.set({
+        'Content-Type': 'application/json',
+      })
+      res.send(JSON.stringify({
+        statusCode: 500,
+        label: err.sqlMessage,
+      }));
+    })
 }
 
 const registration = (req, res) => {
