@@ -26,9 +26,20 @@ const query = (query, callback) => {
   connection.query(query, callback);
 };
 
-const asyncQuery = query => {
+const syncQuery = query => {
   const q = sp(util.promisify(connection.query).bind(connection));
   return q(query);
+};
+
+const asyncQuery = query => {
+  return new Promise((resolve, reject) => {
+    connection.query(query, (err, rows) => {
+      if(err) {
+        return reject( err );
+      }
+      resolve( rows );
+    });
+  });
 };
 
 const validateEmail = (email) => {
@@ -41,4 +52,5 @@ module.exports.hasinit = hasinit;
 module.exports.query = query;
 module.exports.escape = mysql.escape;
 module.exports.validateEmail = validateEmail;
+module.exports.syncQuery = syncQuery;
 module.exports.asyncQuery = asyncQuery;

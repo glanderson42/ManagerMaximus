@@ -28,7 +28,7 @@ const verify = (token, $Options) => {
   const audience = $Options.audience || "";
 
   try {
-    const q = database.asyncQuery("SELECT `issuer`, `audience`, `payload`, `starts`, `expires` FROM `tokens` WHERE `token`='"+token+"'");
+    const q = database.syncQuery("SELECT `issuer`, `audience`, `payload`, `starts`, `expires` FROM `tokens` WHERE `token`='"+token+"'");
     if(q[0]){
       let correct = true;
       correct = correct && (q[0].issuer === issuer);

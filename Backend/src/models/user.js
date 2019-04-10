@@ -217,7 +217,7 @@ const getLoggedInUser = req => {
     audience: md5(req.headers['user-agent'])
   });
   if(tokenData) {
-    const userdata = database.asyncQuery("SELECT * FROM `users` WHERE `id`='" + tokenData.userid + "'")[0];
+    const userdata = database.syncQuery("SELECT * FROM `users` WHERE `id`='" + tokenData.userid + "'")[0];
     return userdata || false;
   } else {
     return false;
