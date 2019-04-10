@@ -97,80 +97,58 @@ const registration = (req, res) => {
     return;
   }
 
-  database.query("SELECT * FROM `users` WHERE `username`="+database.escape(username), (err, result, fields) => {
-    if(err) {
-      data.statusCode = 500;
-      data.label = err.sqlMessage;
-      res.status(data.statusCode);
-      res.set({
-        'Content-Type': 'application/json',
-      })
-      res.send(JSON.stringify(data));
-      throw err;
-    }
-    if(result.length > 0) {
-      data.statusCode = 403;
-      data.label="This username is taken.";
-      res.status(data.statusCode);
-      res.set({
-        'Content-Type': 'application/json',
-      })
-      res.send(JSON.stringify(data));
-      return;
-    }
-    database.query("SELECT * FROM `users` WHERE `email`="+database.escape(email), (err, result, fields) => {
-      if(err) {
-        data.statusCode = 500;
-        data.label = err.sqlMessage;
-        res.status(data.statusCode);
-        res.set({
-          'Content-Type': 'application/json',
-        })
-        res.send(JSON.stringify(data));
-        throw err;
+  database.asyncQuery("SELECT * FROM `users` WHERE `username`="+database.escape(username))
+    .then(result => {
+      if(result.length > 0) {
+        data.statusCode = 403;
+        data.label="This username is taken.";
+        throw data;
+      } else {
+        return database.asyncQuery("SELECT * FROM `users` WHERE `email`="+database.escape(email));
       }
+    })
+    .then(result => {
       if(result.length > 0) {
         data.statusCode = 403;
         data.label="This email is already registrated.";
-        res.status(data.statusCode);
-        res.set({
-          'Content-Type': 'application/json',
-        })
-        res.send(JSON.stringify(data));
-        return;
+        throw data;
+      } else {
+        const query = "INSERT INTO `users` (`username`, `password`, `email`, `name`) VALUES ("+database.escape(username)+", '"+md5(password)+"', "+database.escape(email)+", "+database.escape(name)+")";
+        return database.asyncQuery(query);
       }
+    })
+    .then(result => {
+      console.log(`New user '${username}' registrated`);
 
-      const query = "INSERT INTO `users` (`username`, `password`, `email`, `name`) VALUES ("+database.escape(username)+", '"+md5(password)+"', "+database.escape(email)+", "+database.escape(name)+")";
-      database.query(query, (err, result, fields) => {
-        if(err) {
-          data.statusCode = 500;
-          data.label = err.sqlMessage;
-          res.status(data.statusCode);
-          res.set({
-            'Content-Type': 'application/json',
-          })
-          res.send(JSON.stringify(data));
-          throw err;
-        }
-        console.log(`New user '${username}' registrated`);
-
-        const token = tokenGenerator.sign({
-          userid: result.insertId
-        }, {
-          issuer: "Confirm",
-          audience: ""
-        });
-        const tokenURL = config.get('hostUrl') + ":" + config.get('port') + "/confirm/" + token;
-        smtp.sendMail(email, 'Confirm your e-mail address', `Dear ${name}!<br><br>Welcome on ManagerMaximus.<br><a href="${tokenURL}">Click here</a> to confirm your e-mail address, or open this link:<br><a href="${tokenURL}">${tokenURL}</a>`, (error, info)=>{});
-
-        res.status(data.statusCode);
-        res.set({
-          'Content-Type': 'application/json',
-        })
-        res.send(JSON.stringify(data));
+      const token = tokenGenerator.sign({
+        userid: result.insertId
+      }, {
+        issuer: "Confirm",
+        audience: ""
       });
-    });
-  });
+      const tokenURL = config.get('hostUrl') + ":" + config.get('port') + "/confirm/" + token;
+      smtp.sendMail(email, 'Confirm your e-mail address', `Dear ${name}!<br><br>Welcome on ManagerMaximus.<br><a href="${tokenURL}">Click here</a> to confirm your e-mail address, or open this link:<br><a href="${tokenURL}">${tokenURL}</a>`, (error, info)=>{});
+    })
+    .then(()=>{
+      res.status(data.statusCode);
+      res.set({
+        'Content-Type': 'application/json',
+      })
+      res.send(JSON.stringify(data));
+    })
+    .catch(err=>{
+      if(err.sqlMessage) {
+        err = {
+          statusCode: 500,
+          label: err.sqlMessage,
+        }
+      }
+      res.status(err.statusCode);
+      res.set({
+        'Content-Type': 'application/json',
+      })
+      res.send(JSON.stringify(err));
+    })
 }
 
 const confirm = (req, res) => {
