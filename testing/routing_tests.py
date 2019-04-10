@@ -38,14 +38,14 @@ class RoutingTests(unittest.TestCase):
     def test_get_email_confirm_failed(self):
         print("Running test_get_email_confirm_failed testcase")
         driver = self.driver
-        driver.get("http://localhost:4200/emailconfirm/failed")
+        driver.get("http://localhost:4200/emailconfirm/error")
         time.sleep(1)
-        self.assertIn("http://localhost:4200/emailconfirm/failed", driver.current_url)
+        self.assertIn("http://localhost:4200/emailconfirm/error", driver.current_url)
 
     def test_email_confirm_failed_button(self):
         print("Running test_email_confirm_failed_button testcase")
         driver = self.driver
-        driver.get("http://localhost:4200/emailconfirm/failed")
+        driver.get("http://localhost:4200/emailconfirm/error")
         time.sleep(1)
         driver.find_element_by_xpath("/html/body/app-root/app-failed/div/p-button/button").click()
         time.sleep(1)
