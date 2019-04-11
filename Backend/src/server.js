@@ -36,4 +36,6 @@ app.post('/registration', user.registration);
 
 app.delete('/projects/:id', project.delete);
 
+app.put('/projects', project.put);
+
 app.listen(port, () => console.log(`Application listening on port ${port}!`));
