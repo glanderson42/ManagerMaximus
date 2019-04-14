@@ -207,7 +207,7 @@ const put = (req, res) => {
     let modifiers =
       ((req.body.title      )?(" `title` = " +       database.escape(project.title)       + ","):"") +
       ((req.body.description)?(" `description` = " + database.escape(project.description) + ","):"") +
-      ((req.body.deadline   )?(" `deadline` = " +    database.escape(project.deadline)    + ","):"") +
+      ((req.body.deadline   )?(" `deadline` = " +    ((project.deadline === 'NULL')?"NULL":database.escape(project.deadline))    + ","):"") +
       ((req.body.category   )?(" `category` = " +    database.escape(project.category)    + ","):"") +
       ((req.body.priority   )?(" `priority` = " +    database.escape(project.priority)    + ","):"") +
       "";
@@ -252,7 +252,7 @@ const put = (req, res) => {
     // Create new project
     database.asyncQuery("SELECT `id` FROM `project` WHERE `authorid`='" + loggedinUser.id + "' AND `id` = " + database.escape(project.parentid) + ";")
       .then(result=>{
-        if(result.length === 0 && project.parentid) {
+        if(result.length === 0 && project.parentid && project.parentid !== "NULL") {
           throw {
             statusCode: 403,
             label: "Cannot make subproject for contributed project.",

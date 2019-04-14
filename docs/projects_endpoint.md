@@ -45,3 +45,84 @@ The response should look like this:
     ]
 }
 ```
+
+## GET /projects/{id}
+This endpoint will give you the project information and widget list.
+Response:
+```
+{
+    id: 2,
+    authorid: 1,
+    parentid: 1,
+    title: "First subproject",
+    description: "First project description",
+    created: "2019-04-14T12:06:29.000Z",
+    deadline: "2019-09-18T04:22:05.000Z",
+    category: "NEW",
+    priority: "MID",
+    widgets: [
+        {
+            id: 1,
+            authorid: 1,
+            projectid: 2,
+            title: "First widget",
+            data: "{}",
+            comments: "[]",
+            date: "2019-04-14T12:06:29.000Z",
+            lastmodified: "2019-04-14T12:06:29.000Z",
+            visibility: "PUBLIC"
+        },
+        {
+            id: 2,
+            authorid: 1,
+            projectid: 2,
+            title: "Second widget",
+            data: "{}",
+            comments: "[]",
+            date: "2019-04-14T12:06:29.000Z",
+            lastmodified: "2019-04-14T12:06:29.000Z",
+            visibility: "OWN"
+        }
+    ]
+}
+```
+You can also get error response with status code 500 or 403
+
+## DELETE /projects/{id}
+This will delete the project with id {id}.
+You can also get error response with status code 500 or 403
+```
+{
+  statusCode: 200,
+  label: "Project delete was successful",
+}
+```
+
+## PUT /projects
+Response contains a JSON with statusCode and label.
+### New project:
+Request:
+```
+{
+  parentid: 4, // Set subproject under project #4. Can be NULL
+  title: "title",
+  description: "description",
+  deadline: "2019-05-10 15:11:24", // Set NULL if disabled
+  category: "NEW", // Possible values: 'NEW','PROGRESS','TESTING','READY'
+  priority: "LOW"  // Possible values: 'LOW','MID','HIGH',''
+}
+```
+### Modify existing project:
+You can skip keys, that you don't want to modify.
+Request:
+```
+{
+  id: 2, // Modified project's id
+  // You cannot modify -parentid-
+  title: "title",
+  description: "description",
+  deadline: "2019-05-10 15:11:24", // Set NULL if disabled
+  category: "NEW", // Possible values: 'NEW','PROGRESS','TESTING','READY'
+  priority: "LOW"  // Possible values: 'LOW','MID','HIGH',''
+}
+```
