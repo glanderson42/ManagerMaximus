@@ -3,7 +3,12 @@
   projectEmail: "managermaximus@heatnet.hu",
   hostUrl: 'http://managermaximus.tk',
   port: 3000,
+  portSSL: 3001,
   frontendUrl: 'http://managermaximus.tk/',
+
+  privKey: '/etc/letsencrypt/live/mmax.ml/privkey.pem',
+  cert:    '/etc/letsencrypt/live/mmax.ml/cert.pem',
+  chain:   '/etc/letsencrypt/live/mmax.ml/chain.pem',
 
   database: {
     host: "127.0.0.1",

@@ -1,3 +1,6 @@
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
 const express = require('express');
 const database = require('./database');
 const user = require('./models/user');
@@ -9,6 +12,18 @@ const tokenGenerator = require('./tokenGenerator');
 
 const app = express();
 const port = config.get('port');
+const portSSL = config.get('portSSL');
+
+const privateKey = fs.readFileSync(config.get('privKey'), 'utf8');
+const certificate = fs.readFileSync(config.get('cert'), 'utf8');
+const ca = fs.readFileSync(config.get('chain'), 'utf8');
+
+
+const credentials = {
+  key: privateKey,
+  cert: certificate,
+  ca: ca
+};
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -33,4 +48,16 @@ app.get('/projects/list', project.list);
 app.post('/login', user.login);
 app.post('/registration', user.registration);
 
-app.listen(port, () => console.log(`Application listening on port ${port}!`));
+//app.listen(port, () => console.log(`Application listening on port ${port}!`));
+
+// Starting both http & https servers
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
+
+httpServer.listen(port, () => {
+  console.log('HTTP Server running on port ' + port);
+});
+
+httpsServer.listen(portSSL, () => {
+  console.log('HTTPS Server running on port ' + portSSL);
+});
