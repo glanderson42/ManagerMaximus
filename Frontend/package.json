@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "docs": "typedoc --out frontend_docs src/",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
@@ -25,6 +26,7 @@
     "primeng": "^7.0.5",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
+    "typedoc": "^0.14.2",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
