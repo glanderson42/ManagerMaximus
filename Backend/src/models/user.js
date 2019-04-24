@@ -5,11 +5,11 @@ const config = require('config');
 const tokenGenerator = require('../tokenGenerator');
 
 const getUsersTable = (req, res) => {
-  database.query("SELECT * FROM users", (err, result, fields) => {
+  database.query('SELECT * FROM users', (err, result) => {
     if (err) throw err;
     res.send(JSON.stringify(result));
   });
-}
+};
 
 const login = (req, res) => {
   const username = req.body.username || '';
@@ -17,23 +17,23 @@ const login = (req, res) => {
 
   let data = {
     statusCode: 403,
-    label: "Incorrect username or password.",
-  }
-  database.asyncQuery("SELECT * FROM `users` WHERE (`username`="+database.escape(username)+" OR `email`="+database.escape(username)+") AND `password`='"+password+"' AND `status`!='REMOVED'")
+    label: 'Incorrect username or password.',
+  };
+  database.asyncQuery('SELECT * FROM `users` WHERE (`username`='+database.escape(username)+' OR `email`='+database.escape(username)+') AND `password`=\''+password+'\' AND `status`!=\'REMOVED\'')
     .then(result => {
       if(result[0]){
         result[0].password = undefined;
         if(result[0].status === 'NEW') {
           data.statusCode = 403;
-          data.label = "E-mail address not confirmed.";
+          data.label = 'E-mail address not confirmed.';
         } else if(result[0].status === 'DISABLED') {
           data.statusCode = 403;
-          data.label = "User account is disabled.";
+          data.label = 'User account is disabled.';
         } else {
           const token = tokenGenerator.sign({
             userid: result[0].id
           }, {
-            issuer: "Login",
+            issuer: 'Login',
             audience: md5(req.headers['user-agent'])
           });
 
@@ -43,7 +43,7 @@ const login = (req, res) => {
           result[0].disabledon = undefined;
           data = result[0];
           data.statusCode = 200;
-          data.label = 'Logged in successfully.'
+          data.label = 'Logged in successfully.';
           data.token = token;
           console.log(`User '${username}' logged in`);
         }
@@ -53,20 +53,20 @@ const login = (req, res) => {
       res.status(data.statusCode);
       res.set({
         'Content-Type': 'application/json',
-      })
+      });
       res.send(JSON.stringify(data));
     })
     .catch(err=>{
       res.status(500);
       res.set({
         'Content-Type': 'application/json',
-      })
+      });
       res.send(JSON.stringify({
         statusCode: 500,
         label: err.sqlMessage,
       }));
-    })
-}
+    });
+};
 
 const registration = (req, res) => {
   const username = req.body.username || '';
@@ -77,43 +77,43 @@ const registration = (req, res) => {
 
   let data = {
     statusCode: 200,
-    label: "Registration was successful.",
-  }
+    label: 'Registration was successful.',
+  };
 
-  if(username === '') {       data.statusCode=403; data.label="Username is empty."; }
-  else if(password === '') {  data.statusCode=403; data.label="Password is empty."; }
-  else if(password2 === '') { data.statusCode=403; data.label="Password2 is empty."; }
-  else if(email === '') {     data.statusCode=403; data.label="Email is empty."; }
-  else if(name === '') {      data.statusCode=403; data.label="Name is empty."; }
-  else if(!database.validateEmail(email)) { data.statusCode=403; data.label="Email is not valid."; }
-  else if(password !== password2) {         data.statusCode=403; data.label="Password and password2 is different."; }
+  if(username === '') {       data.statusCode=403; data.label='Username is empty.'; }
+  else if(password === '') {  data.statusCode=403; data.label='Password is empty.'; }
+  else if(password2 === '') { data.statusCode=403; data.label='Password2 is empty.'; }
+  else if(email === '') {     data.statusCode=403; data.label='Email is empty.'; }
+  else if(name === '') {      data.statusCode=403; data.label='Name is empty.'; }
+  else if(!database.validateEmail(email)) { data.statusCode=403; data.label='Email is not valid.'; }
+  else if(password !== password2) {         data.statusCode=403; data.label='Password and password2 is different.'; }
 
   if(data.statusCode !== 200){
     res.status(data.statusCode);
     res.set({
       'Content-Type': 'application/json',
-    })
+    });
     res.send(JSON.stringify(data));
     return;
   }
 
-  database.asyncQuery("SELECT * FROM `users` WHERE `username`="+database.escape(username))
+  database.asyncQuery('SELECT * FROM `users` WHERE `username`='+database.escape(username))
     .then(result => {
       if(result.length > 0) {
         data.statusCode = 403;
-        data.label="This username is taken.";
+        data.label='This username is taken.';
         throw data;
       } else {
-        return database.asyncQuery("SELECT * FROM `users` WHERE `email`="+database.escape(email));
+        return database.asyncQuery('SELECT * FROM `users` WHERE `email`='+database.escape(email));
       }
     })
     .then(result => {
       if(result.length > 0) {
         data.statusCode = 403;
-        data.label="This email is already registrated.";
+        data.label='This email is already registrated.';
         throw data;
       } else {
-        const query = "INSERT INTO `users` (`username`, `password`, `email`, `name`) VALUES ("+database.escape(username)+", '"+md5(password)+"', "+database.escape(email)+", "+database.escape(name)+")";
+        const query = 'INSERT INTO `users` (`username`, `password`, `email`, `name`) VALUES ('+database.escape(username)+', \''+md5(password)+'\', '+database.escape(email)+', '+database.escape(name)+')';
         return database.asyncQuery(query);
       }
     })
@@ -123,17 +123,17 @@ const registration = (req, res) => {
       const token = tokenGenerator.sign({
         userid: result.insertId
       }, {
-        issuer: "Confirm",
-        audience: ""
+        issuer: 'Confirm',
+        audience: ''
       });
-      const tokenURL = config.get('hostUrl') + ":" + config.get('port') + "/confirm/" + token;
-      smtp.sendMail(email, 'Confirm your e-mail address', `Dear ${name}!<br><br>Welcome on ManagerMaximus.<br><a href="${tokenURL}">Click here</a> to confirm your e-mail address, or open this link:<br><a href="${tokenURL}">${tokenURL}</a>`, (error, info)=>{});
+      const tokenURL = config.get('hostUrl') + ':' + config.get('port') + '/confirm/' + token;
+      smtp.sendMail(email, 'Confirm your e-mail address', `Dear ${name}!<br><br>Welcome on ManagerMaximus.<br><a href="${tokenURL}">Click here</a> to confirm your e-mail address, or open this link:<br><a href="${tokenURL}">${tokenURL}</a>`, ()=>{});
     })
     .then(()=>{
       res.status(data.statusCode);
       res.set({
         'Content-Type': 'application/json',
-      })
+      });
       res.send(JSON.stringify(data));
     })
     .catch(err=>{
@@ -141,37 +141,37 @@ const registration = (req, res) => {
         err = {
           statusCode: 500,
           label: err.sqlMessage,
-        }
+        };
       }
       res.status(err.statusCode);
       res.set({
         'Content-Type': 'application/json',
-      })
+      });
       res.send(JSON.stringify(err));
-    })
-}
+    });
+};
 
 const confirm = (req, res) => {
   const token = req.params.token;
   res.status(302);
 
   const tokenData = tokenGenerator.verify(token, {
-    issuer: "Confirm",
-    audience: ""
+    issuer: 'Confirm',
+    audience: ''
   });
 
   if(tokenData) {
-    database.query("UPDATE users SET `status`='CONFIRMED' WHERE `status`='NEW' AND `id`="+database.escape(tokenData.userid), (err, result, fields) => {
+    database.query('UPDATE users SET `status`=\'CONFIRMED\' WHERE `status`=\'NEW\' AND `id`='+database.escape(tokenData.userid), (err, result) => {
       if(err || result.affectedRows==0) {
         res.set({
           'Location': config.get('frontendUrl')+'emailconfirm/error',
-        })
-        res.send("ERROR");
+        });
+        res.send('ERROR');
       } else {
         res.set({
           'Location': config.get('frontendUrl')+'emailconfirm/success',
-        })
-        res.send("SUCCESS");
+        });
+        res.send('SUCCESS');
       }
       if(err) {
         throw err;
@@ -180,29 +180,29 @@ const confirm = (req, res) => {
   } else {
     res.set({
       'Location': config.get('frontendUrl')+'emailconfirm/wrongtoken',
-    })
-    res.send("WRONG TOKEN");
+    });
+    res.send('WRONG TOKEN');
   }
-}
+};
 
 const getLoggedInUser = req => {
-  token = req.headers.authorization || "";
-  if(token.length > 7 && token.substr(0, 7) === "Bearer ") {
+  let token = req.headers.authorization || '';
+  if(token.length > 7 && token.substr(0, 7) === 'Bearer ') {
     token = token.substr(7);
   } else {
     return false;
   }
   const tokenData = tokenGenerator.verify(token, {
-    issuer: "Login",
+    issuer: 'Login',
     audience: md5(req.headers['user-agent'])
   });
   if(tokenData) {
-    const userdata = database.syncQuery("SELECT * FROM `users` WHERE `id`='" + tokenData.userid + "'")[0];
+    const userdata = database.syncQuery('SELECT * FROM `users` WHERE `id`=\'' + tokenData.userid + '\'')[0];
     return userdata || false;
   } else {
     return false;
   }
-}
+};
 
 module.exports.getUsersTable = getUsersTable;
 module.exports.login = login;

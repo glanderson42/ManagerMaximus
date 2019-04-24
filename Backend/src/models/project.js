@@ -7,36 +7,40 @@ const list = (req, res) => {
     res.status(403);
     res.set({
       'Content-Type': 'application/json',
-    })
+    });
     res.send({
       statusCode: 403,
-      label: "Forbidden.",
+      label: 'Forbidden.',
     });
     return;
   }
-
-  database.query("SELECT * FROM `project` WHERE authorid='" + loggedinUser.id + "' AND `parentid` IS NULL;", (err, result, fields) => {
+  
+  let data = {
+    statusCode: 403,
+    label: 'Forbidden.',
+  };
+  database.query('SELECT * FROM `project` WHERE authorid=\'' + loggedinUser.id + '\' AND `parentid` IS NULL;', (err, result) => {
     if(err) {
       data.statusCode = 500;
       data.label = err.sqlMessage;
       res.status(500);
       res.set({
         'Content-Type': 'application/json',
-      })
+      });
       res.send(JSON.stringify(data));
       throw err;
     }
     const project={};
     project.own = result;
 
-    database.query("SELECT `project`.* FROM `project` LEFT JOIN `contributors` ON `project`.`id`=`contributors`.`projectid` WHERE `contributors`.`userid`='" + loggedinUser.id + "';", (err, result, fields) => {
+    database.query('SELECT `project`.* FROM `project` LEFT JOIN `contributors` ON `project`.`id`=`contributors`.`projectid` WHERE `contributors`.`userid`=\'' + loggedinUser.id + '\';', (err, result) => {
       if(err) {
         data.statusCode = 500;
         data.label = err.sqlMessage;
         res.status(500);
         res.set({
           'Content-Type': 'application/json',
-        })
+        });
         res.send(JSON.stringify(data));
         throw err;
       }
@@ -46,11 +50,11 @@ const list = (req, res) => {
       res.status(200);
       res.set({
         'Content-Type': 'application/json',
-      })
+      });
       res.send(JSON.stringify(project));
     });
   });
-}
+};
 
 const get = (req, res) => {
   const loggedinUser = user.getLoggedInUser(req);
@@ -58,21 +62,21 @@ const get = (req, res) => {
     res.status(403);
     res.set({
       'Content-Type': 'application/json',
-    })
+    });
     res.send({
       statusCode: 403,
-      label: "Forbidden.",
+      label: 'Forbidden.',
     });
     return;
   }
 
   const projectId = database.escape(req.params.id);
-  database.query("SELECT `project`.* FROM `project` LEFT JOIN `contributors` ON `project`.`id`=`contributors`.`projectid` WHERE (`contributors`.`userid`='" + loggedinUser.id + "' OR `project`.`authorid`='" + loggedinUser.id + "') AND `project`.`id` = " + projectId + ";", (err, result, fields) => {
+  database.query('SELECT `project`.* FROM `project` LEFT JOIN `contributors` ON `project`.`id`=`contributors`.`projectid` WHERE (`contributors`.`userid`=\'' + loggedinUser.id + '\' OR `project`.`authorid`=\'' + loggedinUser.id + '\') AND `project`.`id` = ' + projectId + ';', (err, result) => {
     if(err) {
       res.status(500);
       res.set({
         'Content-Type': 'application/json',
-      })
+      });
       res.send(JSON.stringify({
         statusCode: 500,
         label: err.sqlMessage,
@@ -83,17 +87,17 @@ const get = (req, res) => {
       res.status(200);
       res.set({
         'Content-Type': 'application/json',
-      })
-      res.send("{}");
+      });
+      res.send('{}');
       return;
     }
     const project = result[0];
-    database.query("SELECT `widget`.* FROM `widget` WHERE `widget`.`projectid` = '"+project.id+"';", (err, result, fields) => {
+    database.query('SELECT `widget`.* FROM `widget` WHERE `widget`.`projectid` = \''+project.id+'\';', (err, result) => {
       if(err) {
         res.status(500);
         res.set({
           'Content-Type': 'application/json',
-        })
+        });
         res.send(JSON.stringify({
           statusCode: 500,
           label: err.sqlMessage,
@@ -104,11 +108,11 @@ const get = (req, res) => {
       res.status(200);
       res.set({
         'Content-Type': 'application/json',
-      })
+      });
       res.send(JSON.stringify(project));
-    })
+    });
   });
-}
+};
 
 const del = (req, res) => {
   const loggedinUser = user.getLoggedInUser(req);
@@ -116,44 +120,44 @@ const del = (req, res) => {
     res.status(403);
     res.set({
       'Content-Type': 'application/json',
-    })
+    });
     res.send({
       statusCode: 403,
-      label: "Forbidden.",
+      label: 'Forbidden.',
     });
     return;
   }
 
   let data = {
     statusCode: 403,
-    label: "Forbidden.",
-  }
+    label: 'Forbidden.',
+  };
   const projectId = database.escape(req.params.id);
-  database.asyncQuery("DELETE FROM `project` WHERE `authorid`='" + loggedinUser.id + "' AND `id` = " + projectId + ";")
+  database.asyncQuery('DELETE FROM `project` WHERE `authorid`=\'' + loggedinUser.id + '\' AND `id` = ' + projectId + ';')
     .then(result=>{
       if(result.affectedRows > 0) {
         data = {
           statusCode: 200,
-          label: "Project delete was successful",
+          label: 'Project delete was successful',
         };
         throw data;
       } else {
-        return database.asyncQuery("DELETE FROM `contributors` WHERE `userid`='" + loggedinUser.id + "' AND `projectid`=" + projectId + ";");
+        return database.asyncQuery('DELETE FROM `contributors` WHERE `userid`=\'' + loggedinUser.id + '\' AND `projectid`=' + projectId + ';');
       }
     })
     .then(result=>{
       if(result.affectedRows > 0) {
         data = {
           statusCode: 200,
-          label: "Contribution delete was successful",
-        }
+          label: 'Contribution delete was successful',
+        };
       }
     })
     .then(()=>{
       res.status(data.statusCode);
       res.set({
         'Content-Type': 'application/json',
-      })
+      });
       res.send(JSON.stringify(data));
     })
     .catch(err=>{
@@ -161,15 +165,15 @@ const del = (req, res) => {
         err = {
           statusCode: 500,
           label: err.sqlMessage,
-        }
+        };
       }
       res.status(err.statusCode);
       res.set({
         'Content-Type': 'application/json',
-      })
+      });
       res.send(JSON.stringify(err));
-    })
-}
+    });
+};
 
 const put = (req, res) => {
   const loggedinUser = user.getLoggedInUser(req);
@@ -177,18 +181,18 @@ const put = (req, res) => {
     res.status(403);
     res.set({
       'Content-Type': 'application/json',
-    })
+    });
     res.send({
       statusCode: 403,
-      label: "Forbidden.",
+      label: 'Forbidden.',
     });
     return;
   }
 
   let data = {
     statusCode: 500,
-    label: "Unknown error.",
-  }
+    label: 'Unknown error.',
+  };
 
   let project = {
     id:          req.body.id || '',
@@ -205,34 +209,34 @@ const put = (req, res) => {
     // Update existing project
     project.parentid = undefined;
     let modifiers =
-      ((req.body.title      )?(" `title` = " +       database.escape(project.title)       + ","):"") +
-      ((req.body.description)?(" `description` = " + database.escape(project.description) + ","):"") +
-      ((req.body.deadline   )?(" `deadline` = " +    ((project.deadline === 'NULL')?"NULL":database.escape(project.deadline))    + ","):"") +
-      ((req.body.category   )?(" `category` = " +    database.escape(project.category)    + ","):"") +
-      ((req.body.priority   )?(" `priority` = " +    database.escape(project.priority)    + ","):"") +
-      "";
+      ((req.body.title      )?(' `title` = ' +       database.escape(project.title)       + ','):'') +
+      ((req.body.description)?(' `description` = ' + database.escape(project.description) + ','):'') +
+      ((req.body.deadline   )?(' `deadline` = ' +    ((project.deadline === 'NULL')?'NULL':database.escape(project.deadline))    + ','):'') +
+      ((req.body.category   )?(' `category` = ' +    database.escape(project.category)    + ','):'') +
+      ((req.body.priority   )?(' `priority` = ' +    database.escape(project.priority)    + ','):'') +
+      '';
     modifiers = modifiers.substr(0, modifiers.length-1);
-    const sql = "UPDATE `project` SET" + modifiers + " WHERE `authorid`='" + loggedinUser.id + "' AND `id` = " + database.escape(project.id) + ";";
+    const sql = 'UPDATE `project` SET' + modifiers + ' WHERE `authorid`=\'' + loggedinUser.id + '\' AND `id` = ' + database.escape(project.id) + ';';
     database.asyncQuery(sql)
       .then(result=>{
         if(result.affectedRows) {
           data = {
             statusCode: 200,
-            label: "Project updated.",
-          }
+            label: 'Project updated.',
+          };
           console.log('Project updated');
         } else {
           data = {
             statusCode: 403,
-            label: "Forbidden.",
-          }
+            label: 'Forbidden.',
+          };
         }
       })
       .then(()=>{
         res.status(data.statusCode);
         res.set({
           'Content-Type': 'application/json',
-        })
+        });
         res.send(JSON.stringify(data));
       })
       .catch(err=>{
@@ -240,33 +244,33 @@ const put = (req, res) => {
           err = {
             statusCode: 500,
             label: err.sqlMessage,
-          }
+          };
         }
         res.status(err.statusCode);
         res.set({
           'Content-Type': 'application/json',
-        })
+        });
         res.send(JSON.stringify(err));
-      })
+      });
   } else {
     // Create new project
-    database.asyncQuery("SELECT `id` FROM `project` WHERE `authorid`='" + loggedinUser.id + "' AND `id` = " + database.escape(project.parentid) + ";")
+    database.asyncQuery('SELECT `id` FROM `project` WHERE `authorid`=\'' + loggedinUser.id + '\' AND `id` = ' + database.escape(project.parentid) + ';')
       .then(result=>{
-        if(result.length === 0 && project.parentid && project.parentid !== "NULL") {
+        if(result.length === 0 && project.parentid && project.parentid !== 'NULL') {
           throw {
             statusCode: 403,
-            label: "Cannot make subproject for contributed project.",
-          }
+            label: 'Cannot make subproject for contributed project.',
+          };
         }
         project.parentid = parseInt(project.parentid, 10);
-        const sql = "INSERT INTO `project` (`authorid`, `parentid`, `title`, `description`, `deadline`, `category`, `priority`) VALUES " +
-          "('"+loggedinUser.id+"', " +
-          ((isNaN(project.parentid))?'NULL':project.parentid) + ", " +
-          database.escape(project.title) + ", " +
-          database.escape(project.description) + ", " +
-          ((project.deadline === 'NULL')?"NULL":database.escape(project.deadline)) + ", " +
-          database.escape(project.category) + ", " +
-          database.escape(project.priority) + ");";
+        const sql = 'INSERT INTO `project` (`authorid`, `parentid`, `title`, `description`, `deadline`, `category`, `priority`) VALUES ' +
+          '(\''+loggedinUser.id+'\', ' +
+          ((isNaN(project.parentid))?'NULL':project.parentid) + ', ' +
+          database.escape(project.title) + ', ' +
+          database.escape(project.description) + ', ' +
+          ((project.deadline === 'NULL')?'NULL':database.escape(project.deadline)) + ', ' +
+          database.escape(project.category) + ', ' +
+          database.escape(project.priority) + ');';
         return database.asyncQuery(sql);
       })
       .then(result=>{
@@ -274,16 +278,16 @@ const put = (req, res) => {
           console.log('New project created');
           data = {
             statusCode: 200,
-            label: "New project created.",
+            label: 'New project created.',
             projectid: result.insertId,
-          }
+          };
         }
       })
       .then(()=>{
         res.status(data.statusCode);
         res.set({
           'Content-Type': 'application/json',
-        })
+        });
         res.send(JSON.stringify(data));
       })
       .catch(err=>{
@@ -291,16 +295,16 @@ const put = (req, res) => {
           err = {
             statusCode: 500,
             label: err.sqlMessage,
-          }
+          };
         }
         res.status(err.statusCode);
         res.set({
           'Content-Type': 'application/json',
-        })
+        });
         res.send(JSON.stringify(err));
-      })
+      });
   }
-}
+};
 
 module.exports.list = list;
 module.exports.get = get;
