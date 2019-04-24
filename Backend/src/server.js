@@ -28,19 +28,19 @@ try {
   credentials = {
     key: privateKey,
     cert: certificate,
-    ca: ca
+    ca: ca,
   };
   hasCertificate = true;
-} catch(error) {
+} catch (error) {
   // hasCertificate false
 }
 
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: true,
 }));
 app.use(bodyParser.json());
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
@@ -69,7 +69,7 @@ httpServer.listen(port, () => {
   console.log('HTTP Server running on port ' + port);
 });
 
-if(hasCertificate) {
+if (hasCertificate) {
   const httpsServer = https.createServer(credentials, app);
   httpsServer.listen(portSSL, () => {
     console.log('HTTPS Server running on port ' + portSSL);

@@ -8,8 +8,8 @@ let connection;
 const init = () => {
   connection = mysql.createConnection(config.get('database'));
 
-  connection.connect(function(err) {
-    if(err) {
+  connection.connect((err) => {
+    if (err) {
       throw err;
     }
     console.log('Connected to DB!');
@@ -34,16 +34,17 @@ const syncQuery = query => {
 const asyncQuery = query => {
   return new Promise((resolve, reject) => {
     connection.query(query, (err, rows) => {
-      if(err) {
+      if (err) {
         return reject( err );
       }
       resolve( rows );
+      return null;
     });
   });
 };
 
 const validateEmail = (email) => {
-  var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 };
 

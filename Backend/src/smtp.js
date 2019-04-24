@@ -6,9 +6,9 @@ const transporterList = [];
 let transportsCount = 0;
 
 const init = () => {
-  config.get('smtpList').forEach((smtpConfig, index)=>{
+  config.get('smtpList').forEach((smtpConfig, index) => {
     const currentTransporter = nodemailer.createTransport(smtpConfig);
-    currentTransporter.verify(function(error) {
+    currentTransporter.verify((error) => {
       if (error) {
         console.error(`SMTP_List item #${index} cannot connect`);
       } else {
@@ -19,7 +19,7 @@ const init = () => {
   });
 
   transporter = nodemailer.createTransport(config.get('smtp'));
-  transporter.verify(function(error) {
+  transporter.verify((error) => {
     if (error) {
       console.error(error);
     } else {
@@ -28,12 +28,12 @@ const init = () => {
   });
 };
 
-const sendMail = (to, subject, text, callback)=>{
+const sendMail = (to, subject, text, callback) => {
   let currentTransporter;
   if (transporterList.length === 0) {
     currentTransporter = transporter;
   } else {
-    currentTransporter = transporterList[transportsCount%transporterList.length];
+    currentTransporter = transporterList[transportsCount % transporterList.length];
     transportsCount++;
   }
 
@@ -42,9 +42,9 @@ const sendMail = (to, subject, text, callback)=>{
     to: to,
     subject: subject,
     text: text.replace(/<.+?>/g, ''),
-    html: text
-  }, (error, info)=>{
-    if(error){
+    html: text,
+  }, (error, info) => {
+    if (error) {
       console.log(error);
     }
     callback(error, info);
