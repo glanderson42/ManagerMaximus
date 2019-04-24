@@ -14,16 +14,26 @@ const app = express();
 const port = config.get('port');
 const portSSL = config.get('portSSL');
 
-const privateKey = fs.readFileSync(config.get('privKey'), 'utf8');
-const certificate = fs.readFileSync(config.get('cert'), 'utf8');
-const ca = fs.readFileSync(config.get('chain'), 'utf8');
+let hasCertificate = false;
+let privateKey;
+let certificate;
+let ca;
+let credentials;
 
+try {
+  privateKey = fs.readFileSync(config.get('privKey'), 'utf8');
+  certificate = fs.readFileSync(config.get('cert'), 'utf8');
+  ca = fs.readFileSync(config.get('chain'), 'utf8');
 
-const credentials = {
-  key: privateKey,
-  cert: certificate,
-  ca: ca
-};
+  credentials = {
+    key: privateKey,
+    cert: certificate,
+    ca: ca
+  };
+  hasCertificate = true;
+} catch(error) {
+  // hasCertificate false
+}
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -55,12 +65,15 @@ app.put('/projects', project.put);
 
 // Starting both http & https servers
 const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
-
 httpServer.listen(port, () => {
   console.log('HTTP Server running on port ' + port);
 });
 
-httpsServer.listen(portSSL, () => {
-  console.log('HTTPS Server running on port ' + portSSL);
-});
+if(hasCertificate) {
+  const httpsServer = https.createServer(credentials, app);
+  httpsServer.listen(portSSL, () => {
+    console.log('HTTPS Server running on port ' + portSSL);
+  });
+} else {
+  console.log('HTTPS Server not started');
+}
