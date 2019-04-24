@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./src/server.js",
+    "lint": "eslint ./",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,8 +21,11 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "config": "^3.0.1",
+    "eslint": "^5.16.0",
     "express": "^4.16.4",
     "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "https": "^1.0.0",
     "jsonwebtoken": "^8.5.0",
     "md5": "^2.2.1",
     "mysql": "^2.16.0",
