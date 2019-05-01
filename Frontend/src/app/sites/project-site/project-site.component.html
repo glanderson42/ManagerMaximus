@@ -6,15 +6,10 @@
     </div>
     <div class="layout-content">
       <div class="layout-content-inner">
-        <h1>ManagerMaximus - Projects</h1>
-        <h2>Own projects</h2>
+        <h1>{{Project.title}}</h1>
+        <h2>{{Project.description}}</h2>
         <div class="ui-g layout-card-container">
-          <div>
-            <p>
-              {{Projects.id}}
-            </p>
-          </div>
-          <div *ngFor="let item of Projects.widgets" class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3">
+          <div *ngFor="let item of Project.widgets" class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3">
             <div>
               <p>
                 {{item.id}}

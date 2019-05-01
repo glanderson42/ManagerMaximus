@@ -13,7 +13,7 @@ export class ProjectSiteComponent implements OnInit {
 
   MenuBar: MenuItem[];
   PanelMenu: MenuItem[];
-  Projects = {};
+  Project = {};
 
   ngOnInit() {
   
@@ -98,7 +98,7 @@ export class ProjectSiteComponent implements OnInit {
       }
     ];
 
-    this.Projects = {
+    this.Project = {
 
           "id": 2,
           "authorid": 1,
