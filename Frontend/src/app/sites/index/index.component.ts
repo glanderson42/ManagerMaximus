@@ -148,14 +148,22 @@ export class IndexComponent implements OnInit {
 
   deleteProject(item, event) {
     event.stopPropagation();
-
+    // console.log("DELETE");
     this.confirmationService.confirm({
       message: "Are you want to delete this project?",
       header: "Delete confirmation",
       icon: 'pi pi-info-circle',
       accept: () => {
         this.msgs = [{severity: 'info', summary: 'Confirmed', detail: "You have deleted this project"}];
-        this.authService.deleteProjectByID(item.id);
+        this.authService.deleteProjectByID(item.id).subscribe(
+          (response: any) => {
+            console.log("Sikeres torles");
+          },
+          (response: any) => {
+            console.log(response);
+          }
+        );
+        window.location.reload();
       },
       reject: () => {
         this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
