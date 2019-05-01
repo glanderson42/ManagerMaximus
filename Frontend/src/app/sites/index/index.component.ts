@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-index',
@@ -9,14 +11,14 @@ import {Router} from '@angular/router';
 })
 export class IndexComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private authService: AuthService, private messageService: MessageService, private router: Router) { }
   MenuBar: MenuItem[];
   PanelMenu: MenuItem[];
   Projects = {};
 
   ngOnInit() {
 
-    if(!localStorage.getItem('user')){
+    if (!localStorage.getItem('user')) {
       this.router.navigateByUrl('/login');
       return;
     }
@@ -97,27 +99,18 @@ export class IndexComponent implements OnInit {
       }
     ];
 
-    this.Projects = {
-      own: [
-        {
-            id: 4,
-            authorid: 2,
-            parentid: null,
-            title: "First project",
-            description: "Description of first project",
-            created: "2019-04-02T14:15:40.000Z",
-            deadline: null,
-            category: "NEW",
-            priority: "HIGH"
-        },
-        {id: 4,authorid: 2,parentid: null,title: "Second project",description: "Description of second project",created: "2019-04-02T14:15:40.000Z",deadline: null,category: "NEW",priority: "HIGH"},
-        {id: 4,authorid: 2,parentid: null,title: "Third project",description: "Description of third project",created: "2019-04-02T14:15:40.000Z",deadline: null,category: "NEW",priority: "HIGH"},
-      ],
-      contributed: [
-        {id: 4,authorid: 2,parentid: null,title: "Second project",description: "Description of second project",created: "2019-04-02T14:15:40.000Z",deadline: null,category: "NEW",priority: "HIGH"},
-        {id: 4,authorid: 2,parentid: null,title: "Third project",description: "Description of third project",created: "2019-04-02T14:15:40.000Z",deadline: null,category: "NEW",priority: "HIGH"},
-      ]
-    }
+    this.authService.getProjects().subscribe(
+      (response: any) => {
+        this.Projects = response;
+      },
+      (response: any ) => {
+        if (response.status === 403) {
+          this.router.navigateByUrl('/login');
+        } else {
+          this.messageService.add({severity: 'error', summary: 'Error Message', detail: 'Failed to get projects'});
+        }
+      }
+    );
   }
 
 }
