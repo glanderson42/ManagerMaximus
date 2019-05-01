@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required])
   });
 
-  constructor(private authService: AuthService, private messageService: MessageService) { }
+  constructor(private authService: AuthService, private messageService: MessageService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -28,7 +29,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(loginData).subscribe(
       (response: any) => {
         localStorage.setItem('user', JSON.stringify(response));
-        // TODO navigate to main page
+        this.router.navigateByUrl('');
       },
       (response: any ) => {
         this.messageService.add({severity: 'error', summary: 'Error Message', detail: response.error.label});
