@@ -106,7 +106,6 @@ export class IndexComponent implements OnInit {
       (response: any ) => {
         if (response.status === 403) {
           this.router.navigateByUrl('/login');
-          return;
         } else {
           this.messageService.add({severity: 'error', summary: 'Error Message', detail: 'Failed to get projects'});
         }

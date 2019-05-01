@@ -14,7 +14,12 @@ export class AuthService {
   }
 
   logout() {
-    return this.httpClient.get(config.backendUrl + 'logout');
+    const user = JSON.parse(localStorage.getItem('user'));
+    const headers = new HttpHeaders(
+      {Authorization: 'Bearer ' + user.token}
+    );
+
+    return this.httpClient.get(config.backendUrl + 'logout', {headers});
   }
 
   register(registrationData) {
@@ -27,8 +32,6 @@ export class AuthService {
       {Authorization: 'Bearer ' + user.token}
       );
 
-    return this.httpClient.get(config.backendUrl + 'projects/list', {
-      headers
-    });
+    return this.httpClient.get(config.backendUrl + 'projects/list', {headers});
   }
 }
