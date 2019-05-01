@@ -1,3 +1,65 @@
-<p>
-  project-site works!
-</p>
+<div class="layout-wrapper">
+  <menubar class="layout-topbar"></menubar>
+  <div class="layout-site">
+    <div class="layout-sidebar">
+      <p-panelMenu [model]="PanelMenu"></p-panelMenu>
+    </div>
+    <div class="layout-content">
+      <div class="layout-content-inner">
+        <h1>ManagerMaximus - Projects</h1>
+        <h2>Own projects</h2>
+        <div class="ui-g layout-card-container">
+          <div>
+            <p>
+              {{Projects.id}}
+            </p>
+          </div>
+          <div *ngFor="let item of Projects.widgets" class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3">
+            <div>
+              <p>
+                {{item.id}}
+              </p>
+              <p>
+                {{item.title}}
+              </p>
+            </div>
+          
+            <!-- <p-card header="{{item.title}}" subheader="{{item.created}}" [style]="{width: auto}" styleClass="ui-card-shadow ui-own-card-ani">
+              <p-header>
+                <img src="Card" src="http://www.illuminationworksllc.com/wp-content/uploads/2017/04/ProjectManagement-1.jpg">
+              </p-header>
+              <div class="ui-description">{{item.description}}</div>
+              <p-footer class="align-right">
+                <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em"></button>
+                <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-secondary"></button>
+              </p-footer>
+            </p-card>
+          </div>
+          <div class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3">
+            <p-card id="addProjectCard" header="New project" subheader="" [style]="{width: auto}" styleClass="ui-card-shadow">
+              <p-header></p-header>
+            </p-card>
+          </div>
+        </div>
+        <h2 *ngIf="Projects.contributed && Projects.contributed.length>0">Contributed projects</h2>
+        <div *ngIf="Projects.contributed && Projects.contributed.length>0" class="ui-g layout-card-container">
+          <div *ngFor="let item of Projects.contributed" class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3">
+            <p-card header="{{item.title}}" subheader="{{item.created}}" [style]="{width: auto}" styleClass="ui-card-shadow ui-own-card-ani">
+              <p-header>
+                <img src="Card" src="http://www.illuminationworksllc.com/wp-content/uploads/2017/04/ProjectManagement-1.jpg">
+              </p-header>
+              <div class="ui-description">{{item.description}}</div>
+              <p-footer class="align-right">
+                <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em"></button>
+                <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-secondary"></button>
+              </p-footer>
+            </p-card> -->
+          </div>
+        </div>
+      </div>
+      <div class="layout-footer">
+        Footer
+      </div>
+    </div>
+  </div>
+</div>
