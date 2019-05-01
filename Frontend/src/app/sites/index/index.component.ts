@@ -117,8 +117,17 @@ export class IndexComponent implements OnInit {
   display: boolean = false;
 
   showDialog(item) {
-    this.display = true;
-    this.selectedProject=item;
+      this.display = true;
+      if (item) {
+        this.selectedProject = item;
+      } else {
+        this.selectedProject = {
+          title: '',
+          description: '',
+          category: 'NEW',
+          priority: 'LOW'
+        };
+      }
   }
 
   hideDialog() {

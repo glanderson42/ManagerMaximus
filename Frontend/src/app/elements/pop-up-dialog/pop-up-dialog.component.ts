@@ -30,4 +30,8 @@ export class PopUpDialogComponent implements OnInit {
   ngOnInit() {
     console.log(this.project);
   }
+
+  cancelEdit() {
+
+  }
 }
