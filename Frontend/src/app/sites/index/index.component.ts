@@ -15,6 +15,7 @@ export class IndexComponent implements OnInit {
   MenuBar: MenuItem[];
   PanelMenu: MenuItem[];
   Projects = {};
+  selectedProject = {};
 
   ngOnInit() {
 
@@ -113,4 +114,15 @@ export class IndexComponent implements OnInit {
     );
   }
 
+  display: boolean = false;
+
+  showDialog(item) {
+    this.display = true;
+    this.selectedProject=item;
+  }
+
+  hideDialog() {
+    console.log('hideDialog()');
+    this.display = false;
+  }
 }
