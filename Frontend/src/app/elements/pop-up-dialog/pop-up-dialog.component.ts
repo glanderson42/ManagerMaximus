@@ -1,15 +1,29 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { EventListener } from '@angular/core/src/debug/debug_node';
-import { callbackify } from 'util';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-pop-up-dialog',
   templateUrl: './pop-up-dialog.component.html',
-  styleUrls: ['./pop-up-dialog.component.sass']
+  styleUrls: ['./pop-up-dialog.component.scss']
 })
 export class PopUpDialogComponent implements OnInit {
 
-  constructor() { }   
+  categories: SelectItem[];
+  priorities: SelectItem[];
+
+  constructor() {
+    this.categories = [
+      { label: 'NEW', value: 'NEW' },
+      { label: 'PROGRESS', value: 'PROGRESS' },
+      { label: 'TESTING', value: 'TESTING' },
+      { label: 'READY', value: 'READY' }
+    ];
+    this.priorities = [
+      { label: 'LOW', value: 'LOW' },
+      { label: 'MID', value: 'MID' },
+      { label: 'HIGH', value: 'HIGH' }
+    ];
+  }
 
   @Input() project;
 
