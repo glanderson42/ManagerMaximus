@@ -33,6 +33,7 @@ import { PageNotFoundComponent } from './sites/page-not-found/page-not-found.com
 import { MenubarComponent } from './elements/menubar/menubar.component';
 import { PopUpDialogComponent } from './elements/pop-up-dialog/pop-up-dialog.component';
 import { ProjectSiteComponent } from './sites/project-site/project-site.component';
+import { UserSettingsComponent } from './sites/user-settings/user-settings.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ProjectSiteComponent } from './sites/project-site/project-site.componen
     PageNotFoundComponent,
     MenubarComponent,
     PopUpDialogComponent,
-    ProjectSiteComponent
+    ProjectSiteComponent,
+    UserSettingsComponent
   ],
   imports: [
     BrowserModule,
