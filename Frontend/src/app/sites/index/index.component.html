@@ -38,7 +38,8 @@
               <div class="ui-description">{{item.description}}</div>
               <p-footer class="align-right">
                 <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em" (click)="showDialog(item)"></button>
-                <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-secondary"></button>
+                <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+                <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-secondary" (click)="deleteProject(item, $event)"></button>
               </p-footer>
             </p-card>
           </div>

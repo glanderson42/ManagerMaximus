@@ -86,6 +86,7 @@ export class ProjectSiteComponent implements OnInit {
         if (response.status === 403) {
           this.router.navigateByUrl('\login');
         } else {
+          this.router.navigateByUrl('');
           this.messageService.add({
             severity: "error",
             summary: "Error Message",

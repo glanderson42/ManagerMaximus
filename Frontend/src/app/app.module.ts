@@ -14,6 +14,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 import { AppRoutingModule } from './services/routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -58,6 +60,7 @@ import { ProjectSiteComponent } from './sites/project-site/project-site.componen
     ReactiveFormsModule,
     ToastModule,
     DialogModule,
+    ConfirmDialogModule,
     RouterModule.forRoot([
       {
         path: '',
@@ -67,7 +70,8 @@ import { ProjectSiteComponent } from './sites/project-site/project-site.componen
   ],
   providers: [
     AuthService,
-    MessageService
+    MessageService,
+    ConfirmationService
   ],
   bootstrap: [AppComponent]
 })

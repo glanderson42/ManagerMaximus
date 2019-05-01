@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { MenuItem } from "primeng/api";
+import { MenuItem, Message } from "primeng/api";
 import { Router } from "@angular/router";
 import { AuthService } from "../../services/auth/auth.service";
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 import { MessageService } from "primeng/api";
 
 @Component({
@@ -13,12 +15,14 @@ export class IndexComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private confirmationService: ConfirmationService
   ) {}
   MenuBar: MenuItem[];
   PanelMenu: MenuItem[];
   Projects = {};
   selectedProject = {};
+  msgs: Message[] = [];
 
   ngOnInit() {
     if (!localStorage.getItem("user")) {
@@ -140,5 +144,23 @@ export class IndexComponent implements OnInit {
   openProject(item) {
     console.log("ASDASDASDASDASDASD");
     this.router.navigateByUrl("/project/" + item.id);
+  }
+
+  deleteProject(item, event) {
+    event.stopPropagation();
+
+    this.confirmationService.confirm({
+      message: "Are you want to delete this project?",
+      header: "Delete confirmation",
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.msgs = [{severity: 'info', summary: 'Confirmed', detail: "You have deleted this project"}];
+        this.authService.deleteProjectByID(item.id);
+      },
+      reject: () => {
+        this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
+      }
+    });
+  
   }
 }
