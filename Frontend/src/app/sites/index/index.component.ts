@@ -32,8 +32,8 @@ export class IndexComponent implements OnInit {
 
     this.PanelMenu = [
       {
-        label: "1. Main Placeholder",
-        icon: "pi pi-pw pi-file",
+        label: "New Project",
+        icon: "pi pi-pw pi-plus",
         items: [
           {
             label: "1. Sub Placeholder",
@@ -52,16 +52,16 @@ export class IndexComponent implements OnInit {
         ]
       },
       {
-        label: "2. Main Placeholder",
-        icon: "pi pi-fw pi-pencil",
+        label: "Manage Projects",
+        icon: "pi pi-fw pi-list",
         items: [
           { label: "4. Sub Placeholder", icon: "pi pi-fw pi-trash" },
           { label: "5. Sub Placeholder", icon: "pi pi-fw pi-refresh" }
         ]
       },
       {
-        label: "3. Main Placeholder",
-        icon: "pi pi-fw pi-question",
+        label: "Profile Settings",
+        icon: "pi pi-fw pi-cog",
         items: [
           {
             label: "6. Sub Placeholder",
@@ -88,25 +88,9 @@ export class IndexComponent implements OnInit {
         ]
       },
       {
-        label: "4. Main Placeholder",
-        icon: "pi pi-fw pi-cog",
-        items: [
-          {
-            label: "8. Sub Placeholder",
-            icon: "pi pi-fw pi-pencil",
-            items: [
-              { label: "5. Sub-sub Placeholder", icon: "pi pi-fw pi-save" },
-              { label: "6. Sub-sub Placeholder", icon: "pi pi-fw pi-save" }
-            ]
-          },
-          {
-            label: "9. Sub Placeholder",
-            icon: "pi pi-fw pi-tags",
-            items: [
-              { label: "7. Sub-sub Placeholder", icon: "pi pi-fw pi-minus" }
-            ]
-          }
-        ]
+        label: "Logout",
+        command: (event)=> { this.logoutUser() },
+        icon: "pi pi-fw pi-sign-out",
       }
     ];
 
@@ -128,6 +112,20 @@ export class IndexComponent implements OnInit {
     );
   }
 
+  logoutUser() {
+    this.authService.logout().subscribe(
+      (response: any) => {
+        this.messageService.add({severity: 'success', summary: 'Success', detail: response.label});
+      },
+      (response: any ) => {
+        this.messageService.add({severity: 'error', summary: 'Error Message', detail: response.error.label});
+      }
+    );
+
+    localStorage.clear();
+    this.router.navigateByUrl('/login');
+  }
+  
   display: boolean = false;
 
   showDialog(item, event) {

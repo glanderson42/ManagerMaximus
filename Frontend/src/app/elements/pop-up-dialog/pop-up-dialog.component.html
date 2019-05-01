@@ -8,7 +8,7 @@
     <label for="description">
         Description
     </label>
-    <textarea pInputTextarea>{{project.description}}</textarea>
+    <textarea pInputTextarea [(ngModel)]="project.description"></textarea>
 </div>
 <div>
     <label for="category">
