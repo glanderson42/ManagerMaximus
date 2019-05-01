@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { InputTextModule } from 'primeng/inputtext';
 
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
@@ -16,6 +15,10 @@ import { MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { InputTextModule} from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import {SelectButtonModule} from 'primeng/selectbutton';
+
 
 import { AppRoutingModule } from './services/routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -61,6 +64,8 @@ import { ProjectSiteComponent } from './sites/project-site/project-site.componen
     ToastModule,
     DialogModule,
     ConfirmDialogModule,
+    InputTextareaModule,
+    SelectButtonModule,
     RouterModule.forRoot([
       {
         path: '',
