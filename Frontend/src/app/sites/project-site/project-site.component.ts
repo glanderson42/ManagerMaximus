@@ -17,86 +17,53 @@ export class ProjectSiteComponent implements OnInit {
 
   ngOnInit() {
   
-    // if(!localStorage.getItem('user')){
-    //   this.router.navigateByUrl('/login');
-    //   return;
-    // }
+    if(!localStorage.getItem('user')){
+      this.router.navigateByUrl('/login');
+      return;
+    }
 
     this.PanelMenu = [
       {
-        label: '1. Main Placeholder',
-        icon: 'pi pi-pw pi-file',
+        label: '1. Create new',
+        icon: 'pi pi-pw pi-plus',
         items: [{
-          label: '1. Sub Placeholder',
-          icon: 'pi pi-fw pi-plus',
-          items: [
-            { label: '1. Sub-sub Placeholder', icon: 'pi pi-fw pi-user-plus' },
-            { label: '2. Sub-sub Placeholder', icon: 'pi pi-fw pi-filter' }
-          ]
+          label: '1. Subproject',
+          icon: 'fa fa-fw fa-files-o',
         },
-        { label: '2. Sub Placeholder', icon: 'pi pi-fw pi-external-link' },
+        {
+          label: '2. Widget',
+          icon: 'fa fa-fw fa-stack-exchange',
+        },
         { separator: true },
-        { label: '3. Sub Placeholder', icon: 'pi pi-fw pi-times' }
         ]
       },
       {
-        label: '2. Main Placeholder',
-        icon: 'pi pi-fw pi-pencil',
+        label: '2. Users',
+        icon: 'pi pi-fw pi-user',
         items: [
-          { label: '4. Sub Placeholder', icon: 'pi pi-fw pi-trash' },
-          { label: '5. Sub Placeholder', icon: 'pi pi-fw pi-refresh' }
+          { label: '1. Add user for this project', icon: 'pi pi-fw pi-user-plus' },
+          { label: '2. Remove user from this project', icon: 'pi pi-fw pi-user-minus' }
         ]
       },
       {
-        label: '3. Main Placeholder',
-        icon: 'pi pi-fw pi-question',
+        label: '3. List',
+        icon: 'fa fa-fw fa-list-alt',
         items: [
           {
-            label: '6. Sub Placeholder',
-            icon: 'pi pi-pi pi-bars'
+            label: '1. Subprojects',
+            icon: 'fa fa-fw fa-list-ol'
           },
           {
-            label: '7. Sub Placeholder',
-            icon: 'pi pi-pi pi-search',
-            items: [
-              {
-                label: '3. Sub-sub Placeholder',
-                items: [
-                  {
-                    label: 'Workspace'
-                  }
-                ]
-              },
-              {
-                label: '4. Sub-sub Placeholder',
-                icon: 'pi pi-fw pi-file',
-              }
-            ]
-          }
-        ]
-      },
-      {
-        label: '4. Main Placeholder',
-        icon: 'pi pi-fw pi-cog',
-        items: [
-          {
-            label: '8. Sub Placeholder',
-            icon: 'pi pi-fw pi-pencil',
-            items: [
-              { label: '5. Sub-sub Placeholder', icon: 'pi pi-fw pi-save' },
-              { label: '6. Sub-sub Placeholder', icon: 'pi pi-fw pi-save' },
-            ]
+            label: '2. Widgets',
+            icon: 'fa fa-fw fa-list-ol'
           },
           {
-            label: '9. Sub Placeholder',
-            icon: 'pi pi-fw pi-tags',
-            items: [
-              { label: '7. Sub-sub Placeholder', icon: 'pi pi-fw pi-minus' }
-            ]
+            label: '3. Users on this project',
+            icon: 'fa fa-fw fa-users'
           }
         ]
       }
-    ];
+    ]
 
     this.Project = {
 
