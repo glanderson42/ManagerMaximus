@@ -55,6 +55,7 @@ app.get('/', user.getUsersTable);
 app.get('/confirm/:token', user.confirm);
 app.get('/projects/list', project.list);
 app.get('/projects/:id', project.get);
+app.get('/logout', user.logout);
 
 app.post('/login', user.login);
 app.post('/registration', user.registration);

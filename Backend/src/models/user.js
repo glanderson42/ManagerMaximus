@@ -70,6 +70,59 @@ const login = (req, res) => {
     });
 };
 
+const logout = (req, res) => {
+  const loggedinUser = this.getLoggedInUser(req);
+  console.log(loggedinUser);
+
+  if (!loggedinUser) {
+    res.status(403);
+    res.set({
+      'Content-Type': 'application/json',
+    });
+    res.send({
+      statusCode: 403,
+      label: 'Forbidden.',
+    });
+    return;
+  }
+
+  let data = {
+    statusCode: 500,
+    label: 'Server error',
+  };
+
+  database.asyncQuery('DELETE FROM `tokens` WHERE `token` = \'' + loggedinUser.token + '\'')
+    .then(result => {
+      if (result.affectedRows > 0) {
+        data = {
+          statusCode: 200,
+          label: 'Logout was successful',
+        };
+        throw data;
+      }
+    })
+    .then(() => {
+      res.status(data.statusCode);
+      res.set({
+        'Content-Type': 'application/json',
+      });
+      res.send(JSON.stringify(data));
+    })
+    .catch(err => {
+      if (err.sqlMessage) {
+        err = {
+          statusCode: 500,
+          label: err.sqlMessage,
+        };
+      }
+      res.status(err.statusCode);
+      res.set({
+        'Content-Type': 'application/json',
+      });
+      res.send(JSON.stringify(err));
+    });
+};
+
 const registration = (req, res) => {
   const username = req.body.username || '';
   const password = req.body.password || '';
@@ -202,6 +255,7 @@ const getLoggedInUser = req => {
   });
   if (tokenData) {
     const userdata = database.syncQuery('SELECT * FROM `users` WHERE `id`=\'' + tokenData.userid + '\'')[0];
+    userdata.token = token;
     return userdata || false;
   }
   return false;
@@ -209,6 +263,7 @@ const getLoggedInUser = req => {
 
 module.exports.getUsersTable = getUsersTable;
 module.exports.login = login;
+module.exports.logout = logout;
 module.exports.registration = registration;
 module.exports.confirm = confirm;
 module.exports.getLoggedInUser = getLoggedInUser;
