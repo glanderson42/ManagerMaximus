@@ -7,12 +7,14 @@ import { FailedComponent } from '../../sites/emailconfirm/failed/failed.componen
 import { WrongtokenComponent } from '../../sites/emailconfirm/wrongtoken/wrongtoken.component'
 import { IndexComponent } from '../../sites/index/index.component';
 import { PageNotFoundComponent } from '../../sites/page-not-found/page-not-found.component';
+import { ProjectSiteComponent } from '../../sites/project-site/project-site.component';
 
 const routes: Routes = [ {path: 'login', component: LoginComponent },
                          {path: 'registration', component: RegistrationComponent },
                          {path: 'emailconfirm/success', component: SuccessComponent },
                          {path: 'emailconfirm/error', component: FailedComponent },
                          {path: 'emailconfirm/wrongtoken', component: WrongtokenComponent },
+                         {path: 'index/project_site', component: ProjectSiteComponent },
                          {path: '', component: IndexComponent },
                          {path: '**', component: PageNotFoundComponent} ];
 

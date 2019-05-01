@@ -27,6 +27,7 @@ import { WrongtokenComponent } from './sites/emailconfirm/wrongtoken/wrongtoken.
 import { PageNotFoundComponent } from './sites/page-not-found/page-not-found.component';
 import { MenubarComponent } from './elements/menubar/menubar.component';
 import { PopUpDialogComponent } from './elements/pop-up-dialog/pop-up-dialog.component';
+import { ProjectSiteComponent } from './sites/project-site/project-site.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { PopUpDialogComponent } from './elements/pop-up-dialog/pop-up-dialog.com
     WrongtokenComponent,
     PageNotFoundComponent,
     MenubarComponent,
-    PopUpDialogComponent
+    PopUpDialogComponent,
+    ProjectSiteComponent
   ],
   imports: [
     BrowserModule,
