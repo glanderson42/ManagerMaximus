@@ -84,11 +84,14 @@ const get = (req, res) => {
       throw err;
     }
     if (!result[0]) {
-      res.status(200);
+      res.status(405);
       res.set({
         'Content-Type': 'application/json',
       });
-      res.send('{}');
+      res.send(JSON.stringify({
+        statusCode: 405,
+        label: 'Forbidden.',
+      }));
       return;
     }
     const project = result[0];

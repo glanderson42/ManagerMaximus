@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -18,7 +19,7 @@ export class RegistrationComponent implements OnInit {
     email: new FormControl('', [Validators.required])
   });
 
-  constructor(private authService: AuthService, private messageService: MessageService) { }
+  constructor(private authService: AuthService, private messageService: MessageService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -35,6 +36,7 @@ export class RegistrationComponent implements OnInit {
     this.authService.register(registrationData).subscribe(
       (response: any) => {
         this.messageService.add({severity: 'success', summary: 'Success', detail: response.label});
+        this.router.navigateByUrl('/login');
       },
       (response: any ) => {
         this.messageService.add({severity: 'error', summary: 'Error Message', detail: response.error.label});

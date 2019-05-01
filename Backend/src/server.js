@@ -5,6 +5,7 @@ const express = require('express');
 const database = require('./database');
 const user = require('./models/user');
 const project = require('./models/project');
+const widget = require('./models/widget');
 const bodyParser = require('body-parser');
 const smtp = require('./smtp');
 const config = require('config');
@@ -61,8 +62,10 @@ app.post('/login', user.login);
 app.post('/registration', user.registration);
 
 app.delete('/projects/:id', project.delete);
+app.delete('/widget/:id', widget.delete);
 
 app.put('/projects', project.put);
+app.put('/widget', widget.put);
 
 // Starting both http & https servers
 const httpServer = http.createServer(app);

@@ -1,7 +1,7 @@
 <p-toast [style]="{marginTop: '80px'}"></p-toast>
 <p-menubar>
     <button id="btnOpenSidebar" pButton icon="fa fa-bars" style="margin-left:.25em"></button>
-    <img class="menu-logo" src="https://trellis.co/wp-content/uploads/2015/09/hidden_meanings_facts_within_famous_logos_cover_image.jpg">
+    <img class="menu-logo" src="../assets/images/mm_100.png" (click)="goToMainPage()">
     <div class="menu-divider"></div>
     <input type="text" pInputText placeholder="Search">
     <button pButton label="Logout" icon="fa fa-sign-out" style="margin-left:.25em" (click)="logoutUser()"></button>
