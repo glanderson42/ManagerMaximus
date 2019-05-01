@@ -25,6 +25,7 @@ import { FailedComponent } from './sites/emailconfirm/failed/failed.component';
 import { WrongtokenComponent } from './sites/emailconfirm/wrongtoken/wrongtoken.component';
 import { PageNotFoundComponent } from './sites/page-not-found/page-not-found.component';
 import { MenubarComponent } from './elements/menubar/menubar.component';
+import { ProjectSiteComponent } from './sites/project-site/project-site.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { MenubarComponent } from './elements/menubar/menubar.component';
     FailedComponent,
     WrongtokenComponent,
     PageNotFoundComponent,
-    MenubarComponent
+    MenubarComponent,
+    ProjectSiteComponent
   ],
   imports: [
     BrowserModule,
