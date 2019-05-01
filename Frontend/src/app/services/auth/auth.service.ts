@@ -34,4 +34,13 @@ export class AuthService {
 
     return this.httpClient.get(config.backendUrl + 'projects/list', {headers});
   }
+
+  getProjectByID(Id: Number) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const headers = new HttpHeaders(
+      {Authorization: 'Bearer ' + user.token}
+      );
+
+    return this.httpClient.get(config.backendUrl + 'projects/' + Id, {headers});
+  }
 }
