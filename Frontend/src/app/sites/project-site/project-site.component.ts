@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-project-site',
   templateUrl: './project-site.component.html',
-  styleUrls: ['./project-site.component.sass']
+  styleUrls: ['./project-site.component.scss']
 })
 export class ProjectSiteComponent implements OnInit {
 
@@ -17,7 +17,7 @@ export class ProjectSiteComponent implements OnInit {
 
   ngOnInit() {
   
-    if(!localStorage.getItem('user')){
+    if(!localStorage.getItem('user')) {
       this.router.navigateByUrl('/login');
       return;
     }
