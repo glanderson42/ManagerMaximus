@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { DialogModule } from 'primeng/dialog';
 
 import { AppRoutingModule } from './services/routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +26,7 @@ import { FailedComponent } from './sites/emailconfirm/failed/failed.component';
 import { WrongtokenComponent } from './sites/emailconfirm/wrongtoken/wrongtoken.component';
 import { PageNotFoundComponent } from './sites/page-not-found/page-not-found.component';
 import { MenubarComponent } from './elements/menubar/menubar.component';
+import { PopUpDialogComponent } from './elements/pop-up-dialog/pop-up-dialog.component';
 import { ProjectSiteComponent } from './sites/project-site/project-site.component';
 
 @NgModule({
@@ -38,6 +40,7 @@ import { ProjectSiteComponent } from './sites/project-site/project-site.componen
     WrongtokenComponent,
     PageNotFoundComponent,
     MenubarComponent,
+    PopUpDialogComponent,
     ProjectSiteComponent
   ],
   imports: [
@@ -54,6 +57,7 @@ import { ProjectSiteComponent } from './sites/project-site/project-site.componen
     FormsModule,
     ReactiveFormsModule,
     ToastModule,
+    DialogModule,
     RouterModule.forRoot([
       {
         path: '',
