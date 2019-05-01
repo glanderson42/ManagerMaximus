@@ -77,13 +77,14 @@ export class ProjectSiteComponent implements OnInit {
     ];
 
     const id = this.route.snapshot.paramMap.get("id");
+
     this.authService.getProjectByID(parseInt(id)).subscribe(
       (response: any) => {
         this.Project = response;
       },
       (response: any) => {
         if (response.status === 403) {
-          this.router.navigateByUrl("");
+          this.router.navigateByUrl('\login');
         } else {
           this.messageService.add({
             severity: "error",
