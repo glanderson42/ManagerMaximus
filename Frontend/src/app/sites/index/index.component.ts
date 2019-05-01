@@ -1,99 +1,109 @@
-import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth/auth.service';
-import { MessageService } from 'primeng/api';
+import { Component, OnInit } from "@angular/core";
+import { MenuItem, Message } from "primeng/api";
+import { Router } from "@angular/router";
+import { AuthService } from "../../services/auth/auth.service";
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { MessageService } from "primeng/api";
 
 @Component({
-  selector: 'app-index',
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss']
+  selector: "app-index",
+  templateUrl: "./index.component.html",
+  styleUrls: ["./index.component.scss"]
 })
 export class IndexComponent implements OnInit {
-
-  constructor(private authService: AuthService, private messageService: MessageService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private messageService: MessageService,
+    private router: Router,
+    private confirmationService: ConfirmationService
+  ) {}
   MenuBar: MenuItem[];
   PanelMenu: MenuItem[];
   Projects = {};
   selectedProject = {};
+  msgs: Message[] = [];
 
   ngOnInit() {
-
-    if (!localStorage.getItem('user')) {
-      this.router.navigateByUrl('/login');
+    if (!localStorage.getItem("user")) {
+      this.router.navigateByUrl("/login");
       return;
     }
 
     this.PanelMenu = [
       {
-        label: '1. Main Placeholder',
-        icon: 'pi pi-pw pi-file',
-        items: [{
-          label: '1. Sub Placeholder',
-          icon: 'pi pi-fw pi-plus',
-          items: [
-            { label: '1. Sub-sub Placeholder', icon: 'pi pi-fw pi-user-plus' },
-            { label: '2. Sub-sub Placeholder', icon: 'pi pi-fw pi-filter' }
-          ]
-        },
-        { label: '2. Sub Placeholder', icon: 'pi pi-fw pi-external-link' },
-        { separator: true },
-        { label: '3. Sub Placeholder', icon: 'pi pi-fw pi-times' }
-        ]
-      },
-      {
-        label: '2. Main Placeholder',
-        icon: 'pi pi-fw pi-pencil',
-        items: [
-          { label: '4. Sub Placeholder', icon: 'pi pi-fw pi-trash' },
-          { label: '5. Sub Placeholder', icon: 'pi pi-fw pi-refresh' }
-        ]
-      },
-      {
-        label: '3. Main Placeholder',
-        icon: 'pi pi-fw pi-question',
+        label: "1. Main Placeholder",
+        icon: "pi pi-pw pi-file",
         items: [
           {
-            label: '6. Sub Placeholder',
-            icon: 'pi pi-pi pi-bars'
-          },
-          {
-            label: '7. Sub Placeholder',
-            icon: 'pi pi-pi pi-search',
+            label: "1. Sub Placeholder",
+            icon: "pi pi-fw pi-plus",
             items: [
               {
-                label: '3. Sub-sub Placeholder',
+                label: "1. Sub-sub Placeholder",
+                icon: "pi pi-fw pi-user-plus"
+              },
+              { label: "2. Sub-sub Placeholder", icon: "pi pi-fw pi-filter" }
+            ]
+          },
+          { label: "2. Sub Placeholder", icon: "pi pi-fw pi-external-link" },
+          { separator: true },
+          { label: "3. Sub Placeholder", icon: "pi pi-fw pi-times" }
+        ]
+      },
+      {
+        label: "2. Main Placeholder",
+        icon: "pi pi-fw pi-pencil",
+        items: [
+          { label: "4. Sub Placeholder", icon: "pi pi-fw pi-trash" },
+          { label: "5. Sub Placeholder", icon: "pi pi-fw pi-refresh" }
+        ]
+      },
+      {
+        label: "3. Main Placeholder",
+        icon: "pi pi-fw pi-question",
+        items: [
+          {
+            label: "6. Sub Placeholder",
+            icon: "pi pi-pi pi-bars"
+          },
+          {
+            label: "7. Sub Placeholder",
+            icon: "pi pi-pi pi-search",
+            items: [
+              {
+                label: "3. Sub-sub Placeholder",
                 items: [
                   {
-                    label: 'Workspace'
+                    label: "Workspace"
                   }
                 ]
               },
               {
-                label: '4. Sub-sub Placeholder',
-                icon: 'pi pi-fw pi-file',
+                label: "4. Sub-sub Placeholder",
+                icon: "pi pi-fw pi-file"
               }
             ]
           }
         ]
       },
       {
-        label: '4. Main Placeholder',
-        icon: 'pi pi-fw pi-cog',
+        label: "4. Main Placeholder",
+        icon: "pi pi-fw pi-cog",
         items: [
           {
-            label: '8. Sub Placeholder',
-            icon: 'pi pi-fw pi-pencil',
+            label: "8. Sub Placeholder",
+            icon: "pi pi-fw pi-pencil",
             items: [
-              { label: '5. Sub-sub Placeholder', icon: 'pi pi-fw pi-save' },
-              { label: '6. Sub-sub Placeholder', icon: 'pi pi-fw pi-save' },
+              { label: "5. Sub-sub Placeholder", icon: "pi pi-fw pi-save" },
+              { label: "6. Sub-sub Placeholder", icon: "pi pi-fw pi-save" }
             ]
           },
           {
-            label: '9. Sub Placeholder',
-            icon: 'pi pi-fw pi-tags',
+            label: "9. Sub Placeholder",
+            icon: "pi pi-fw pi-tags",
             items: [
-              { label: '7. Sub-sub Placeholder', icon: 'pi pi-fw pi-minus' }
+              { label: "7. Sub-sub Placeholder", icon: "pi pi-fw pi-minus" }
             ]
           }
         ]
@@ -104,11 +114,15 @@ export class IndexComponent implements OnInit {
       (response: any) => {
         this.Projects = response;
       },
-      (response: any ) => {
+      (response: any) => {
         if (response.status === 403) {
-          this.router.navigateByUrl('/login');
+          this.router.navigateByUrl("/login");
         } else {
-          this.messageService.add({severity: 'error', summary: 'Error Message', detail: 'Failed to get projects'});
+          this.messageService.add({
+            severity: "error",
+            summary: "Error Message",
+            detail: "Failed to get projects"
+          });
         }
       }
     );
@@ -116,13 +130,45 @@ export class IndexComponent implements OnInit {
 
   display: boolean = false;
 
-  showDialog(item) {
+  showDialog(item, event) {
     this.display = true;
-    this.selectedProject=item;
+    this.selectedProject = item;
+    event.stopPropagation();
   }
 
   hideDialog() {
-    console.log('hideDialog()');
+    console.log("hideDialog()");
     this.display = false;
+  }
+
+  openProject(item) {
+    console.log("ASDASDASDASDASDASD");
+    this.router.navigateByUrl("/project/" + item.id);
+  }
+
+  deleteProject(item, event) {
+    event.stopPropagation();
+    // console.log("DELETE");
+    this.confirmationService.confirm({
+      message: "Are you want to delete this project?",
+      header: "Delete confirmation",
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.msgs = [{severity: 'info', summary: 'Confirmed', detail: "You have deleted this project"}];
+        this.authService.deleteProjectByID(item.id).subscribe(
+          (response: any) => {
+            console.log("Sikeres torles");
+          },
+          (response: any) => {
+            console.log(response);
+          }
+        );
+        window.location.reload();
+      },
+      reject: () => {
+        this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
+      }
+    });
+  
   }
 }

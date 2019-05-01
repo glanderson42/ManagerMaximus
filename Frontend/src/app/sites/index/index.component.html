@@ -11,14 +11,14 @@
         <h2>Own projects</h2>
         <div class="ui-g layout-card-container">
           <div *ngFor="let item of Projects.own" class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3">
-            <p-card header="{{item.title}}" subheader="{{item.created}}" [style]="{width: auto}" styleClass="ui-card-shadow ui-own-card-ani">
+            <p-card header="{{item.title}}" subheader="{{item.created}}" [style]="{width: auto}" styleClass="ui-card-shadow ui-own-card-ani" (click)="openProject(item)">
               <p-header>
                 <img src="Card" src="http://www.illuminationworksllc.com/wp-content/uploads/2017/04/ProjectManagement-1.jpg">
               </p-header>
               <div class="ui-description">{{item.description}}</div>
               <p-footer class="align-right">
-                <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em" (click)="showDialog(item)"></button>
-                <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-secondary"></button>
+                <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em" (click)="showDialog(item, $event)"></button>
+                <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-secondary" (click)="deleteProject(item, $event)"></button>
               </p-footer>
             </p-card>
           </div>
@@ -31,14 +31,14 @@
         <h2 *ngIf="Projects.contributed && Projects.contributed.length>0">Contributed projects</h2>
         <div *ngIf="Projects.contributed && Projects.contributed.length>0" class="ui-g layout-card-container">
           <div *ngFor="let item of Projects.contributed" class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3">
-            <p-card header="{{item.title}}" subheader="{{item.created}}" [style]="{width: auto}" styleClass="ui-card-shadow ui-own-card-ani">
+            <p-card header="{{item.title}}" subheader="{{item.created}}" [style]="{width: auto}" styleClass="ui-card-shadow ui-own-card-ani" (click)="openProject(item)">
               <p-header>
                 <img src="Card" src="http://www.illuminationworksllc.com/wp-content/uploads/2017/04/ProjectManagement-1.jpg">
               </p-header>
               <div class="ui-description">{{item.description}}</div>
               <p-footer class="align-right">
-                <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em" (click)="showDialog(item)"></button>
-                <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-secondary"></button>
+                <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em" (click)="showDialog(item, $event)"></button>
+                <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-secondary" (click)="deleteProject(item, $event)"></button>
               </p-footer>
             </p-card>
           </div>
@@ -54,3 +54,5 @@
 <p-dialog header="Title" [(visible)]="display" [modal]="true" (onAfterHide)="exitcallback()">
   <app-pop-up-dialog id="popup" [project]="selectedProject"></app-pop-up-dialog>
 </p-dialog>
+
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
