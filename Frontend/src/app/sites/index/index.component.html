@@ -17,7 +17,7 @@
               </p-header>
               <div class="ui-description">{{item.description}}</div>
               <p-footer class="align-right">
-                <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em"></button>
+                <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em" (click)="showDialog(item)"></button>
                 <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-secondary"></button>
               </p-footer>
             </p-card>
@@ -37,7 +37,7 @@
               </p-header>
               <div class="ui-description">{{item.description}}</div>
               <p-footer class="align-right">
-                <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em"></button>
+                <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em" (click)="showDialog(item)"></button>
                 <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-secondary"></button>
               </p-footer>
             </p-card>
@@ -50,3 +50,7 @@
     </div>
   </div>
 </div>
+
+<p-dialog header="Title" [(visible)]="display" [modal]="true" (onAfterHide)="exitcallback()">
+  <app-pop-up-dialog id="popup" [project]="selectedProject"></app-pop-up-dialog>
+</p-dialog>
