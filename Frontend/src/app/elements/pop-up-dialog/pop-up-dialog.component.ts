@@ -10,6 +10,7 @@ export class PopUpDialogComponent implements OnInit {
 
   categories: SelectItem[];
   priorities: SelectItem[];
+  project;
 
   constructor() {
     this.categories = [
