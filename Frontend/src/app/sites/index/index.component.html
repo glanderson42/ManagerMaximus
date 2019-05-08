@@ -55,4 +55,8 @@
   <app-pop-up-dialog id="popup" [project]="selectedProject"></app-pop-up-dialog>
 </p-dialog>
 
+<p-dialog header="Edit user" [(visible)]="showUserEdit" [modal]="true" (onAfterHide)="exitcallback()">
+  <app-user-settings></app-user-settings>
+</p-dialog>
+
 <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
