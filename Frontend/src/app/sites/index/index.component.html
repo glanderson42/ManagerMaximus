@@ -13,7 +13,7 @@
           <div *ngFor="let item of Projects.own" class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3">
             <p-card header="{{item.title}}" subheader="{{item.created}}" [style]="{width: auto}" styleClass="ui-card-shadow ui-own-card-ani" (click)="openProject(item)">
               <p-header>
-                <img src="Card" src="http://www.illuminationworksllc.com/wp-content/uploads/2017/04/ProjectManagement-1.jpg">
+                <img src="Card" [src]="item.headerimage">
               </p-header>
               <div class="ui-description">{{item.description}}</div>
               <p-footer class="align-right">
@@ -33,7 +33,7 @@
           <div *ngFor="let item of Projects.contributed" class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3">
             <p-card header="{{item.title}}" subheader="{{item.created}}" [style]="{width: auto}" styleClass="ui-card-shadow ui-own-card-ani" (click)="openProject(item)">
               <p-header>
-                <img src="Card" src="http://www.illuminationworksllc.com/wp-content/uploads/2017/04/ProjectManagement-1.jpg">
+                <img src="Card" [src]="item.headerimage">
               </p-header>
               <div class="ui-description">{{item.description}}</div>
               <p-footer class="align-right">
@@ -52,7 +52,7 @@
 </div>
 
 <p-dialog header="Title" [(visible)]="display" [modal]="true" (onAfterHide)="exitcallback()">
-  <app-pop-up-dialog id="popup" [project]="selectedProject"></app-pop-up-dialog>
+  <app-pop-up-dialog id="popup" [projectData]="selectedProject"></app-pop-up-dialog>
 </p-dialog>
 
 <p-dialog header="Edit user" [(visible)]="showUserEdit" [modal]="true" (onAfterHide)="exitcallback()">
