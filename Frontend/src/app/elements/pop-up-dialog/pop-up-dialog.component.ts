@@ -40,7 +40,7 @@ export class PopUpDialogComponent implements OnInit {
 
   myUploader(event, uploader) {
     let reader = new FileReader();
-    reader.onload = e => {
+    reader.onload = (e:any) => {
       this.project.headerimage = e.target.result;
       uploader.clear();
     }
