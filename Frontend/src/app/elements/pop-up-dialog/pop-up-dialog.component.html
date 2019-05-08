@@ -3,7 +3,7 @@
         Header
     </label>
     <div>
-      <img class="fileuploaderImage" [src]="project.headerimage"><br>
+      <img class="fileuploaderImage" [src]="project.headerimage" onerror="this.src='../assets/images/projectHeaderImage.jpg';"><br>
       <p-fileUpload #form auto="true" mode="basic" accept="image/*" maxFileSize="1000000" customUpload="true" (uploadHandler)="myUploader($event, form)"></p-fileUpload>
     </div>
 </div>

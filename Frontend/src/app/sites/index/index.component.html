@@ -13,7 +13,7 @@
           <div *ngFor="let item of Projects.own" class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3">
             <p-card header="{{item.title}}" subheader="{{item.created}}" [style]="{width: auto}" styleClass="ui-card-shadow ui-own-card-ani" (click)="openProject(item)">
               <p-header>
-                <img src="Card" [src]="item.headerimage">
+                <img src="Card" [src]="item.headerimage" onerror="this.src='../assets/images/projectHeaderImage.jpg';">
               </p-header>
               <div class="ui-description">{{item.description}}</div>
               <p-footer class="align-right">
@@ -33,7 +33,7 @@
           <div *ngFor="let item of Projects.contributed" class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3">
             <p-card header="{{item.title}}" subheader="{{item.created}}" [style]="{width: auto}" styleClass="ui-card-shadow ui-own-card-ani" (click)="openProject(item)">
               <p-header>
-                <img src="Card" [src]="item.headerimage">
+                <img src="Card" [src]="item.headerimage" onerror="this.src='../assets/images/projectHeaderImage.jpg';">
               </p-header>
               <div class="ui-description">{{item.description}}</div>
               <p-footer class="align-right">
