@@ -43,22 +43,9 @@ export class ProjectSiteComponent implements OnInit {
         ]
       },
       {
-        label: "2. Users",
-        icon: "pi pi-fw pi-user",
-        items: [
-          {
-            label: "1. Add user for this project",
-            icon: "pi pi-fw pi-user-plus"
-          },
-          {
-            label: "2. Remove user from this project",
-            icon: "pi pi-fw pi-user-minus"
-          },
-          {
-            label: "3. Users on this project",
-            icon: "fa fa-fw fa-users"
-          }
-        ]
+        label: "2. Users setting",
+        icon: "pi pi-fw pi-users",
+        command: (event) => { console.log("asd"); }
       },
       {
         label: "3. List",

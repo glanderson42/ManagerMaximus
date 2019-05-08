@@ -34,6 +34,7 @@ import { MenubarComponent } from './elements/menubar/menubar.component';
 import { PopUpDialogComponent } from './elements/pop-up-dialog/pop-up-dialog.component';
 import { ProjectSiteComponent } from './sites/project-site/project-site.component';
 import { UserSettingsComponent } from './sites/user-settings/user-settings.component';
+import { UserHandlingComponent } from './sites/user-handling/user-handling.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { UserSettingsComponent } from './sites/user-settings/user-settings.compo
     MenubarComponent,
     PopUpDialogComponent,
     ProjectSiteComponent,
-    UserSettingsComponent
+    UserSettingsComponent,
+    UserHandlingComponent
   ],
   imports: [
     BrowserModule,
