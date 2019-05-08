@@ -279,13 +279,14 @@ const put = (req, res) => {
           };
         }
         project.parentid = parseInt(project.parentid, 10);
-        const sql = 'INSERT INTO `project` (`authorid`, `parentid`, `title`, `description`, `deadline`, `category`, `priority`) VALUES ' +
+        const sql = 'INSERT INTO `project` (`authorid`, `parentid`, `title`, `description`, `deadline`, `category`, `headerimage`, `priority`) VALUES ' +
           '(\'' + loggedinUser.id + '\', ' +
           ((isNaN(project.parentid)) ? 'NULL' : project.parentid) + ', ' +
           database.escape(project.title) + ', ' +
           database.escape(project.description) + ', ' +
           ((project.deadline === 'NULL') ? 'NULL' : database.escape(project.deadline)) + ', ' +
           database.escape(project.category) + ', ' +
+          database.escape(project.headerimage) + ', ' +
           database.escape(project.priority) + ');';
         return database.asyncQuery(sql);
       })

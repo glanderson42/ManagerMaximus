@@ -78,6 +78,7 @@ const put = (req, res) => {
     title: req.body.title || null,
     data: req.body.data || null,
     visibility: req.body.visibility || null, // 'PUBLIC', 'OWN', 'HIDDEN', 'REMOVED'
+    type: req.body.type || '',
   };
 
   if (widget.id) {
@@ -87,7 +88,19 @@ const put = (req, res) => {
       ((req.body.title     ) ? (' `title` = ' + database.escape(widget.title) + ',') : '') +
       ((req.body.data      ) ? (' `data` = ' + database.escape(widget.data) + ',') : '') +
       ((req.body.visibility) ? (' `visibility` = ' + database.escape(widget.visibility) + ',') : '') +
+      ((req.body.type      ) ? (' `type` = ' + database.escape(widget.type) + ',') : '') +
       '';
+    if (modifiers === '') {
+      res.status(204);
+      res.set({
+        'Content-Type': 'application/json',
+      });
+      res.send(JSON.stringify({
+        statusCode: 204,
+        label: 'Data not changed.',
+      }));
+      return;
+    }
     modifiers = modifiers.substr(0, modifiers.length - 1);
     const sql = 'UPDATE `widget` SET' + modifiers + ' WHERE `authorid`=\'' + loggedinUser.id + '\' AND `id` = ' + database.escape(widget.id) + ';';
     database.asyncQuery(sql)
@@ -137,10 +150,11 @@ const put = (req, res) => {
         }
         widget.parentid = parseInt(widget.parentid, 10);
 
-        const sql = 'INSERT INTO `widget` (`authorid`, `projectid`, `title`, `data`, `comments`, `visibility`) VALUES (\'' +
+        const sql = 'INSERT INTO `widget` (`authorid`, `projectid`, `title`, `type`, `data`, `comments`, `visibility`) VALUES (\'' +
           loggedinUser.id + '\', ' +
           database.escape(widget.projectid) + ', ' +
           database.escape(widget.title) + ', ' +
+          database.escape(widget.type) + ', ' +
           database.escape(widget.data) + ', ' +
           '\'[]\', ' +
           database.escape(widget.visibility) + ');';
