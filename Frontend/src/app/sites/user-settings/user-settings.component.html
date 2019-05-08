@@ -1,3 +1,34 @@
-<p>
-  user-settings works!
-</p>
+<div class="form-group">
+  <label for="username">
+    Username
+  </label>
+  <input id="input" type="text" size="30" pInputText [(ngModel)]="userDetails.username">
+</div>
+<div class="form-group">
+  <label for="email">
+    E-mail
+  </label>
+<input id="input" type="text" size="30" pInputText [(ngModel)]="userDetails.email">
+</div>
+<div class="form-group">
+  <label for="name">
+    Name
+  </label>
+<input id="input" type="text" size="30" pInputText [(ngModel)]="userDetails.name">
+</div>
+<div class="form-group">
+  <label for="password">
+    Password
+  </label>
+<input autocomplete="new-password" id="input" type="password" size="30" [(ngModel)]="userDetails.password1" pPassword placeholder="Required when you want to modify">
+</div>
+<div class="form-group">
+  <label for="re-password">
+    Re-Password
+  </label>
+<input autocomplete="new-password" id="input" type="password" size="30" [(ngModel)]="userDetails.password2" pPassword [feedback]=false placeholder="Required when you want to modify">
+</div>
+<div class="form-group">
+  <button pButton type="button" (click)="saveUserSettings()" label="Save" class="ui-button-success"></button>
+  <button pButton type="button" (click)="closeUserSettings()" label="Cancel" class="ui-button-danger"></button>
+</div>

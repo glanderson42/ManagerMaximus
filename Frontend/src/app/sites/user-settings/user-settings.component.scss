@@ -1,0 +1,24 @@
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  > * {
+    display: block;
+    flex-grow: 1;
+  }
+  > label {
+    width: 100px;
+    flex-grow: 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .form-group {
+    flex-direction: column;
+    align-items: stretch;
+    > label {
+      padding-bottom: 5px;
+    }
+  }
+}

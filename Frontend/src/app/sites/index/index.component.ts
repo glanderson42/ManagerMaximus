@@ -14,7 +14,7 @@ import { MessageService } from "primeng/api";
 export class IndexComponent implements OnInit {
   constructor(
     private authService: AuthService,
-    private messageService: MessageService,
+    public messageService: MessageService,
     private router: Router,
     private confirmationService: ConfirmationService
   ) {}
@@ -60,32 +60,9 @@ export class IndexComponent implements OnInit {
         ]
       },
       {
-        label: "Profile Settings",
+        label: "Edit user",
+        command: (event)=> { this.showUserEdit = true; },
         icon: "pi pi-fw pi-cog",
-        items: [
-          {
-            label: "6. Sub Placeholder",
-            icon: "pi pi-pi pi-bars"
-          },
-          {
-            label: "7. Sub Placeholder",
-            icon: "pi pi-pi pi-search",
-            items: [
-              {
-                label: "3. Sub-sub Placeholder",
-                items: [
-                  {
-                    label: "Workspace"
-                  }
-                ]
-              },
-              {
-                label: "4. Sub-sub Placeholder",
-                icon: "pi pi-fw pi-file"
-              }
-            ]
-          }
-        ]
       },
       {
         label: "Logout",
@@ -126,7 +103,8 @@ export class IndexComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
   
-  display: boolean = false;
+  public display: boolean = false;
+  public showUserEdit: boolean = false;
 
   showDialog(item, event) {
     this.display = true;

@@ -16,7 +16,7 @@ const routes: Routes = [ {path: 'login', component: LoginComponent },
                          {path: 'emailconfirm/error', component: FailedComponent },
                          {path: 'emailconfirm/wrongtoken', component: WrongtokenComponent },
                          {path: 'project/:id', component: ProjectSiteComponent },
-                         {path: 'user/:id', component: UserSettingsComponent },
+                         {path: 'user', component: UserSettingsComponent },
                          {path: '', component: IndexComponent },
                          {path: '**', component: PageNotFoundComponent} ];
 
