@@ -206,6 +206,7 @@ const put = (req, res) => {
     deadline: req.body.deadline || 'NULL',
     category: req.body.category || 'NEW',
     priority: req.body.priority || '',
+    headerimage: req.body.headerimage || '',
   };
 
   if (project.id) {
@@ -217,7 +218,19 @@ const put = (req, res) => {
       ((req.body.deadline   ) ? (' `deadline` = ' +    ((project.deadline === 'NULL') ? 'NULL' : database.escape(project.deadline))    + ',') : '') +
       ((req.body.category   ) ? (' `category` = ' +    database.escape(project.category)    + ',') : '') +
       ((req.body.priority   ) ? (' `priority` = ' +    database.escape(project.priority)    + ',') : '') +
+      ((req.body.headerimage) ? (' `headerimage` = ' + database.escape(project.headerimage) + ',') : '') +
       '';
+    if (modifiers === '') {
+      res.status(204);
+      res.set({
+        'Content-Type': 'application/json',
+      });
+      res.send(JSON.stringify({
+        statusCode: 204,
+        label: 'Data not changed.',
+      }));
+      return;
+    }
     modifiers = modifiers.substr(0, modifiers.length - 1);
     const sql = 'UPDATE `project` SET' + modifiers + ' WHERE `authorid`=\'' + loggedinUser.id + '\' AND `id` = ' + database.escape(project.id) + ';';
     database.asyncQuery(sql)

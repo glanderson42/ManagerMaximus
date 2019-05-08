@@ -18,7 +18,7 @@ import { ConfirmationService } from 'primeng/api';
 import { InputTextModule} from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import {SelectButtonModule} from 'primeng/selectbutton';
-
+import {FileUploadModule} from 'primeng/fileupload';
 
 import { AppRoutingModule } from './services/routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -70,6 +70,7 @@ import { UserHandlingComponent } from './sites/user-handling/user-handling.compo
     ConfirmDialogModule,
     InputTextareaModule,
     SelectButtonModule,
+    FileUploadModule,
     RouterModule.forRoot([
       {
         path: '',

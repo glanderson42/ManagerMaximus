@@ -10,6 +10,7 @@ export class PopUpDialogComponent implements OnInit {
 
   categories: SelectItem[];
   priorities: SelectItem[];
+  project;
 
   constructor() {
     this.categories = [
@@ -25,9 +26,24 @@ export class PopUpDialogComponent implements OnInit {
     ];
   }
 
-  @Input() project;
+  get projectData(): string {
+    return this.project;
+  }
+
+  @Input()
+  set projectData(project) {
+    this.project = project;
+  }
 
   ngOnInit() {
-    console.log(this.project);
+  }
+
+  myUploader(event, uploader) {
+    let reader = new FileReader();
+    reader.onload = (e:any) => {
+      this.project.headerimage = e.target.result;
+      uploader.clear();
+    }
+    reader.readAsDataURL(event.files[0]);
   }
 }
