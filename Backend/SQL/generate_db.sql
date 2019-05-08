@@ -28,6 +28,7 @@ CREATE TABLE `project` (
   `parentid` int(10) DEFAULT NULL,
   `title` varchar(100) NOT NULL,
   `description` text NOT NULL,
+  `headerimage` longtext DEFAULT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deadline` datetime DEFAULT NULL,
   `category` enum('NEW','PROGRESS','TESTING','READY') NOT NULL DEFAULT 'NEW',
