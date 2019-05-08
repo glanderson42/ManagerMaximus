@@ -15,8 +15,6 @@ export class UserSettingsComponent implements OnInit {
 
   ngOnInit() {
     this.userDetails = JSON.parse(localStorage.getItem('user'));
-    console.log(this.userDetails);
-
   }
 
   closeUserSettings(event) {
@@ -27,11 +25,9 @@ export class UserSettingsComponent implements OnInit {
     console.log(this.userDetails);
     this.authService.saveUserEdit(this.userDetails).subscribe(
       (response: any) => {
-        console.log("success");
         this.index.showUserEdit = false;
       },
       (response: any) => {
-        console.log("failed");
         this.index.messageService.add({severity: 'error', summary: 'Error Message', detail: response.error.label});
       }
     );
