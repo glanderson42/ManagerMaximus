@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProjectSiteComponent } from '../project-site/project-site.component';
 
 @Component({
   selector: 'app-user-handling',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserHandlingComponent implements OnInit {
 
-  constructor() { }
+  constructor(private projectSite: ProjectSiteComponent) { }
 
   ngOnInit() {
+  }
+
+  closeUserHandling(event) {
+    this.projectSite.DisplayUserHandling = false;
   }
 
 }

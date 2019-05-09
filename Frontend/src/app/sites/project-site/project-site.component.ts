@@ -18,6 +18,7 @@ export class ProjectSiteComponent implements OnInit {
 
   MenuBar: MenuItem[];
   PanelMenu: MenuItem[];
+  public DisplayUserHandling: boolean = false;
   Project = {};
 
   ngOnInit() {
@@ -45,7 +46,7 @@ export class ProjectSiteComponent implements OnInit {
       {
         label: "2. Users setting",
         icon: "pi pi-fw pi-users",
-        command: (event) => { console.log("asd"); }
+        command: (event) => { this.DisplayUserHandling = true; }
       },
       {
         label: "3. List",
