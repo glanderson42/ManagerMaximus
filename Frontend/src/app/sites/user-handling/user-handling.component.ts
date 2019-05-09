@@ -4,7 +4,7 @@ import { ProjectSiteComponent } from '../project-site/project-site.component';
 @Component({
   selector: 'app-user-handling',
   templateUrl: './user-handling.component.html',
-  styleUrls: ['./user-handling.component.sass']
+  styleUrls: ['./user-handling.component.scss']
 })
 export class UserHandlingComponent implements OnInit {
 
