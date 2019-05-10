@@ -6,6 +6,7 @@
     "docs": "typedoc --out frontend_docs src/",
     "start": "ng serve",
     "build": "ng build",
+    "prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

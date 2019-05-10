@@ -18,7 +18,7 @@ export class ProjectSiteComponent implements OnInit {
 
   MenuBar: MenuItem[];
   PanelMenu: MenuItem[];
-  Project = {};
+  Project: any = {};
 
   ngOnInit() {
     if (!localStorage.getItem("user")) {

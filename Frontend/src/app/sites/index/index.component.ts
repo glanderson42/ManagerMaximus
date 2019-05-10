@@ -20,8 +20,8 @@ export class IndexComponent implements OnInit {
   ) {}
   MenuBar: MenuItem[];
   PanelMenu: MenuItem[];
-  Projects = {};
-  selectedProject = {};
+  Projects: any = {};
+  selectedProject: any = {};
   msgs: Message[] = [];
 
   ngOnInit() {
@@ -102,7 +102,7 @@ export class IndexComponent implements OnInit {
     localStorage.clear();
     this.router.navigateByUrl('/login');
   }
-  
+
   public display: boolean = false;
   public showUserEdit: boolean = false;
 
@@ -145,6 +145,6 @@ export class IndexComponent implements OnInit {
         this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
       }
     });
-  
+
   }
 }

@@ -36,7 +36,7 @@ echo -e "\nRunning build in Frontend\n"
 
 sleep 1
 
-npm run build
+npm run prod
 
 IS_FAILED=$?
 
