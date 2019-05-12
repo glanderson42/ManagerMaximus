@@ -27,5 +27,9 @@
     },
   },
 
-  smtpList: []
+  smtpList: [],
+
+  requestLog: false,
+  requestLogDetailed: false,
+  timestampLogMinutes: 0,
 }

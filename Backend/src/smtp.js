@@ -46,6 +46,8 @@ const sendMail = (to, subject, text, callback) => {
   }, (error, info) => {
     if (error) {
       console.log(error);
+    } else {
+      console.log(`Mail sent to ${to}`);
     }
     callback(error, info);
   });

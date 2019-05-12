@@ -72,7 +72,6 @@ const login = (req, res) => {
 
 const logout = (req, res) => {
   const loggedinUser = this.getLoggedInUser(req);
-  console.log(loggedinUser);
 
   if (!loggedinUser) {
     res.status(403);
@@ -98,6 +97,7 @@ const logout = (req, res) => {
           statusCode: 200,
           label: 'Logout was successful',
         };
+        console.log(`User '${loggedinUser.username}' logged out`);
         throw data;
       }
     })
@@ -229,6 +229,7 @@ const confirm = (req, res) => {
           'Location': config.get('frontendUrl') + 'emailconfirm/success',
         });
         res.send('SUCCESS');
+        console.log(`User #${tokenData.userid} confirmed`);
       }
       if (err) {
         throw err;

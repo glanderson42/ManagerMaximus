@@ -53,6 +53,24 @@ app.use((req, res, next) => {
   next();
 });
 
+if (config.get('requestLog')) {
+  console.log('REQUEST: logging enabled' + (config.get('requestLogDetailed') ? ' [DETAILED]' : ''));
+  app.use((req, res, next) => {
+    console.log('REQUEST: ' + new Date().toLocaleString() + '\t' + req.method + '\t' + req.headers.host + '\t' + req.url);
+    if (config.get('requestLogDetailed')) {
+      console.log('  Auth: ' + req.headers.authorization);
+      console.log('  U-ag: ' + req.headers['user-agent']);
+    }
+    next();
+  });
+}
+if (parseInt(config.get('timestampLogMinutes'), 10)) {
+  console.log('TIMESTAMP: ' + new Date().toLocaleString() + '\t' + parseInt(config.get('timestampLogMinutes'), 10) + 'min');
+  setInterval(() => {
+    console.log('TIMESTAMP: ' + new Date().toLocaleString());
+  }, 1000 * 60 * parseInt(config.get('timestampLogMinutes'), 10));
+}
+
 database.init();
 
 smtp.init();
