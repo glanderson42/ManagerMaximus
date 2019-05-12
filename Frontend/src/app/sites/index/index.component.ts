@@ -107,8 +107,12 @@ export class IndexComponent implements OnInit {
   public showUserEdit: boolean = false;
 
   showDialog(item, event) {
-    this.display = true;
-    this.selectedProject = item;
+    if (item) {
+      this.display = true;
+      this.selectedProject = item;
+    } else {
+      this.selectedProject = {};
+    }
     event.stopPropagation();
   }
 
