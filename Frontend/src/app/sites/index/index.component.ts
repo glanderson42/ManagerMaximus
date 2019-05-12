@@ -22,7 +22,6 @@ export class IndexComponent implements OnInit {
   PanelMenu: MenuItem[];
   Projects: any = {};
   selectedProject: any = {};
-  msgs: Message[] = [];
 
   ngOnInit() {
     if (!localStorage.getItem("user")) {
@@ -36,7 +35,7 @@ export class IndexComponent implements OnInit {
         icon: "pi pi-pw pi-plus",
         command: (event)=> {
           event.item.expanded = false;
-          this.showDialog();
+          this.showDialog(null, null);
         },
       },
       {
@@ -73,7 +72,7 @@ export class IndexComponent implements OnInit {
                 label:"Open",
                 icon: "pi pi-plus",
                 command: (event)=> {
-                  this.openProject(e, event);
+                  this.openProject(e);
                 },
               },
               {
@@ -150,23 +149,22 @@ export class IndexComponent implements OnInit {
       event.stopPropagation();
     }
     this.confirmationService.confirm({
-      message: "Are you want to delete this project?",
+      message: "Are you sure want to delete this project?",
       header: "Delete confirmation",
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.msgs = [{severity: 'info', summary: 'Confirmed', detail: "You have deleted this project"}];
         this.authService.deleteProjectByID(item.id).subscribe(
           (response: any) => {
-            console.log("Sikeres torles");
+            this.messageService.add({severity:'success', summary: 'Success Message', detail:'Project was NOT deleted.'});
+            item.deleted = true;
           },
           (response: any) => {
-            console.log(response);
+            this.messageService.add({severity:'error', summary: 'Error Message', detail:'Project was NOT deleted.'});
           }
         );
-        window.location.reload();
       },
       reject: () => {
-        this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
+        this.messageService.add({severity:'info', summary: 'Info Message', detail:'Project was NOT deleted.'});
       }
     });
 

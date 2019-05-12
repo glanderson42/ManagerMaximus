@@ -1,3 +1,9 @@
-<p>
-  text-widget works!
-</p>
+<p-panel header="{{widgetData.title}}" [toggleable]="true">
+  <p-header>
+    <span>{{widgetData.date}}</span>
+  </p-header>
+  {{widgetData.data}}
+  <p-footer >
+    {{widgetData.comments}}
+  </p-footer>
+</p-panel>
