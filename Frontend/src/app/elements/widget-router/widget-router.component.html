@@ -1,0 +1,11 @@
+<div class="widget-buttons">
+  <p-button icon="pi pi-pencil"></p-button>
+  <p-button icon="pi pi-trash"></p-button>
+</div>
+<div class="widget-content">
+  <div [ngSwitch]="widgetData.type">
+    <app-text-widget [widgetData]="widgetData" *ngSwitchCase="'textWidget'">textWidget</app-text-widget>
+    <app-image-widget [widgetData]="widgetData" *ngSwitchCase="'imageWidget'">imageWidget</app-image-widget>
+    <div *ngSwitchDefault>Error: Undefined widget type.</div>
+  </div>
+</div>

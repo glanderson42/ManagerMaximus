@@ -143,6 +143,7 @@ const del = (req, res) => {
           statusCode: 200,
           label: 'Project delete was successful',
         };
+        console.log(`Project #${projectId} deleted`);
         throw data;
       } else {
         return database.asyncQuery('DELETE FROM `contributors` WHERE `userid`=\'' + loggedinUser.id + '\' AND `projectid`=' + projectId + ';');
@@ -240,7 +241,7 @@ const put = (req, res) => {
             statusCode: 200,
             label: 'Project updated.',
           };
-          console.log('Project updated');
+          console.log(`Project #${project.id} updated`);
         } else {
           data = {
             statusCode: 403,
@@ -279,19 +280,20 @@ const put = (req, res) => {
           };
         }
         project.parentid = parseInt(project.parentid, 10);
-        const sql = 'INSERT INTO `project` (`authorid`, `parentid`, `title`, `description`, `deadline`, `category`, `priority`) VALUES ' +
+        const sql = 'INSERT INTO `project` (`authorid`, `parentid`, `title`, `description`, `deadline`, `category`, `headerimage`, `priority`) VALUES ' +
           '(\'' + loggedinUser.id + '\', ' +
           ((isNaN(project.parentid)) ? 'NULL' : project.parentid) + ', ' +
           database.escape(project.title) + ', ' +
           database.escape(project.description) + ', ' +
           ((project.deadline === 'NULL') ? 'NULL' : database.escape(project.deadline)) + ', ' +
           database.escape(project.category) + ', ' +
+          database.escape(project.headerimage) + ', ' +
           database.escape(project.priority) + ');';
         return database.asyncQuery(sql);
       })
       .then(result => {
         if (result.insertId) {
-          console.log('New project created');
+          console.log(`New project created #${result.insertId}`);
           data = {
             statusCode: 200,
             label: 'New project created.',

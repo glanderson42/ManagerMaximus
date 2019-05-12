@@ -11,7 +11,7 @@
         <h2>Own projects</h2>
         <div class="ui-g layout-card-container">
           <div *ngFor="let item of Projects.own" class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3">
-            <p-card header="{{item.title}}" subheader="{{item.created}}" [style]="{width: auto}" styleClass="ui-card-shadow ui-own-card-ani" (click)="openProject(item)">
+            <p-card header="{{item.title}}" subheader="{{item.created}}" styleClass="ui-card-shadow ui-own-card-ani" (click)="openProject(item)">
               <p-header>
                 <img src="Card" [src]="item.headerimage" onerror="this.src='../assets/images/projectHeaderImage.jpg';">
               </p-header>
@@ -23,7 +23,7 @@
             </p-card>
           </div>
           <div class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3">
-            <p-card id="addProjectCard" header="New project" subheader="" [style]="{width: auto}" styleClass="ui-card-shadow">
+            <p-card id="addProjectCard" header="New project" subheader="" styleClass="ui-card-shadow" (click)="showDialog({}, $event)">
               <p-header></p-header>
             </p-card>
           </div>
@@ -31,7 +31,7 @@
         <h2 *ngIf="Projects.contributed && Projects.contributed.length>0">Contributed projects</h2>
         <div *ngIf="Projects.contributed && Projects.contributed.length>0" class="ui-g layout-card-container">
           <div *ngFor="let item of Projects.contributed" class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3">
-            <p-card header="{{item.title}}" subheader="{{item.created}}" [style]="{width: auto}" styleClass="ui-card-shadow ui-own-card-ani" (click)="openProject(item)">
+            <p-card header="{{item.title}}" subheader="{{item.created}}" styleClass="ui-card-shadow ui-own-card-ani" (click)="openProject(item)">
               <p-header>
                 <img src="Card" [src]="item.headerimage" onerror="this.src='../assets/images/projectHeaderImage.jpg';">
               </p-header>
@@ -51,11 +51,11 @@
   </div>
 </div>
 
-<p-dialog header="Title" [(visible)]="display" [modal]="true" (onAfterHide)="exitcallback()">
+<p-dialog header="Title" [(visible)]="display" [modal]="true">
   <app-pop-up-dialog id="popup" [projectData]="selectedProject"></app-pop-up-dialog>
 </p-dialog>
 
-<p-dialog header="Edit user" [(visible)]="showUserEdit" [modal]="true" (onAfterHide)="exitcallback()">
+<p-dialog header="Edit user" [(visible)]="showUserEdit" [modal]="true">
   <app-user-settings></app-user-settings>
 </p-dialog>
 

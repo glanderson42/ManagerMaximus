@@ -19,6 +19,7 @@ import { InputTextModule} from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {FileUploadModule} from 'primeng/fileupload';
+import { PanelModule } from 'primeng/panel';
 
 import { AppRoutingModule } from './services/routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,6 +36,9 @@ import { PopUpDialogComponent } from './elements/pop-up-dialog/pop-up-dialog.com
 import { ProjectSiteComponent } from './sites/project-site/project-site.component';
 import { UserSettingsComponent } from './sites/user-settings/user-settings.component';
 import { UserHandlingComponent } from './sites/user-handling/user-handling.component';
+import { WidgetRouterComponent } from './elements/widget-router/widget-router.component';
+import { TextWidgetComponent } from './elements/widgets/text-widget/text-widget.component';
+import { ImageWidgetComponent } from './elements/widgets/image-widget/image-widget.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +54,10 @@ import { UserHandlingComponent } from './sites/user-handling/user-handling.compo
     PopUpDialogComponent,
     ProjectSiteComponent,
     UserSettingsComponent,
-    UserHandlingComponent
+    UserHandlingComponent,
+    WidgetRouterComponent,
+    TextWidgetComponent,
+    ImageWidgetComponent
   ],
   imports: [
     BrowserModule,
@@ -71,6 +78,7 @@ import { UserHandlingComponent } from './sites/user-handling/user-handling.compo
     InputTextareaModule,
     SelectButtonModule,
     FileUploadModule,
+    PanelModule,
     RouterModule.forRoot([
       {
         path: '',

@@ -12,9 +12,9 @@ INSERT INTO `project` (`id`, `authorid`, `parentid`, `title`, `description`, `cr
 
 INSERT INTO `contributors` (`id`, `userid`, `projectid`) VALUES (NULL, '2', '2');
 
-INSERT INTO `widget` (`id`, `authorid`, `projectid`, `title`, `data`, `comments`, `date`, `lastmodified`, `visibility`) VALUES
-(1, '1', '2', 'First widget', '{}', '[]', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'PUBLIC'),
-(2, '1', '2', 'Second widget', '{}', '[]', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'OWN');
+INSERT INTO `widget` (`id`, `authorid`, `projectid`, `title`, `type`, `data`, `comments`, `date`, `lastmodified`, `visibility`) VALUES
+(1, '1', '2', 'First widget', 'textWidget', 'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et', '[]', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'PUBLIC'),
+(2, '1', '2', 'Second widget', '', '{}', '[]', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'OWN');
 
 INSERT INTO `chat` (`id`, `authorid`, `projectid`, `content`, `date`) VALUES
 (1, '1', '1', '1. Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et.', CURRENT_TIMESTAMP),

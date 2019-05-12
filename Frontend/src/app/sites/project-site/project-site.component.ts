@@ -18,8 +18,10 @@ export class ProjectSiteComponent implements OnInit {
 
   MenuBar: MenuItem[];
   PanelMenu: MenuItem[];
+
   public DisplayUserHandling: boolean = false;
-  Project = {};
+  Project: any = {};
+
 
   ngOnInit() {
     if (!localStorage.getItem("user")) {
@@ -72,7 +74,7 @@ export class ProjectSiteComponent implements OnInit {
       },
       (response: any) => {
         if (response.status === 403) {
-          this.router.navigateByUrl('\login');
+          this.router.navigateByUrl('/login');
         } else {
           this.router.navigateByUrl('');
           this.messageService.add({

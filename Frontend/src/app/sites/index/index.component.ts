@@ -20,8 +20,8 @@ export class IndexComponent implements OnInit {
   ) {}
   MenuBar: MenuItem[];
   PanelMenu: MenuItem[];
-  Projects = {};
-  selectedProject = {};
+  Projects: any = {};
+  selectedProject: any = {};
   msgs: Message[] = [];
 
   ngOnInit() {
@@ -34,39 +34,30 @@ export class IndexComponent implements OnInit {
       {
         label: "New Project",
         icon: "pi pi-pw pi-plus",
-        items: [
-          {
-            label: "1. Sub Placeholder",
-            icon: "pi pi-fw pi-plus",
-            items: [
-              {
-                label: "1. Sub-sub Placeholder",
-                icon: "pi pi-fw pi-user-plus"
-              },
-              { label: "2. Sub-sub Placeholder", icon: "pi pi-fw pi-filter" }
-            ]
-          },
-          { label: "2. Sub Placeholder", icon: "pi pi-fw pi-external-link" },
-          { separator: true },
-          { label: "3. Sub Placeholder", icon: "pi pi-fw pi-times" }
-        ]
+        command: (event)=> {
+          event.item.expanded = false;
+          this.showDialog();
+        },
       },
       {
         label: "Manage Projects",
-        icon: "pi pi-fw pi-list",
-        items: [
-          { label: "4. Sub Placeholder", icon: "pi pi-fw pi-trash" },
-          { label: "5. Sub Placeholder", icon: "pi pi-fw pi-refresh" }
-        ]
+        icon: "pi pi-list",
+        items: [],
       },
       {
         label: "Edit user",
-        command: (event)=> { this.showUserEdit = true; },
+        command: (event)=> {
+          event.item.expanded = false;
+          this.showUserEdit = true;
+        },
         icon: "pi pi-fw pi-cog",
       },
       {
         label: "Logout",
-        command: (event)=> { this.logoutUser() },
+        command: (event)=> {
+          event.item.expanded = false;
+          this.logoutUser()
+        },
         icon: "pi pi-fw pi-sign-out",
       }
     ];
@@ -74,6 +65,34 @@ export class IndexComponent implements OnInit {
     this.authService.getProjects().subscribe(
       (response: any) => {
         this.Projects = response;
+        this.PanelMenu[1].items = response.own.map(e => {
+          return {
+            label: e.title,
+            items: [
+              {
+                label:"Open",
+                icon: "pi pi-plus",
+                command: (event)=> {
+                  this.openProject(e, event);
+                },
+              },
+              {
+                label:"Edit",
+                icon: "pi pi-cog",
+                command: (event)=> {
+                  this.showDialog(e, event);
+                },
+              },
+              {
+                label:"Delete",
+                icon: "pi pi-times",
+                command: (event)=> {
+                  this.deleteProject(e, event);
+                },
+              },
+            ],
+          };
+        });
       },
       (response: any) => {
         if (response.status === 403) {
@@ -102,14 +121,19 @@ export class IndexComponent implements OnInit {
     localStorage.clear();
     this.router.navigateByUrl('/login');
   }
-  
+
   public display: boolean = false;
   public showUserEdit: boolean = false;
 
   showDialog(item, event) {
+    if (typeof item != 'object') {
+      item = {};
+    }
     this.display = true;
     this.selectedProject = item;
-    event.stopPropagation();
+    if (event && event.stopPropagation) {
+      event.stopPropagation();
+    }
   }
 
   hideDialog() {
@@ -118,13 +142,13 @@ export class IndexComponent implements OnInit {
   }
 
   openProject(item) {
-    console.log("ASDASDASDASDASDASD");
     this.router.navigateByUrl("/project/" + item.id);
   }
 
   deleteProject(item, event) {
-    event.stopPropagation();
-    // console.log("DELETE");
+    if (event && event.stopPropagation) {
+      event.stopPropagation();
+    }
     this.confirmationService.confirm({
       message: "Are you want to delete this project?",
       header: "Delete confirmation",
@@ -145,6 +169,6 @@ export class IndexComponent implements OnInit {
         this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
       }
     });
-  
+
   }
 }

@@ -8,23 +8,8 @@
             <div class="layout-content-inner">
                 <h1>{{Project.title}}</h1>
                 <h2>{{Project.description}}</h2>
-                <div class="ui-g layout-card-container">
-                    <div *ngFor="let item of Project.widgets" class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3">
-
-                        <div>
-                            <p-card header="{{item.title}}" subheader="{{item.date}}" [style]="{width: auto}" styleClass="ui-card-shadow ui-own-card-ani">
-                                <p-header>
-                                    <img src="Card" src="http://www.illuminationworksllc.com/wp-content/uploads/2017/04/ProjectManagement-1.jpg">
-                                </p-header>
-                                <div class="ui-description">{{item.data}}</div>
-                                <p-footer class="align-right">
-                                    <button pButton type="button" label="Edit" icon="pi pi-cog" style="margin-right: .25em"></button>
-                                    <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-secondary"></button>
-                                </p-footer>
-                            </p-card>
-
-                        </div>
-                    </div>
+                <div class="layout-card-container">
+                    <app-widget-router *ngFor="let item of Project.widgets" [widgetData]="item"></app-widget-router>
                 </div>
             </div>
             <div class="layout-footer">
@@ -38,4 +23,4 @@
     <app-user-handling></app-user-handling>
 </p-dialog>
   
-  <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

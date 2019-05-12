@@ -48,6 +48,7 @@ CREATE TABLE `widget` (
   `authorid` int(10) NOT NULL,
   `projectid` int(10) NOT NULL,
   `title` varchar(100) NOT NULL,
+  `type` varchar(100) DEFAULT NULL,
   `data` longtext NOT NULL,
   `comments` longtext NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
