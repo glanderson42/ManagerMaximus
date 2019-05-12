@@ -30,6 +30,7 @@ export class ProjectSiteComponent implements OnInit {
       {
         label: "1. Create new",
         icon: "pi pi-pw pi-plus",
+        expanded: true,
         items: [
           {
             label: "1. Subproject",
@@ -45,6 +46,7 @@ export class ProjectSiteComponent implements OnInit {
       {
         label: "2. Users",
         icon: "pi pi-fw pi-user",
+        expanded: true,
         items: [
           {
             label: "1. Add user for this project",
@@ -61,26 +63,48 @@ export class ProjectSiteComponent implements OnInit {
         ]
       },
       {
-        label: "3. List",
+        label: "3. Subprojects",
         icon: "fa fa-fw fa-list-alt",
-        items: [
-          {
-            label: "1. Subprojects",
-            icon: "fa fa-fw fa-list-ol"
-          },
-          {
-            label: "2. Widgets",
-            icon: "fa fa-fw fa-list-ol"
-          }
-        ]
+        items: [],
+      },
+      {
+        label: "Edit project",
+        command: (event)=> {
+          event.item.expanded = false;
+          alert('TODO');
+        },
+        icon: "pi pi-fw pi-cog",
+      },
+      {
+        label: "Homepage",
+        command: (event)=> {
+          this.router.navigateByUrl('/');
+        },
+        icon: "pi pi-home",
       }
     ];
 
-    const id = this.route.snapshot.paramMap.get("id");
+    this.route.params
+    .subscribe(data => {
+      this.loadProject(data.id);
+    })
+  }
 
+  loadProject(id) {
     this.authService.getProjectByID(parseInt(id)).subscribe(
       (response: any) => {
         this.Project = response;
+        this.PanelMenu[2].items = response.subprojects.map(e=>{
+          console.log(e);
+          return {
+            label: e.title,
+            icon: "fa fa-fw fa-list-ol",
+            command: (event) => {
+              this.router.navigateByUrl("/project/" + e.id);
+            },
+          }
+        });
+        this.PanelMenu[2].expanded = response.subprojects.length > 0;
       },
       (response: any) => {
         if (response.status === 403) {

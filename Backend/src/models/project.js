@@ -70,51 +70,49 @@ const get = (req, res) => {
     return;
   }
 
+  let data = {
+    statusCode: 403,
+    label: 'Forbidden.',
+  };
   const projectId = database.escape(req.params.id);
-  database.query('SELECT `project`.* FROM `project` LEFT JOIN `contributors` ON `project`.`id`=`contributors`.`projectid` WHERE (`contributors`.`userid`=\'' + loggedinUser.id + '\' OR `project`.`authorid`=\'' + loggedinUser.id + '\') AND `project`.`id` = ' + projectId + ';', (err, result) => {
-    if (err) {
-      res.status(500);
+  database.asyncQuery('SELECT `project`.* FROM `project` LEFT JOIN `contributors` ON `project`.`id`=`contributors`.`projectid` WHERE (`contributors`.`userid`=\'' + loggedinUser.id + '\' OR `project`.`authorid`=\'' + loggedinUser.id + '\') AND `project`.`id` = ' + projectId + ';')
+    .then(result => {
+      if (!result[0]) {
+        throw {
+          statusCode: 405,
+          label: 'Forbidden.',
+        };
+      }
+      data = result[0];
+      return database.asyncQuery('SELECT `widget`.* FROM `widget` WHERE `widget`.`projectid` = \'' + data.id + '\';');
+    })
+    .then((result) => {
+      data.widgets = result;
+      return database.asyncQuery('SELECT `id`, `title` FROM `project` WHERE `parentid`=\'' + data.id + '\';');
+    })
+    .then((result) => {
+      data.subprojects = result;
+    })
+    .then(() => {
+      res.status(data.statusCode || 200);
       res.set({
         'Content-Type': 'application/json',
       });
-      res.send(JSON.stringify({
-        statusCode: 500,
-        label: err.sqlMessage,
-      }));
-      throw err;
-    }
-    if (!result[0]) {
-      res.status(405);
-      res.set({
-        'Content-Type': 'application/json',
-      });
-      res.send(JSON.stringify({
-        statusCode: 405,
-        label: 'Forbidden.',
-      }));
-      return;
-    }
-    const project = result[0];
-    database.query('SELECT `widget`.* FROM `widget` WHERE `widget`.`projectid` = \'' + project.id + '\';', (err, result) => {
-      if (err) {
-        res.status(500);
-        res.set({
-          'Content-Type': 'application/json',
-        });
-        res.send(JSON.stringify({
+      res.send(JSON.stringify(data));
+    })
+    .catch(err => {
+      if (err.sqlMessage) {
+        err = {
           statusCode: 500,
           label: err.sqlMessage,
-        }));
-        throw err;
+        };
       }
-      project.widgets = result;
-      res.status(200);
+      res.status(err.statusCode);
       res.set({
         'Content-Type': 'application/json',
       });
-      res.send(JSON.stringify(project));
+      res.send(JSON.stringify(err));
     });
-  });
 };
 
 const del = (req, res) => {
