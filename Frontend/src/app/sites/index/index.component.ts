@@ -155,7 +155,7 @@ export class IndexComponent implements OnInit {
       accept: () => {
         this.authService.deleteProjectByID(item.id).subscribe(
           (response: any) => {
-            this.messageService.add({severity:'success', summary: 'Success Message', detail:'Project was NOT deleted.'});
+            this.messageService.add({severity:'success', summary: 'Success Message', detail:'Project was deleted.'});
             item.deleted = true;
           },
           (response: any) => {
