@@ -36,6 +36,7 @@ import { ProjectSiteComponent } from './sites/project-site/project-site.componen
 import { UserSettingsComponent } from './sites/user-settings/user-settings.component';
 import { WidgetRouterComponent } from './elements/widget-router/widget-router.component';
 import { TextWidgetComponent } from './elements/widgets/text-widget/text-widget.component';
+import { ImageWidgetComponent } from './elements/widgets/image-widget/image-widget.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { TextWidgetComponent } from './elements/widgets/text-widget/text-widget.
     ProjectSiteComponent,
     UserSettingsComponent,
     WidgetRouterComponent,
-    TextWidgetComponent
+    TextWidgetComponent,
+    ImageWidgetComponent
   ],
   imports: [
     BrowserModule,
