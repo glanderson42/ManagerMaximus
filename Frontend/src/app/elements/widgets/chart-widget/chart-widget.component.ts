@@ -8,10 +8,14 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ChartWidgetComponent implements OnInit {
 
   @Input() widgetData;
+  chartData;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+    this.chartData = JSON.parse(this.widgetData.data);
+
   }
 
 }
