@@ -1,0 +1,13 @@
+.card-container {
+  opacity: 1;
+  max-width: 500px;
+  transition: opacity .5s, max-width .5s, padding .5s;
+  transition-delay: .5s, 0s, 0s;
+
+  &.deleted-project {
+    transition-delay: 0s, .5s, .5s;
+    opacity: 0;
+    max-width: 0px;
+    padding: 0;
+  }
+}

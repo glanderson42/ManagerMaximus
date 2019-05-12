@@ -10,7 +10,7 @@
         <h1>ManagerMaximus - Projects</h1>
         <h2>Own projects</h2>
         <div class="ui-g layout-card-container">
-          <div *ngFor="let item of Projects.own" class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3">
+          <div *ngFor="let item of Projects.own"[ngClass]="{'deleted-project': item.deleted}" class="ui-g-12 ui-md-6 ui-lg-4 ui-xl-3 card-container">
             <p-card header="{{item.title}}" subheader="{{item.created}}" styleClass="ui-card-shadow ui-own-card-ani" (click)="openProject(item)">
               <p-header>
                 <img src="Card" [src]="item.headerimage" onerror="this.src='../assets/images/projectHeaderImage.jpg';">
@@ -59,4 +59,9 @@
   <app-user-settings></app-user-settings>
 </p-dialog>
 
-<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+<p-confirmDialog #cd [style]="{width: '50vw'}">
+  <p-footer>
+    <button class="ui-button-success" type="button" pButton icon="pi pi-check" label="Delete" (click)="cd.accept()"></button>
+    <button class="ui-button-danger" type="button" pButton icon="pi pi-times" label="Cancel" (click)="cd.reject()"></button>
+  </p-footer>
+</p-confirmDialog>
