@@ -38,6 +38,7 @@ import { UserSettingsComponent } from './sites/user-settings/user-settings.compo
 import { WidgetRouterComponent } from './elements/widget-router/widget-router.component';
 import { TextWidgetComponent } from './elements/widgets/text-widget/text-widget.component';
 import { ImageWidgetComponent } from './elements/widgets/image-widget/image-widget.component';
+import { ChartWidgetComponent } from './elements/widgets/chart-widget/chart-widget.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { ImageWidgetComponent } from './elements/widgets/image-widget/image-widg
     UserSettingsComponent,
     WidgetRouterComponent,
     TextWidgetComponent,
-    ImageWidgetComponent
+    ImageWidgetComponent,
+    ChartWidgetComponent
   ],
   imports: [
     BrowserModule,

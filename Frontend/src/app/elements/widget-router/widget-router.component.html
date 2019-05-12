@@ -6,6 +6,7 @@
   <div [ngSwitch]="widgetData.type">
     <app-text-widget [widgetData]="widgetData" *ngSwitchCase="'textWidget'">textWidget</app-text-widget>
     <app-image-widget [widgetData]="widgetData" *ngSwitchCase="'imageWidget'">imageWidget</app-image-widget>
+    <app-chart-widget [widgetData]="widgetData" *ngSwitchCase="'chartWidget'">chartWidget</app-chart-widget>
     <div *ngSwitchDefault>Error: Undefined widget type.</div>
   </div>
 </div>
