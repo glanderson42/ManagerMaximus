@@ -27,6 +27,7 @@ const del = (req, res) => {
           statusCode: 200,
           label: 'Widget delete was successful',
         };
+        console.log(`Widget #${projectId} deleted`);
         throw data;
       }
     })
@@ -110,7 +111,7 @@ const put = (req, res) => {
             statusCode: 200,
             label: 'Widget updated.',
           };
-          console.log('Widget updated');
+          console.log(`Widget #${widget.id} updated`);
         } else {
           data = {
             statusCode: 403,
@@ -139,13 +140,13 @@ const put = (req, res) => {
         res.send(JSON.stringify(err));
       });
   } else {
-    // Create new project
+    // Create new widget
     database.asyncQuery('SELECT `project`.* FROM `project` LEFT JOIN `contributors` ON `project`.`id`=`contributors`.`projectid` WHERE (`contributors`.`userid`=\'' + loggedinUser.id + '\' OR `project`.`authorid`=\'' + loggedinUser.id + '\') AND `project`.`id`=' + database.escape(widget.projectid) + ';')
       .then(result => {
         if (result.length === 0 && widget.parentid && widget.parentid !== 'NULL') {
           throw {
             statusCode: 403,
-            label: 'Cannot make subproject for contributed widget.',
+            label: 'Cannot make widget for this project.',
           };
         }
         widget.parentid = parseInt(widget.parentid, 10);
@@ -162,10 +163,10 @@ const put = (req, res) => {
       })
       .then(result => {
         if (result.insertId) {
-          console.log('New project created');
+          console.log(`New widget created #${result.insertId}`);
           data = {
             statusCode: 200,
-            label: 'New project created.',
+            label: 'New widget created.',
             projectid: result.insertId,
           };
         }

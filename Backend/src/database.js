@@ -18,10 +18,6 @@ const init = () => {
   return connection;
 };
 
-const hasinit = () => {
-  console.log(!!connection);
-};
-
 const query = (query, callback) => {
   connection.query(query, callback);
 };
@@ -49,7 +45,6 @@ const validateEmail = (email) => {
 };
 
 module.exports.init = init;
-module.exports.hasinit = hasinit;
 module.exports.query = query;
 module.exports.escape = mysql.escape;
 module.exports.validateEmail = validateEmail;

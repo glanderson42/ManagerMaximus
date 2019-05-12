@@ -143,6 +143,7 @@ const del = (req, res) => {
           statusCode: 200,
           label: 'Project delete was successful',
         };
+        console.log(`Project #${projectId} deleted`);
         throw data;
       } else {
         return database.asyncQuery('DELETE FROM `contributors` WHERE `userid`=\'' + loggedinUser.id + '\' AND `projectid`=' + projectId + ';');
@@ -240,7 +241,7 @@ const put = (req, res) => {
             statusCode: 200,
             label: 'Project updated.',
           };
-          console.log('Project updated');
+          console.log(`Project #${project.id} updated`);
         } else {
           data = {
             statusCode: 403,
@@ -292,7 +293,7 @@ const put = (req, res) => {
       })
       .then(result => {
         if (result.insertId) {
-          console.log('New project created');
+          console.log(`New project created #${result.insertId}`);
           data = {
             statusCode: 200,
             label: 'New project created.',

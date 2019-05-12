@@ -6,51 +6,35 @@
     <div class="form-group">
       <div class="ui-inputgroup">
         <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
-        <input type="text" pInputText placeholder="Username" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-      </div>
-      <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-        <div *ngIf="f.username.errors.required">Username is required</div>
+        <input type="text" pInputText placeholder="Username" formControlName="username" class="form-control" />
       </div>
     </div>
     <div class="form-group">
       <div class="ui-inputgroup">
         <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
-        <input type="text" pInputText placeholder="Full name" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-      </div>
-      <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-        <div *ngIf="f.name.errors.required">Full name is required</div>
+        <input type="text" pInputText placeholder="Full name" formControlName="name" class="form-control" />
       </div>
     </div>
     <div class="form-group">
       <div class="ui-inputgroup">
         <span class="ui-inputgroup-addon"><i class="fa fa-key"></i></span>
-        <input pPassword type="password" placeholder="Password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-      </div>
-      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-        <div *ngIf="f.password.errors.required">Password is required</div>
+        <input pPassword type="password" placeholder="Password" formControlName="password" class="form-control" />
       </div>
     </div>
     <div class="form-group">
       <div class="ui-inputgroup">
         <span class="ui-inputgroup-addon"><i class="fa fa-key"></i></span>
-        <input pPassword type="password" [feedback]=false placeholder="Re-Password" formControlName="password2" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password2.errors }" />
-      </div>
-      <div *ngIf="submitted && f.password2.errors" class="invalid-feedback">
-        <div *ngIf="f.password2.errors.required">Password is required</div>
+        <input pPassword type="password" [feedback]=false placeholder="Re-Password" formControlName="password2" class="form-control" />
       </div>
     </div>
     <div class="form-group">
       <div class="ui-inputgroup">
         <span class="ui-inputgroup-addon"><i class="fa fa-envelope"></i></span>
-        <input type="text" pInputText placeholder="E-mail" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-      </div>
-      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-        <div *ngIf="f.email.errors.required">Full name is required</div>
+        <input type="text" pInputText placeholder="E-mail" formControlName="email" class="form-control" />
       </div>
     </div>
     <div class="form-group">
       <p-button label="Registration"></p-button>
-      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
       <a [routerLink]="['/login']" class="btn-link">Login</a>
     </div>
   </form>

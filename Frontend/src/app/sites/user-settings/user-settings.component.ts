@@ -9,7 +9,7 @@ import { AuthService } from "../../services/auth/auth.service";
 })
 
 export class UserSettingsComponent implements OnInit {
-  userDetails;
+  userDetails: any;
 
   constructor(private index: IndexComponent, private authService: AuthService) { }
 
@@ -17,11 +17,11 @@ export class UserSettingsComponent implements OnInit {
     this.userDetails = JSON.parse(localStorage.getItem('user'));
   }
 
-  closeUserSettings(event) {
+  closeUserSettings() {
     this.index.showUserEdit = false;
   }
 
-  saveUserSettings(event) {
+  saveUserSettings() {
     console.log(this.userDetails);
     this.authService.saveUserEdit(this.userDetails).subscribe(
       (response: any) => {
