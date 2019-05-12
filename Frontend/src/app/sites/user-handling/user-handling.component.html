@@ -1,3 +1,19 @@
+<div *ngFor="let item of TempUsers.users">
+  <p>{{item.id}}</p>
+  <p>{{item.username}}</p>
+</div>
+
+<!-- <p-dataView #dv [value]="TempUsers.users">
+  <ng-template let-user pTemplate="listItem">
+    <p>
+      {{user.id}}
+    </p>
+  </ng-template>
+  <ng-template let-user pTemplate="gridItem">
+      {{user.username}}
+  </ng-template>
+</p-dataView> -->
+
 <div class="form-group">
   <button pButton type="button" (click)="saveUserSettings()" label="Save" class="ui-button-success"></button>
   <button pButton type="button" (click)="closeUserHandling()" label="Cancel" class="ui-button-danger"></button>

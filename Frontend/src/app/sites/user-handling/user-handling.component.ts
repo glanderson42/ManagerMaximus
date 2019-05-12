@@ -10,6 +10,20 @@ export class UserHandlingComponent implements OnInit {
 
   constructor(private projectSite: ProjectSiteComponent) { }
 
+TempUsers = {
+    users: [
+        {
+            email: 'asd@asd.com',
+            username: 'asd',
+            id: 1,
+        },
+        {
+          email: 'asdss@asd.com',
+          username: 'assssd',
+          id: 2,
+        },
+    ]
+ };
   ngOnInit() {
   }
 
