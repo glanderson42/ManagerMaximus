@@ -35,6 +35,7 @@ import { PopUpDialogComponent } from './elements/pop-up-dialog/pop-up-dialog.com
 import { ProjectSiteComponent } from './sites/project-site/project-site.component';
 import { UserSettingsComponent } from './sites/user-settings/user-settings.component';
 import { WidgetRouterComponent } from './elements/widget-router/widget-router.component';
+import { TextWidgetComponent } from './elements/widgets/text-widget/text-widget.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { WidgetRouterComponent } from './elements/widget-router/widget-router.co
     PopUpDialogComponent,
     ProjectSiteComponent,
     UserSettingsComponent,
-    WidgetRouterComponent
+    WidgetRouterComponent,
+    TextWidgetComponent
   ],
   imports: [
     BrowserModule,

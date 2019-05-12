@@ -3,5 +3,8 @@
   <p-button icon="pi pi-trash"></p-button>
 </div>
 <div class="widget-content">
-  widget-router works!
+  <div [ngSwitch]="widgetData.type">
+    <app-text-widget [widgetData]="widgetData" *ngSwitchCase="'textWidget'">textWidget</app-text-widget>
+    <div *ngSwitchDefault>Error: Undefined widget type.</div>
+  </div>
 </div>
