@@ -79,15 +79,18 @@ app.get('/', user.getUsersTable);
 app.get('/confirm/:token', user.confirm);
 app.get('/projects/list', project.list);
 app.get('/projects/:id', project.get);
+app.get('/projects/:id/user/list', project.userList);
 app.get('/logout', user.logout);
 
 app.post('/login', user.login);
 app.post('/registration', user.registration);
 
 app.delete('/projects/:id', project.delete);
+app.delete('/projects/:id/user/:userid', project.userDelete);
 app.delete('/widget/:id', widget.delete);
 
 app.put('/projects', project.put);
+app.put('/projects/:id/user/:userid', project.userAdd);
 app.put('/widget', widget.put);
 
 // Starting both http & https servers

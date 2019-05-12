@@ -324,7 +324,208 @@ const put = (req, res) => {
   }
 };
 
+const userList = (req, res) => {
+  const loggedinUser = user.getLoggedInUser(req);
+  if (!loggedinUser) {
+    res.status(403);
+    res.set({
+      'Content-Type': 'application/json',
+    });
+    res.send({
+      statusCode: 403,
+      label: 'Forbidden.',
+    });
+    return;
+  }
+
+  const projectId = database.escape(req.params.id);
+  let data = {
+    statusCode: 403,
+    label: 'Forbidden.',
+  };
+  database.asyncQuery('SELECT * FROM `project` WHERE authorid=\'' + loggedinUser.id + '\' AND `id`=' + projectId)
+    .then(result => {
+      if (result.length === 0) {
+        throw data;
+      }
+      return database.asyncQuery('SELECT `users`.`id`, `users`.`username`, `users`.`email` FROM `contributors` LEFT JOIN `users` ON `contributors`.`userid`=`users`.`id` WHERE `contributors`.`projectid`=' + projectId + ';');
+    })
+    .then((result) => {
+      data = result;
+    })
+    .then(() => {
+      res.status(data.statusCode || 200);
+      res.set({
+        'Content-Type': 'application/json',
+      });
+      res.send(JSON.stringify(data));
+    })
+    .catch(err => {
+      if (err.sqlMessage) {
+        err = {
+          statusCode: 500,
+          label: err.sqlMessage,
+        };
+      }
+      res.status(err.statusCode);
+      res.set({
+        'Content-Type': 'application/json',
+      });
+      res.send(JSON.stringify(err));
+    });
+};
+
+const userDelete = (req, res) => {
+  const loggedinUser = user.getLoggedInUser(req);
+  if (!loggedinUser) {
+    res.status(403);
+    res.set({
+      'Content-Type': 'application/json',
+    });
+    res.send({
+      statusCode: 403,
+      label: 'Forbidden.',
+    });
+    return;
+  }
+
+  const projectId = database.escape(req.params.id);
+  const userId = database.escape(req.params.userid);
+  let data = {
+    statusCode: 403,
+    label: 'Forbidden.',
+  };
+  database.asyncQuery('SELECT * FROM `project` WHERE authorid=\'' + loggedinUser.id + '\' AND `id`=' + projectId)
+    .then(result => {
+      if (result.length === 0) {
+        throw data;
+      }
+      return database.asyncQuery('DELETE FROM `contributors` WHERE `userid`=' + userId + ' AND `projectid`=' + projectId + ';');
+    })
+    .then((result) => {
+      if (result.affectedRows > 0) {
+        console.log(`User ${userId} removed from project ${projectId}`);
+        data = {
+          statusCode: 200,
+          label: 'User removed from project.',
+        };
+      } else {
+        data = {
+          statusCode: 200,
+          label: 'This user does not contributing this project.',
+        };
+      }
+    })
+    .then(() => {
+      res.status(data.statusCode || 200);
+      res.set({
+        'Content-Type': 'application/json',
+      });
+      res.send(JSON.stringify(data));
+    })
+    .catch(err => {
+      if (err.sqlMessage) {
+        err = {
+          statusCode: 500,
+          label: err.sqlMessage,
+        };
+      }
+      res.status(err.statusCode);
+      res.set({
+        'Content-Type': 'application/json',
+      });
+      res.send(JSON.stringify(err));
+    });
+};
+
+const userAdd = (req, res) => {
+  const loggedinUser = user.getLoggedInUser(req);
+  if (!loggedinUser) {
+    res.status(403);
+    res.set({
+      'Content-Type': 'application/json',
+    });
+    res.send({
+      statusCode: 403,
+      label: 'Forbidden.',
+    });
+    return;
+  }
+
+  const projectId = database.escape(req.params.id);
+  const userId = database.escape(req.params.userid);
+  let data = {
+    statusCode: 403,
+    label: 'Forbidden.',
+  };
+  let newUser;
+  database.asyncQuery('SELECT `id` FROM `project` WHERE authorid=\'' + loggedinUser.id + '\' AND `id`=' + projectId)
+    .then(result => {
+      if (result.length === 0) {
+        throw data;
+      }
+      return database.asyncQuery('SELECT `id`, `name` FROM `users` WHERE `id`=' + userId + ' OR `username`=' + userId + ' OR `email`=' + userId + ';');
+    })
+    .then((result) => {
+      if (result.length <= 0) {
+        throw {
+          statusCode: 403,
+          label: 'There is no user like ' + userId + '.',
+        };
+      }
+      newUser = result[0];
+      return database.asyncQuery('SELECT `id` FROM `contributors` WHERE `userid`=' + newUser.id + ' AND `projectid`=' + projectId + ';');
+    })
+    .then((result) => {
+      if (result.length > 0) {
+        throw {
+          statusCode: 403,
+          label: 'This user already contributes this project.',
+        };
+      }
+      data = result;
+      return database.asyncQuery('INSERT INTO `contributors` (`userid`, `projectid`) VALUES (' + newUser.id + ', ' + projectId + ');');
+    })
+    .then((result) => {
+      if (result.affectedRows > 0) {
+        console.log(`User ${newUser.id} contributes ${projectId}`);
+        data = {
+          statusCode: 200,
+          label: newUser.name + ' set as a contributor.',
+        };
+      } else {
+        throw {
+          statusCode: 500,
+          label: 'Unknown error.',
+        };
+      }
+    })
+    .then(() => {
+      res.status(data.statusCode || 200);
+      res.set({
+        'Content-Type': 'application/json',
+      });
+      res.send(JSON.stringify(data));
+    })
+    .catch(err => {
+      if (err.sqlMessage) {
+        err = {
+          statusCode: 500,
+          label: err.sqlMessage,
+        };
+      }
+      res.status(err.statusCode);
+      res.set({
+        'Content-Type': 'application/json',
+      });
+      res.send(JSON.stringify(err));
+    });
+};
+
 module.exports.list = list;
 module.exports.get = get;
 module.exports.delete = del;
 module.exports.put = put;
+module.exports.userList = userList;
+module.exports.userDelete = userDelete;
+module.exports.userAdd = userAdd;
