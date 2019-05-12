@@ -19,6 +19,7 @@ import { InputTextModule} from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {FileUploadModule} from 'primeng/fileupload';
+import { PanelModule } from 'primeng/panel';
 
 import { AppRoutingModule } from './services/routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -75,6 +76,7 @@ import { ImageWidgetComponent } from './elements/widgets/image-widget/image-widg
     InputTextareaModule,
     SelectButtonModule,
     FileUploadModule,
+    PanelModule,
     RouterModule.forRoot([
       {
         path: '',
