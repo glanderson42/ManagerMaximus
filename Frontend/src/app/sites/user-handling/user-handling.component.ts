@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ProjectSiteComponent } from '../project-site/project-site.component';
+import { AuthService } from "../../services/auth/auth.service";
 
 @Component({
   selector: 'app-user-handling',
@@ -8,25 +9,17 @@ import { ProjectSiteComponent } from '../project-site/project-site.component';
 })
 export class UserHandlingComponent implements OnInit {
 
-  constructor(private projectSite: ProjectSiteComponent) { }
+  constructor(private projectSite: ProjectSiteComponent,
+              private authService: AuthService) { }
 
-TempUsers = {
-    users: [
-        {
-            email: 'asd@asd.com',
-            username: 'asd',
-            id: 1,
-        },
-        {
-          email: 'asdss@asd.com',
-          username: 'assssd',
-          id: 2,
-        },
-    ]
- };
+@Input() projectID;
+
   ngOnInit() {
+    setTimeout(function(){
+      console.log(this.projectID);
+    }, 2000);
   }
-
+  
   closeUserHandling(event) {
     this.projectSite.DisplayUserHandling = false;
   }

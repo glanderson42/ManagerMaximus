@@ -83,6 +83,7 @@ export class ProjectSiteComponent implements OnInit {
     this.authService.getProjectByID(parseInt(id)).subscribe(
       (response: any) => {
         this.Project = response;
+        console.log(this.Project);
         this.PanelMenu[2].items = response.subprojects.map(e=>{
           console.log(e);
           return {
