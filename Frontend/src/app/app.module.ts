@@ -21,6 +21,7 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 import {FileUploadModule} from 'primeng/fileupload';
 import { PanelModule } from 'primeng/panel';
 import { DataViewModule } from 'primeng/dataview';
+import {ChartModule} from 'primeng/chart';
 
 import { AppRoutingModule } from './services/routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,6 +41,7 @@ import { UserHandlingComponent } from './sites/user-handling/user-handling.compo
 import { WidgetRouterComponent } from './elements/widget-router/widget-router.component';
 import { TextWidgetComponent } from './elements/widgets/text-widget/text-widget.component';
 import { ImageWidgetComponent } from './elements/widgets/image-widget/image-widget.component';
+import { ChartWidgetComponent } from './elements/widgets/chart-widget/chart-widget.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,8 @@ import { ImageWidgetComponent } from './elements/widgets/image-widget/image-widg
     UserHandlingComponent,
     WidgetRouterComponent,
     TextWidgetComponent,
-    ImageWidgetComponent
+    ImageWidgetComponent,
+    ChartWidgetComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +84,7 @@ import { ImageWidgetComponent } from './elements/widgets/image-widget/image-widg
     FileUploadModule,
     PanelModule,
     DataViewModule,
+    ChartModule,
     RouterModule.forRoot([
       {
         path: '',
