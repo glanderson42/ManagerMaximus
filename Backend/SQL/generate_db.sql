@@ -22,6 +22,8 @@ CREATE TABLE `users` (
   `lastdate` datetime DEFAULT NULL,
   `disabledon` datetime DEFAULT NULL
 );
+ALTER TABLE `users` ADD UNIQUE( `username` );
+
 CREATE TABLE `project` (
   `id` int(10) PRIMARY KEY AUTO_INCREMENT,
   `authorid` int(10) NOT NULL,

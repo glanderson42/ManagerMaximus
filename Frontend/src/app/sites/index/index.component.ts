@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { MenuItem, Message } from "primeng/api";
 import { Router } from "@angular/router";
 import { AuthService } from "../../services/auth/auth.service";
@@ -22,6 +22,7 @@ export class IndexComponent implements OnInit {
   PanelMenu: MenuItem[];
   Projects: any = {};
   selectedProject: any = {};
+  @ViewChild('userSettings') userSettings: any;
 
   ngOnInit() {
     if (!localStorage.getItem("user")) {
@@ -47,6 +48,7 @@ export class IndexComponent implements OnInit {
         label: "Edit user",
         command: (event)=> {
           event.item.expanded = false;
+          this.userSettings.openTrigger();
           this.showUserEdit = true;
         },
         icon: "pi pi-fw pi-cog",

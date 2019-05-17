@@ -89,6 +89,7 @@ app.delete('/projects/:id', project.delete);
 app.delete('/projects/:id/user/:userid', project.userDelete);
 app.delete('/widget/:id', widget.delete);
 
+app.put('/user', user.update);
 app.put('/projects', project.put);
 app.put('/projects/:id/user/:userid', project.userAdd);
 app.put('/widget', widget.put);
