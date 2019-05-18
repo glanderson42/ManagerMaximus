@@ -109,6 +109,10 @@ export class IndexComponent implements OnInit {
     );
   }
 
+  goToGitHubPage() {
+    window.open('https://github.com/glanderson42/ManagerMaximus');
+  }
+
   logoutUser() {
     this.authService.logout().subscribe(
       (response: any) => {
