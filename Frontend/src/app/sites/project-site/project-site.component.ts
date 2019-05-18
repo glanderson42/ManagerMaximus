@@ -19,7 +19,7 @@ export class ProjectSiteComponent implements OnInit {
   MenuBar: MenuItem[];
   PanelMenu: MenuItem[];
   Project: any = {};
-  noWidget: boolean = true;
+  public noWidget: boolean = true;
   weSelectorVisible: boolean = false;
   newWidget: any = {};
   newWeVisible: boolean = false;

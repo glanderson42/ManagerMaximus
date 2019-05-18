@@ -1,6 +1,6 @@
 <div class="widget-buttons">
   <p-button icon="pi pi-pencil" (click)="showWidgetEditor(widgetData, $event)"></p-button>
-  <p-button icon="pi pi-trash"></p-button>
+  <p-button icon="pi pi-trash" (click)="deleteWidget(widgetData)"></p-button>
 </div>
 <div class="widget-content">
   <div [ngSwitch]="widgetData.type">
@@ -12,5 +12,5 @@
 </div>
 
 <p-dialog header="Edit: {{selectedWidget.title}}" [(visible)]="weVisible" [modal]="true">
-  <app-widget-editor id="widget-editor" [widgetData]="selectedWidget" [closeCallback]="closeWidgetEdit"></app-widget-editor>
+  <app-widget-editor id="widget-editor" [widgetData]="selectedWidget" [project]="project" [closeCallback]="closeWidgetEdit"></app-widget-editor>
 </p-dialog>

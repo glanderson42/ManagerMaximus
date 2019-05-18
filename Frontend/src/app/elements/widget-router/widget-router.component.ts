@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class WidgetRouterComponent implements OnInit {
 
   @Input() widgetData;
+  @Input() project: any;
   public weVisible: boolean = false;
   selectedWidget: any = {};
 
@@ -29,6 +30,10 @@ export class WidgetRouterComponent implements OnInit {
 
   closeWidgetEdit: any = () => {
     this.weVisible = false;
+  }
+
+  deleteWidget(widgetData) {
+
   }
 
 }

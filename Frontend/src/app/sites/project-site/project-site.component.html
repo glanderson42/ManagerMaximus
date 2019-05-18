@@ -10,7 +10,7 @@
                 <h2>{{Project.description}}</h2>
                 <h2 *ngIf="noWidget">There is no widget to display :(</h2>
                 <div class="layout-card-container">
-                    <app-widget-router *ngFor="let item of Project.widgets" [widgetData]="item"></app-widget-router>
+                    <app-widget-router *ngFor="let item of Project.widgets" [widgetData]="item" [project]="Project"></app-widget-router>
                 </div>
             </div>
             <div class="layout-footer">
@@ -25,5 +25,5 @@
 </p-dialog>
 
 <p-dialog header="New widget" [(visible)]="newWeVisible" [modal]="true">
-  <app-widget-editor id="widget-editor" [widgetData]="newWidget" [closeCallback]="closeWidgetEdit"></app-widget-editor>
+  <app-widget-editor id="widget-editor" [widgetData]="newWidget" [project]="Project" [closeCallback]="closeWidgetEdit"></app-widget-editor>
 </p-dialog>
