@@ -123,23 +123,22 @@ export class IndexComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
-  public display: boolean = false;
+  public showProjectEditModal: boolean = false;
   public showUserEdit: boolean = false;
 
   showDialog(item, event) {
     if (typeof item != 'object') {
       item = {};
     }
-    this.display = true;
-    this.selectedProject = item;
+    this.showProjectEditModal = true;
+    this.selectedProject = Object.assign({}, item);
     if (event && event.stopPropagation) {
       event.stopPropagation();
     }
   }
 
-  hideDialog() {
-    console.log("hideDialog()");
-    this.display = false;
+  closeProjectEdit:any = () => {
+    this.showProjectEditModal = false;
   }
 
   openProject(item) {

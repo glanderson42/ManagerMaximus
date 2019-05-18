@@ -35,6 +35,8 @@ export class PopUpDialogComponent implements OnInit {
     this.project = project;
   }
 
+  @Input() closeCallback: any;
+
   ngOnInit() {
   }
 
@@ -45,5 +47,15 @@ export class PopUpDialogComponent implements OnInit {
       uploader.clear();
     }
     reader.readAsDataURL(event.files[0]);
+  }
+
+  saveUserSettings(){
+    console.log('saveUserSettings')
+    console.log(this.project)
+  }
+  closeUserSettings(){
+    console.log('closeUserSettings')
+    this.closeCallback();
+    //this.index.display = false;
   }
 }

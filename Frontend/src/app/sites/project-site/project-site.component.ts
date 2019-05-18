@@ -19,6 +19,8 @@ export class ProjectSiteComponent implements OnInit {
   MenuBar: MenuItem[];
   PanelMenu: MenuItem[];
   Project: any = {};
+  showProjectEditModal: boolean = false;
+  selectedProject: any = {};
 
   ngOnInit() {
     if (!localStorage.getItem("user")) {
@@ -71,7 +73,8 @@ export class ProjectSiteComponent implements OnInit {
         label: "Edit project",
         command: (event)=> {
           event.item.expanded = false;
-          alert('TODO');
+          this.selectedProject = Object.assign({}, this.Project);
+          this.showProjectEditModal = true;
         },
         icon: "pi pi-fw pi-cog",
       },
@@ -95,7 +98,6 @@ export class ProjectSiteComponent implements OnInit {
       (response: any) => {
         this.Project = response;
         this.PanelMenu[2].items = response.subprojects.map(e=>{
-          console.log(e);
           return {
             label: e.title,
             icon: "fa fa-fw fa-list-ol",
@@ -119,5 +121,9 @@ export class ProjectSiteComponent implements OnInit {
         }
       }
     );
+  }
+
+  closeProjectEdit:any = () => {
+    this.showProjectEditModal = false;
   }
 }
