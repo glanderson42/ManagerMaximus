@@ -3,6 +3,7 @@ import { MenuItem } from "primeng/api";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from "../../services/auth/auth.service";
 import { MessageService } from "primeng/api";
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: "app-project-site",
@@ -15,6 +16,7 @@ export class ProjectSiteComponent implements OnInit {
     private messageService: MessageService,
     private router: Router,
     private route: ActivatedRoute,
+    public confirmationService: ConfirmationService
   ) {}
 
   MenuBar: MenuItem[];
@@ -23,6 +25,10 @@ export class ProjectSiteComponent implements OnInit {
   public DisplayUserHandling: boolean = false;
   Project: any = {};
   @ViewChild('userHandling') userHandling: any;
+  public noWidget: boolean = true;
+  weSelectorVisible: boolean = false;
+  newWidget: any = {};
+  newWeVisible: boolean = false;
 
   ngOnInit() {
     if (!localStorage.getItem("user")) {
@@ -44,7 +50,10 @@ export class ProjectSiteComponent implements OnInit {
           },
           {
             label: "2. Widget",
-            icon: "fa fa-fw fa-stack-exchange"
+            icon: "fa fa-fw fa-stack-exchange",
+            command: (event)=> {
+              this.weSelectorVisible = true;
+            }
           },
           { separator: true }
         ]
@@ -90,6 +99,7 @@ export class ProjectSiteComponent implements OnInit {
     this.authService.getProjectByID(parseInt(id)).subscribe(
       (response: any) => {
         this.Project = response;
+        this.noWidget = response.widgets.length ? false : true;
         this.PanelMenu[2].items = response.subprojects.map(e=>{
           return {
             label: e.title,
@@ -114,5 +124,9 @@ export class ProjectSiteComponent implements OnInit {
         }
       }
     );
+  }
+
+  closeWidgetEdit: any = () => {
+    this.newWeVisible = false;
   }
 }

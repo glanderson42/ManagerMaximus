@@ -8,8 +8,9 @@
             <div class="layout-content-inner">
                 <h1>{{Project.title}}</h1>
                 <h2>{{Project.description}}</h2>
+                <h2 *ngIf="noWidget">There is no widget to display :(</h2>
                 <div class="layout-card-container">
-                    <app-widget-router *ngFor="let item of Project.widgets" [widgetData]="item"></app-widget-router>
+                    <app-widget-router *ngFor="let item of Project.widgets" [widgetData]="item" [project]="Project"></app-widget-router>
                 </div>
             </div>
             <div class="layout-footer">
@@ -23,4 +24,17 @@
     <app-user-handling #userHandling></app-user-handling>
 </p-dialog>
 
-<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+<p-dialog header="Select the type of the new widget" [(visible)]="weSelectorVisible" [modal]="true">
+  <app-widget-editor-selector id="widget-editor-selector"></app-widget-editor-selector>
+</p-dialog>
+
+<p-dialog header="New widget" [(visible)]="newWeVisible" [modal]="true">
+  <app-widget-editor id="widget-editor" [widgetData]="newWidget" [project]="Project" [closeCallback]="closeWidgetEdit"></app-widget-editor>
+</p-dialog>
+
+<p-confirmDialog #cd [style]="{width: '50vw'}">
+  <p-footer>
+    <button class="ui-button-success" type="button" pButton icon="pi pi-check" label="Delete" (click)="cd.accept()"></button>
+    <button class="ui-button-danger" type="button" pButton icon="pi pi-times" label="Cancel" (click)="cd.reject()"></button>
+  </p-footer>
+</p-confirmDialog>

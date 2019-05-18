@@ -1,6 +1,6 @@
 <div class="widget-buttons">
-  <p-button icon="pi pi-pencil"></p-button>
-  <p-button icon="pi pi-trash"></p-button>
+  <p-button icon="pi pi-pencil" (click)="showWidgetEditor(widgetData, $event)"></p-button>
+  <p-button icon="pi pi-trash" (click)="deleteWidget(widgetData)"></p-button>
 </div>
 <div class="widget-content">
   <div [ngSwitch]="widgetData.type">
@@ -10,3 +10,7 @@
     <div *ngSwitchDefault>Error: Undefined widget type.</div>
   </div>
 </div>
+
+<p-dialog header="Edit: {{widgetData.title}}" [(visible)]="weVisible" [modal]="true">
+  <app-widget-editor id="widget-editor" [widgetData]="selectedWidget" [project]="project" [closeCallback]="closeWidgetEdit"></app-widget-editor>
+</p-dialog>
