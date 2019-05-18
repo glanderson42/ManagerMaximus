@@ -243,6 +243,103 @@ const confirm = (req, res) => {
   }
 };
 
+const update = (req, res) => {
+  const loggedinUser = this.getLoggedInUser(req);
+
+  if (!loggedinUser) {
+    res.status(403);
+    res.set({
+      'Content-Type': 'application/json',
+    });
+    res.send({
+      statusCode: 403,
+      label: 'Forbidden.',
+    });
+    return;
+  }
+
+  const data = {
+    statusCode: 403,
+    label: 'Forbidden.',
+  };
+
+  const username = req.body.username || '';
+  const email = req.body.email || '';
+  const name = req.body.name || '';
+  const password1 = req.body.password1 || '';
+  const password2 = req.body.password2 || '';
+
+  let modifiers =
+  (email ? ('`email` = ' + database.escape(email) + ',') : '') +
+  (name ? ('`name` = ' + database.escape(name) + ',') : '') +
+  (username ? ('`username` = ' + database.escape(username) + ',') : '') +
+  '';
+
+  if (password1 !== '' || password2 !== '') {
+    if (password1 !== password2) {
+      res.status(403);
+      res.set({
+        'Content-Type': 'application/json',
+      });
+      res.send(JSON.stringify({
+        statusCode: 403,
+        label: 'The two passwords are different.',
+      }));
+      return;
+    }
+    modifiers += '`password` = \'' + md5(password1) + '\',';
+  }
+
+  if (modifiers === '') {
+    res.status(204);
+    res.set({
+      'Content-Type': 'application/json',
+    });
+    res.send(JSON.stringify({
+      statusCode: 204,
+      label: 'Data not changed.',
+    }));
+    return;
+  }
+
+  modifiers = modifiers.substr(0, modifiers.length - 1);
+  database.asyncQuery('UPDATE `users` SET ' + modifiers + ' WHERE `users`.`id` = ' + loggedinUser.id + ';')
+    .then(result => {
+      if (result.affectedRows > 0) {
+        return database.asyncQuery('SELECT `id`, `email`, `lastdate`, `name`, `regdate`, `username` FROM `users` WHERE `users`.`id` = ' + loggedinUser.id + ';');
+      }
+      throw data;
+    })
+    .then(result => {
+      if (result.length > 0) {
+        const retVal = result[0];
+        retVal.statusCode = 200;
+        retVal.label = 'User updated successfully';
+        throw retVal;
+      }
+    })
+    .then(() => {
+      res.status(data.statusCode);
+      res.set({
+        'Content-Type': 'application/json',
+      });
+      res.send(JSON.stringify(data));
+    })
+    .catch(err => {
+      if (err.sqlMessage) {
+        err = {
+          statusCode: 500,
+          label: err.sqlMessage,
+        };
+      }
+      res.status(err.statusCode);
+      res.set({
+        'Content-Type': 'application/json',
+      });
+      res.send(JSON.stringify(err));
+    });
+};
+
 const getLoggedInUser = req => {
   let token = req.headers.authorization || '';
   if (token.length > 7 && token.substr(0, 7) === 'Bearer ') {
@@ -267,4 +364,5 @@ module.exports.login = login;
 module.exports.logout = logout;
 module.exports.registration = registration;
 module.exports.confirm = confirm;
+module.exports.update = update;
 module.exports.getLoggedInUser = getLoggedInUser;
