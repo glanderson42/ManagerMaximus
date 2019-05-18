@@ -8,6 +8,7 @@
             <div class="layout-content-inner">
                 <h1>{{Project.title}}</h1>
                 <h2>{{Project.description}}</h2>
+                <h2 *ngIf="noWidget">There is no widget to display :(</h2>
                 <div class="layout-card-container">
                     <app-widget-router *ngFor="let item of Project.widgets" [widgetData]="item"></app-widget-router>
                 </div>

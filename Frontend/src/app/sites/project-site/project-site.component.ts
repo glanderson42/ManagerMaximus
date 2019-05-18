@@ -19,6 +19,7 @@ export class ProjectSiteComponent implements OnInit {
   MenuBar: MenuItem[];
   PanelMenu: MenuItem[];
   Project: any = {};
+  noWidget: boolean = true;
 
   ngOnInit() {
     if (!localStorage.getItem("user")) {
@@ -94,6 +95,7 @@ export class ProjectSiteComponent implements OnInit {
     this.authService.getProjectByID(parseInt(id)).subscribe(
       (response: any) => {
         this.Project = response;
+        this.noWidget = response.widgets.length ? false : true;
         this.PanelMenu[2].items = response.subprojects.map(e=>{
           console.log(e);
           return {
