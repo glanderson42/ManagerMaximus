@@ -5,7 +5,7 @@ import { ProjectSiteComponent } from '../../sites/project-site/project-site.comp
 @Component({
   selector: 'app-widget-editor-selector',
   templateUrl: './widget-editor-selector.component.html',
-  styleUrls: ['./widget-editor-selector.component.sass']
+  styleUrls: ['./widget-editor-selector.component.scss']
 })
 export class WidgetEditorSelectorComponent implements OnInit {
 
