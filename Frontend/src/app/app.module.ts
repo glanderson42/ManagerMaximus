@@ -21,6 +21,7 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 import {FileUploadModule} from 'primeng/fileupload';
 import { PanelModule } from 'primeng/panel';
 import {ChartModule} from 'primeng/chart';
+import { ColorPickerModule } from 'primeng/colorpicker';
 
 import { AppRoutingModule } from './services/routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -85,6 +86,7 @@ import { WidgetEditorSelectorComponent } from './elements/widget-editor-selector
     FileUploadModule,
     PanelModule,
     ChartModule,
+    ColorPickerModule,
     RouterModule.forRoot([
       {
         path: '',

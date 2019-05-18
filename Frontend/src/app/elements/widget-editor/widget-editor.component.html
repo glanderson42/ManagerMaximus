@@ -26,7 +26,27 @@
     </div>
   </div>
   <div *ngSwitchCase="'chartWidget'">
-
+    <div *ngFor="let chartData of chartDataArray">
+      <div class="form-group">
+        <label for="label">
+          Label
+        </label>
+        <input id="label" type="text" size="30" pInputText [(ngModel)]="chartData.label">
+      </div>
+      <div class="form-group">
+        <label for="value">
+          Value
+        </label>
+        <input id="value" type="number" size="30" pInputText [(ngModel)]="chartData.value">
+      </div>
+      <div class="form-group">
+        <label for="color">
+          Color
+        </label>
+        <p-colorPicker id="color" [(ngModel)]="chartData.color"></p-colorPicker>
+      </div>
+    </div>
+    <button pButton type="button" icon="pi pi-plus" (click)="addPieChart()"></button>
   </div>
   <div *ngSwitchDefault>Error: Undefined widget type.</div>
 </div>

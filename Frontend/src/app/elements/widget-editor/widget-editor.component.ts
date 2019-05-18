@@ -10,6 +10,7 @@ import { ProjectSiteComponent } from '../../sites/project-site/project-site.comp
 })
 export class WidgetEditorComponent implements OnInit {
   widget;
+  chartDataArray: any = [];
 
   @Input() closeCallback: any;
   @Input() project: any;
@@ -35,6 +36,31 @@ export class WidgetEditorComponent implements OnInit {
     if (!this.widget.id) {
       this.widget.data = '';
       this.widget.title = '';
+      if (this.widget.type === 'chartWidget') {
+        this.chartDataArray = [];
+        this.chartDataArray.push(
+          {
+            label: '',
+            value: null,
+            color: '#ffffff'
+          }
+        );
+      }
+    } else if (this.widget.type === 'chartWidget') {
+      const chartWidgetData = JSON.parse(this.widget.data);
+      const chartLabels = chartWidgetData.labels;
+      const chartValues = chartWidgetData.datasets[0].data;
+      const chartColors = chartWidgetData.datasets[0].backgroundColor;
+
+      for (let i = 0; i < chartLabels.length; i++) {
+        this.chartDataArray.push(
+          {
+            label: chartLabels[i],
+            value: chartValues[i],
+            color: chartColors[i]
+          }
+        );
+      }
     }
   }
 
@@ -51,8 +77,44 @@ export class WidgetEditorComponent implements OnInit {
     reader.readAsDataURL(event.files[0]);
   }
 
+  addPieChart() {
+    this.chartDataArray.push(
+      {
+        label: '',
+        value: null,
+        color: '#ffffff'
+      }
+    );
+  }
+
   saveWidget() {
     this.widget.projectid = this.project.id;
+
+    if (this.widget.type === 'chartWidget') {
+      const labelArray = [];
+      const valueArray = [];
+      const colorArray = [];
+
+      this.chartDataArray.forEach(function(chartData) {
+        labelArray.push(chartData.label);
+        valueArray.push(chartData.value);
+        colorArray.push(chartData.color);
+      });
+
+      this.widget.data = JSON.stringify(
+        {
+          labels: labelArray,
+          datasets: [
+            {
+              data: valueArray,
+              backgroundColor: colorArray,
+              hoverBackgroundColor: colorArray
+            }
+          ]
+        }
+      );
+    }
+
     this.authService.saveWidget(this.widget).subscribe(
       (response: any) => {
         if (this.widget.id) {
