@@ -69,4 +69,49 @@ export class AuthService {
       headers
     });
   }
+
+  listUsersForProject(projectID: Number) {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const headers = new HttpHeaders({ Authorization: "Bearer " + user.token });
+
+    return this.httpClient.get(config.backendUrl + "projects/" + projectID + "/user/list", {
+      headers
+    });
+  }
+
+  saveWidget(widgetData) {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const headers = new HttpHeaders({ Authorization: "Bearer " + user.token });
+
+    return this.httpClient.put(config.backendUrl + "widget", widgetData, {
+      headers
+    });
+  }
+
+    removeUserFromProject(projectID: Number, userID: Number) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const headers = new HttpHeaders({ Authorization: "Bearer " + user.token });
+
+      return this.httpClient.delete(config.backendUrl + "projects/" + projectID + "/user/" + userID, {
+        headers
+      });
+    }
+
+    addUserForProject(projectID: Number, userID: any) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const headers = new HttpHeaders({ Authorization: "Bearer " + user.token });
+
+      return this.httpClient.put(config.backendUrl + "projects/" + projectID + "/user/" + userID, {}, {
+        headers
+      });
+    }
+
+    deleteWidget(widgetId) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const headers = new HttpHeaders({ Authorization: "Bearer " + user.token });
+
+      return this.httpClient.delete(config.backendUrl + "widget/" + widgetId, {
+        headers
+      });
+    }
 }

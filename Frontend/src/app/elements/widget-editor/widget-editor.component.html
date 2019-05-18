@@ -1,0 +1,56 @@
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div class="form-group">
+  <label for="title">
+    Title
+  </label>
+  <input id="title" type="text" size="30" pInputText [(ngModel)]="widget.title">
+</div>
+<div [ngSwitch]="widget.type">
+  <div *ngSwitchCase="'textWidget'">
+    <div class="form-group">
+      <label for="text">
+        Text
+      </label>
+      <textarea id="text" size="30" pInputTextarea [(ngModel)]="widget.data"></textarea>
+    </div>
+  </div>
+  <div *ngSwitchCase="'imageWidget'">
+    <div class="form-group">
+      <label for="image">
+        Image
+      </label>
+      <div>
+        <img id="image" class="fileuploaderImage" [src]="widget.data"><br>
+        <p-fileUpload #form auto="true" mode="basic" accept="image/*" maxFileSize="1000000" customUpload="true" (uploadHandler)="myUploader($event, form)"></p-fileUpload>
+      </div>
+    </div>
+  </div>
+  <div *ngSwitchCase="'chartWidget'">
+    <div *ngFor="let chartData of chartDataArray">
+      <div class="form-group">
+        <label for="label">
+          Label
+        </label>
+        <input id="label" type="text" size="30" pInputText [(ngModel)]="chartData.label">
+      </div>
+      <div class="form-group">
+        <label for="value">
+          Value
+        </label>
+        <input id="value" type="number" size="30" pInputText [(ngModel)]="chartData.value">
+      </div>
+      <div class="form-group">
+        <label for="color">
+          Color
+        </label>
+        <p-colorPicker id="color" [(ngModel)]="chartData.color"></p-colorPicker>
+      </div>
+    </div>
+    <button pButton type="button" icon="pi pi-plus" (click)="addPieChart()"></button>
+  </div>
+  <div *ngSwitchDefault>Error: Undefined widget type.</div>
+</div>
+<div class="form-group">
+  <button pButton type="button" label="Save" class="ui-button-success" (click)="saveWidget()"></button>
+  <button pButton type="button" label="Cancel" class="ui-button-danger" (click)="closeEditor()"></button>
+</div>

@@ -20,7 +20,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {FileUploadModule} from 'primeng/fileupload';
 import { PanelModule } from 'primeng/panel';
+import { DataViewModule } from 'primeng/dataview';
 import {ChartModule} from 'primeng/chart';
+import { ColorPickerModule } from 'primeng/colorpicker';
 
 import { AppRoutingModule } from './services/routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,11 +37,14 @@ import { PageNotFoundComponent } from './sites/page-not-found/page-not-found.com
 import { MenubarComponent } from './elements/menubar/menubar.component';
 import { PopUpDialogComponent } from './elements/pop-up-dialog/pop-up-dialog.component';
 import { ProjectSiteComponent } from './sites/project-site/project-site.component';
-import { UserSettingsComponent } from './sites/user-settings/user-settings.component';
+import { UserSettingsComponent } from './elements/user-settings/user-settings.component';
+import { UserHandlingComponent } from './elements/user-handling/user-handling.component';
 import { WidgetRouterComponent } from './elements/widget-router/widget-router.component';
 import { TextWidgetComponent } from './elements/widgets/text-widget/text-widget.component';
 import { ImageWidgetComponent } from './elements/widgets/image-widget/image-widget.component';
 import { ChartWidgetComponent } from './elements/widgets/chart-widget/chart-widget.component';
+import { WidgetEditorComponent } from './elements/widget-editor/widget-editor.component';
+import { WidgetEditorSelectorComponent } from './elements/widget-editor-selector/widget-editor-selector.component';
 
 @NgModule({
   declarations: [
@@ -55,10 +60,13 @@ import { ChartWidgetComponent } from './elements/widgets/chart-widget/chart-widg
     PopUpDialogComponent,
     ProjectSiteComponent,
     UserSettingsComponent,
+    UserHandlingComponent,
     WidgetRouterComponent,
     TextWidgetComponent,
     ImageWidgetComponent,
-    ChartWidgetComponent
+    ChartWidgetComponent,
+    WidgetEditorComponent,
+    WidgetEditorSelectorComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +88,9 @@ import { ChartWidgetComponent } from './elements/widgets/chart-widget/chart-widg
     SelectButtonModule,
     FileUploadModule,
     PanelModule,
+    DataViewModule,
     ChartModule,
+    ColorPickerModule,
     RouterModule.forRoot([
       {
         path: '',
