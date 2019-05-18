@@ -69,4 +69,13 @@ export class AuthService {
       headers
     });
   }
+
+  deleteWidget(widgetId) {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const headers = new HttpHeaders({ Authorization: "Bearer " + user.token });
+
+    return this.httpClient.delete(config.backendUrl + "widget/" + widgetId, {
+      headers
+    });
+  }
 }

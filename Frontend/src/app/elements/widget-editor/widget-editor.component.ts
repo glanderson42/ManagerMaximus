@@ -52,8 +52,8 @@ export class WidgetEditorComponent implements OnInit {
           this.project.widgets.push(response);
         }
         this.projectSiteComponent.noWidget = false;
-        this.messageService.add({severity: 'success', summary: 'Success', detail: response.label});
         this.closeCallback();
+        this.messageService.add({severity: 'success', summary: 'Success', detail: response.label});
       },
       (response: any ) => {
         this.messageService.add({severity: 'error', summary: 'Error Message', detail: response.error.label});
