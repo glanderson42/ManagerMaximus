@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { MenuItem } from "primeng/api";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from "../../services/auth/auth.service";
@@ -22,7 +22,7 @@ export class ProjectSiteComponent implements OnInit {
 
   public DisplayUserHandling: boolean = false;
   Project: any = {};
-
+  @ViewChild('userHandling') userHandling: any;
 
   ngOnInit() {
     if (!localStorage.getItem("user")) {
@@ -52,7 +52,11 @@ export class ProjectSiteComponent implements OnInit {
       {
         label: "2. Users setting",
         icon: "pi pi-fw pi-users",
-        command: (event) => { this.DisplayUserHandling = true; }
+        command: (event) => {
+          event.item.expanded = false;
+          this.DisplayUserHandling = true;
+          this.userHandling.getUsers(this.Project.id);
+        }
       },
       {
         label: "3. Subprojects",
@@ -86,9 +90,7 @@ export class ProjectSiteComponent implements OnInit {
     this.authService.getProjectByID(parseInt(id)).subscribe(
       (response: any) => {
         this.Project = response;
-        console.log(this.Project);
         this.PanelMenu[2].items = response.subprojects.map(e=>{
-          console.log(e);
           return {
             label: e.title,
             icon: "fa fa-fw fa-list-ol",

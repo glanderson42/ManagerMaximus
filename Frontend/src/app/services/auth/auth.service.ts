@@ -65,7 +65,7 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem("user"));
     const headers = new HttpHeaders({ Authorization: "Bearer " + user.token });
 
-    return this.httpClient.get(config.backendUrl + "project/" + projectID + "/list", {
+    return this.httpClient.get(config.backendUrl + "projects/" + projectID + "/user/list", {
       headers
     });
   }
@@ -74,7 +74,7 @@ export class AuthService {
       const user = JSON.parse(localStorage.getItem("user"));
       const headers = new HttpHeaders({ Authorization: "Bearer " + user.token });
 
-      return this.httpClient.delete(config.backendUrl + "project/" + projectID + "/user/" + userID, {
+      return this.httpClient.delete(config.backendUrl + "projects/" + projectID + "/user/" + userID, {
         headers
       });
     }
@@ -83,7 +83,7 @@ export class AuthService {
       const user = JSON.parse(localStorage.getItem("user"));
       const headers = new HttpHeaders({ Authorization: "Bearer " + user.token });
 
-      return this.httpClient.put(config.backendUrl + "project/" + projectID + "/user/" + userID, {
+      return this.httpClient.put(config.backendUrl + "projects/" + projectID + "/user/" + userID, {
         headers
       });
     }

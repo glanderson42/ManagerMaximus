@@ -1,0 +1,14 @@
+.userlist {
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  .user {
+    display: flex;
+    min-width: 300px;
+    justify-content: center;
+
+    .name {
+      flex-grow: 1;
+    }
+  }
+}

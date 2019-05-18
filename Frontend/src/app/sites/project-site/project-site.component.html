@@ -20,7 +20,7 @@
 </div>
 
 <p-dialog header="Edit user" [(visible)]="DisplayUserHandling" [modal]="true" (onAfterHide)="exitcallback()">
-    <app-user-handling [projectID]="Project"></app-user-handling>
+    <app-user-handling #userHandling></app-user-handling>
 </p-dialog>
-  
+
 <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

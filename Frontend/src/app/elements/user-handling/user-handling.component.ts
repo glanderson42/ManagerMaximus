@@ -9,30 +9,36 @@ import { AuthService } from "../../services/auth/auth.service";
 })
 export class UserHandlingComponent implements OnInit {
 
-  constructor(private projectSite: ProjectSiteComponent,
-              private authService: AuthService) { }
+  constructor(
+    private projectSite: ProjectSiteComponent,
+    private authService: AuthService
+  ) { }
 
-Users: any = {};
-
-@Input() projectID;
+  Users: any = [];
+  projectID: any = {};
+  newValue: any = "as";
 
   ngOnInit() {
-    setTimeout(function(){
-      console.log(this.projectID);
-    }, 2000);
   }
-  
+
   closeUserHandling(event) {
     this.projectSite.DisplayUserHandling = false;
   }
 
-  getUsers(projectID: Number) {
-    this.authService.listUsersForProject(projectID).subscribe(
+  getUsers(id: Number) {
+    this.projectID = id;
+    this.authService.listUsersForProject(id).subscribe(
       (response: any) => {
         this.Users = response;
-
+        console.log(this.Users)
       }
     )
   }
 
+  userDelete(id: Number) {
+    console.log(id)
+  }
+  addNewUser() {
+    console.log(this.newValue)
+  }
 }
