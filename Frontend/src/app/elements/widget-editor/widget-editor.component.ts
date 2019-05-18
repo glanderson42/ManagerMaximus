@@ -14,7 +14,11 @@ export class WidgetEditorComponent implements OnInit {
   @Input() closeCallback: any;
   @Input() project: any;
 
-  constructor(private authService: AuthService, private messageService: MessageService, private projectSiteComponent: ProjectSiteComponent) { }
+  constructor(
+    private authService: AuthService,
+    private messageService: MessageService,
+    private projectSiteComponent: ProjectSiteComponent
+  ) { }
 
   ngOnInit() {
     this.widget.visibility = 'PUBLIC';
@@ -27,6 +31,11 @@ export class WidgetEditorComponent implements OnInit {
   @Input()
   set widgetData(widget) {
     this.widget = widget;
+    this.widget.visibility = 'PUBLIC';
+    if (!this.widget.id) {
+      this.widget.data = '';
+      this.widget.title = '';
+    }
   }
 
   closeEditor() {
@@ -34,11 +43,11 @@ export class WidgetEditorComponent implements OnInit {
   }
 
   myUploader(event, uploader) {
-    let reader = new FileReader();
-    reader.onload = (e:any) => {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
       this.widget.data = e.target.result;
       uploader.clear();
-    }
+    };
     reader.readAsDataURL(event.files[0]);
   }
 
@@ -47,7 +56,12 @@ export class WidgetEditorComponent implements OnInit {
     this.authService.saveWidget(this.widget).subscribe(
       (response: any) => {
         if (this.widget.id) {
-          this.widget = response;
+          const modWidget = this.widget;
+          const originalWidget = this.project.widgets.find(function(widget) {
+            return widget.id === modWidget.id;
+          });
+          const widgetIndex = this.project.widgets.indexOf(originalWidget);
+          this.project.widgets[widgetIndex] = response;
         } else {
           this.project.widgets.push(response);
         }

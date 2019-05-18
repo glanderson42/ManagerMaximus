@@ -26,7 +26,9 @@ export class WidgetEditorSelectorComponent implements OnInit {
   openWidgetEditor(widgetType) {
     this.projectSiteComponent.weSelectorVisible = false;
     this.projectSiteComponent.newWeVisible = true;
-    this.projectSiteComponent.newWidget.type = widgetType;
+    this.projectSiteComponent.newWidget = {
+      type: widgetType
+    };
     this.selectedType = null;
   }
 

@@ -3,6 +3,8 @@ import { MenuItem } from "primeng/api";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from "../../services/auth/auth.service";
 import { MessageService } from "primeng/api";
+import { ConfirmationService } from 'primeng/api';
+
 @Component({
   selector: "app-project-site",
   templateUrl: "./project-site.component.html",
@@ -13,7 +15,8 @@ export class ProjectSiteComponent implements OnInit {
     private authService: AuthService,
     private messageService: MessageService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public confirmationService: ConfirmationService
   ) {}
 
   MenuBar: MenuItem[];

@@ -27,3 +27,10 @@
 <p-dialog header="New widget" [(visible)]="newWeVisible" [modal]="true">
   <app-widget-editor id="widget-editor" [widgetData]="newWidget" [project]="Project" [closeCallback]="closeWidgetEdit"></app-widget-editor>
 </p-dialog>
+
+<p-confirmDialog #cd [style]="{width: '50vw'}">
+  <p-footer>
+    <button class="ui-button-success" type="button" pButton icon="pi pi-check" label="Delete" (click)="cd.accept()"></button>
+    <button class="ui-button-danger" type="button" pButton icon="pi pi-times" label="Cancel" (click)="cd.reject()"></button>
+  </p-footer>
+</p-confirmDialog>
