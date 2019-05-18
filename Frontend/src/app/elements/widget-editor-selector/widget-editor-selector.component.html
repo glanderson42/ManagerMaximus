@@ -1,0 +1,7 @@
+
+<div class="form-group">
+  <label for="type">
+    Widget type
+  </label>
+  <p-selectButton [options]="widgetTypes" [(ngModel)]="selectedType" (click)="openWidgetEditor(selectedType)"></p-selectButton>
+</div>

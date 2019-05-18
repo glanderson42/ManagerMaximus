@@ -41,6 +41,7 @@ import { TextWidgetComponent } from './elements/widgets/text-widget/text-widget.
 import { ImageWidgetComponent } from './elements/widgets/image-widget/image-widget.component';
 import { ChartWidgetComponent } from './elements/widgets/chart-widget/chart-widget.component';
 import { WidgetEditorComponent } from './elements/widget-editor/widget-editor.component';
+import { WidgetEditorSelectorComponent } from './elements/widget-editor-selector/widget-editor-selector.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { WidgetEditorComponent } from './elements/widget-editor/widget-editor.co
     TextWidgetComponent,
     ImageWidgetComponent,
     ChartWidgetComponent,
-    WidgetEditorComponent
+    WidgetEditorComponent,
+    WidgetEditorSelectorComponent
   ],
   imports: [
     BrowserModule,

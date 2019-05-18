@@ -19,3 +19,7 @@
         </div>
     </div>
 </div>
+
+<p-dialog header="Select the type of the new widget" [(visible)]="weSelectorVisible" [modal]="true">
+  <app-widget-editor-selector id="widget-editor-selector"></app-widget-editor-selector>
+</p-dialog>

@@ -20,6 +20,7 @@ export class ProjectSiteComponent implements OnInit {
   PanelMenu: MenuItem[];
   Project: any = {};
   noWidget: boolean = true;
+  weSelectorVisible: boolean = false;
 
   ngOnInit() {
     if (!localStorage.getItem("user")) {
@@ -39,7 +40,10 @@ export class ProjectSiteComponent implements OnInit {
           },
           {
             label: "2. Widget",
-            icon: "fa fa-fw fa-stack-exchange"
+            icon: "fa fa-fw fa-stack-exchange",
+            command: (event)=> {
+              this.weSelectorVisible = true;
+            }
           },
           { separator: true }
         ]
