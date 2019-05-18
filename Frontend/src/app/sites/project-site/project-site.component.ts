@@ -74,6 +74,9 @@ export class ProjectSiteComponent implements OnInit {
         command: (event)=> {
           event.item.expanded = false;
           this.selectedProject = Object.assign({}, this.Project);
+          this.projectSaved = response => {
+            this.Project = Object.assign(this.Project, response);
+          };
           this.showProjectEditModal = true;
         },
         icon: "pi pi-fw pi-cog",
@@ -125,5 +128,6 @@ export class ProjectSiteComponent implements OnInit {
 
   closeProjectEdit:any = () => {
     this.showProjectEditModal = false;
-  }
+  };
+  projectSaved: any = () => {};
 }

@@ -20,5 +20,5 @@
 </div>
 
 <p-dialog header="Edit project" [(visible)]="showProjectEditModal" [modal]="true">
-  <app-pop-up-dialog id="popup" [projectData]="selectedProject" [closeCallback]="closeProjectEdit"></app-pop-up-dialog>
+  <app-pop-up-dialog id="popup" [projectData]="selectedProject" [closeCallback]="closeProjectEdit" [savedCallback]="projectSaved"></app-pop-up-dialog>
 </p-dialog>

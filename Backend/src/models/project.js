@@ -235,16 +235,19 @@ const put = (req, res) => {
     database.asyncQuery(sql)
       .then(result => {
         if (result.affectedRows) {
-          data = {
-            statusCode: 200,
-            label: 'Project updated.',
-          };
           console.log(`Project #${project.id} updated`);
-        } else {
-          data = {
-            statusCode: 403,
-            label: 'Forbidden.',
-          };
+          return database.asyncQuery('SELECT * FROM `project` WHERE `id`=' + project.id + ';');
+        }
+        throw {
+          statusCode: 403,
+          label: 'Forbidden.',
+        };
+      })
+      .then(result => {
+        if (result.length > 0) {
+          data = result[0];
+          data.statusCode = 200;
+          data.label = 'Project updated.';
         }
       })
       .then(() => {
@@ -292,11 +295,19 @@ const put = (req, res) => {
       .then(result => {
         if (result.insertId) {
           console.log(`New project created #${result.insertId}`);
-          data = {
-            statusCode: 200,
-            label: 'New project created.',
-            projectid: result.insertId,
-          };
+          return database.asyncQuery('SELECT * FROM `project` WHERE `id`=' + result.insertId + ';');
+        }
+        throw {
+          statusCode: 403,
+          label: 'Forbidden.',
+        };
+      })
+      .then(result => {
+        if (result.length > 0) {
+          data = result[0];
+          data.statusCode = 200;
+          data.label = 'New project created.';
+          data.projectid = data.id;
         }
       })
       .then(() => {

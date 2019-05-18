@@ -132,6 +132,14 @@ export class IndexComponent implements OnInit {
     }
     this.showProjectEditModal = true;
     this.selectedProject = Object.assign({}, item);
+    this.projectSaved = response => {
+      for(let i=0; i<this.Projects.own.length; i++) {
+        if(this.Projects.own[i].id === response.id) {
+          console.log(this.Projects.own[i], response)
+          this.Projects.own[i] = response;
+        }
+      }
+    };
     if (event && event.stopPropagation) {
       event.stopPropagation();
     }
@@ -139,7 +147,8 @@ export class IndexComponent implements OnInit {
 
   closeProjectEdit:any = () => {
     this.showProjectEditModal = false;
-  }
+  };
+  projectSaved: any = () => {};
 
   openProject(item) {
     this.router.navigateByUrl("/project/" + item.id);

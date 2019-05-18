@@ -43,6 +43,15 @@ export class AuthService {
     });
   }
 
+  editProject(projectData) {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const headers = new HttpHeaders({ Authorization: "Bearer " + user.token });
+
+    return this.httpClient.put(config.backendUrl + "projects", projectData, {
+      headers
+    });
+  }
+
   deleteProjectByID(id: Number) {
     const user = JSON.parse(localStorage.getItem("user"));
     const headers = new HttpHeaders({ Authorization: "Bearer " + user.token });

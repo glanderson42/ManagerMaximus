@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SelectItem } from 'primeng/api';
+import { AuthService } from "../../services/auth/auth.service";
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: 'app-pop-up-dialog',
@@ -12,7 +14,10 @@ export class PopUpDialogComponent implements OnInit {
   priorities: SelectItem[];
   project;
 
-  constructor() {
+  constructor(
+    private authService: AuthService,
+    public messageService: MessageService,
+  ) {
     this.categories = [
       { label: 'NEW', value: 'NEW' },
       { label: 'PROGRESS', value: 'PROGRESS' },
@@ -36,6 +41,7 @@ export class PopUpDialogComponent implements OnInit {
   }
 
   @Input() closeCallback: any;
+  @Input() savedCallback: any;
 
   ngOnInit() {
   }
@@ -50,12 +56,18 @@ export class PopUpDialogComponent implements OnInit {
   }
 
   saveUserSettings(){
-    console.log('saveUserSettings')
-    console.log(this.project)
+    this.authService.editProject(this.project).subscribe(
+      (response: any) => {
+        this.messageService.add({severity: 'success', summary: 'success', detail: response.label});
+        this.savedCallback(response);
+        this.closeCallback();
+      },
+      (response: any) => {
+        this.messageService.add({severity: 'error', summary: 'Error Message', detail: response.error.label});
+      }
+    );
   }
   closeUserSettings(){
-    console.log('closeUserSettings')
     this.closeCallback();
-    //this.index.display = false;
   }
 }
