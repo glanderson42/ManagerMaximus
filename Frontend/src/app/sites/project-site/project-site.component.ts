@@ -3,7 +3,6 @@ import { MenuItem } from "primeng/api";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from "../../services/auth/auth.service";
 import { MessageService } from "primeng/api";
-import { IndexComponent } from "../../sites/index/index.component"; 
 
 @Component({
   selector: "app-project-site",
@@ -16,7 +15,6 @@ export class ProjectSiteComponent implements OnInit {
     private messageService: MessageService,
     private router: Router,
     private route: ActivatedRoute,
-    private index: IndexComponent
   ) {}
 
   MenuBar: MenuItem[];
