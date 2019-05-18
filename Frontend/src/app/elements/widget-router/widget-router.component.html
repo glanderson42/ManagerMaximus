@@ -11,6 +11,6 @@
   </div>
 </div>
 
-<p-dialog header="Title" [(visible)]="weVisible" [modal]="true">
-  <app-widget-editor id="widget-editor" [widgetData]="selectedWidget"></app-widget-editor>
+<p-dialog header="Edit: {{selectedWidget.title}}" [(visible)]="weVisible" [modal]="true">
+  <app-widget-editor id="widget-editor" [widgetData]="selectedWidget" [closeCallback]="closeWidgetEdit"></app-widget-editor>
 </p-dialog>

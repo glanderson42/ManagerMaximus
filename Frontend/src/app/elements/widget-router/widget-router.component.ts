@@ -27,4 +27,8 @@ export class WidgetRouterComponent implements OnInit {
     }
   }
 
+  closeWidgetEdit: any = () => {
+    this.weVisible = false;
+  }
+
 }

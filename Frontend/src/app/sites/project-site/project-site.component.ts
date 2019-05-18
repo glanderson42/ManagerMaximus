@@ -128,4 +128,8 @@ export class ProjectSiteComponent implements OnInit {
       }
     );
   }
+
+  closeWidgetEdit: any = () => {
+    this.newWeVisible = false;
+  }
 }

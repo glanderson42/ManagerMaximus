@@ -25,5 +25,5 @@
 </p-dialog>
 
 <p-dialog header="New widget" [(visible)]="newWeVisible" [modal]="true">
-  <app-widget-editor id="widget-editor" [widgetData]="newWidget"></app-widget-editor>
+  <app-widget-editor id="widget-editor" [widgetData]="newWidget" [closeCallback]="closeWidgetEdit"></app-widget-editor>
 </p-dialog>

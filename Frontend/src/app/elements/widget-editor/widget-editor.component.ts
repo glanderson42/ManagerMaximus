@@ -8,6 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class WidgetEditorComponent implements OnInit {
   widget;
 
+  @Input() closeCallback: any;
+
   constructor() { }
 
   ngOnInit() {
@@ -20,6 +22,19 @@ export class WidgetEditorComponent implements OnInit {
   @Input()
   set widgetData(widget) {
     this.widget = widget;
+  }
+
+  closeEditor() {
+    this.closeCallback();
+  }
+
+  myUploader(event, uploader) {
+    let reader = new FileReader();
+    reader.onload = (e:any) => {
+      this.widget.data = e.target.result;
+      uploader.clear();
+    }
+    reader.readAsDataURL(event.files[0]);
   }
 
 }
