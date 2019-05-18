@@ -21,6 +21,8 @@ export class ProjectSiteComponent implements OnInit {
   Project: any = {};
   noWidget: boolean = true;
   weSelectorVisible: boolean = false;
+  newWidget: any = {};
+  newWeVisible: boolean = false;
 
   ngOnInit() {
     if (!localStorage.getItem("user")) {
