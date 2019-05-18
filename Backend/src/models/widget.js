@@ -107,16 +107,19 @@ const put = (req, res) => {
     database.asyncQuery(sql)
       .then(result => {
         if (result.affectedRows) {
-          data = {
-            statusCode: 200,
-            label: 'Widget updated.',
-          };
           console.log(`Widget #${widget.id} updated`);
-        } else {
-          data = {
-            statusCode: 403,
-            label: 'Forbidden.',
-          };
+          return database.asyncQuery('SELECT * FROM `widget` WHERE `id`=' + widget.id + ';');
+        }
+        throw {
+          statusCode: 403,
+          label: 'Forbidden.',
+        };
+      })
+      .then(result => {
+        if (result.length > 0) {
+          data = result[0];
+          data.statusCode = 200;
+          data.label = 'Widget updated.';
         }
       })
       .then(() => {
@@ -164,11 +167,15 @@ const put = (req, res) => {
       .then(result => {
         if (result.insertId) {
           console.log(`New widget created #${result.insertId}`);
-          data = {
-            statusCode: 200,
-            label: 'New widget created.',
-            projectid: result.insertId,
-          };
+          return database.asyncQuery('SELECT * FROM `widget` WHERE `id`=' + result.insertId + ';');
+        }
+        throw data;
+      })
+      .then(result => {
+        if (result.length > 0) {
+          data = result[0];
+          data.statusCode = 200;
+          data.label = 'New widget created.';
         }
       })
       .then(() => {
