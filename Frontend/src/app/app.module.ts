@@ -40,6 +40,7 @@ import { WidgetRouterComponent } from './elements/widget-router/widget-router.co
 import { TextWidgetComponent } from './elements/widgets/text-widget/text-widget.component';
 import { ImageWidgetComponent } from './elements/widgets/image-widget/image-widget.component';
 import { ChartWidgetComponent } from './elements/widgets/chart-widget/chart-widget.component';
+import { WidgetEditorComponent } from './elements/widget-editor/widget-editor.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { ChartWidgetComponent } from './elements/widgets/chart-widget/chart-widg
     WidgetRouterComponent,
     TextWidgetComponent,
     ImageWidgetComponent,
-    ChartWidgetComponent
+    ChartWidgetComponent,
+    WidgetEditorComponent
   ],
   imports: [
     BrowserModule,
