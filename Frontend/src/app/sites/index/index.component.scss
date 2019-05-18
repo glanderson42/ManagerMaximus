@@ -4,6 +4,9 @@
   transition: opacity .5s, max-width .5s, padding .5s;
   transition-delay: .5s, 0s, 0s;
 
+  p-card {
+    cursor: pointer;
+  }
   &.deleted-project {
     transition-delay: 0s, .5s, .5s;
     opacity: 0;
