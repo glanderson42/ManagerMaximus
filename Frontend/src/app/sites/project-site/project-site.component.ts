@@ -3,6 +3,8 @@ import { MenuItem } from "primeng/api";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from "../../services/auth/auth.service";
 import { MessageService } from "primeng/api";
+import { IndexComponent } from "../../sites/index/index.component"; 
+
 @Component({
   selector: "app-project-site",
   templateUrl: "./project-site.component.html",
@@ -13,7 +15,8 @@ export class ProjectSiteComponent implements OnInit {
     private authService: AuthService,
     private messageService: MessageService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private index: IndexComponent
   ) {}
 
   MenuBar: MenuItem[];
@@ -28,6 +31,8 @@ export class ProjectSiteComponent implements OnInit {
       this.router.navigateByUrl("/login");
       return;
     }
+
+
 
     this.PanelMenu = [
       {

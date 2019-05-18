@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ProjectSiteComponent } from '../project-site/project-site.component';
+import { ProjectSiteComponent } from '../../sites/project-site/project-site.component';
 import { AuthService } from "../../services/auth/auth.service";
 
 @Component({
