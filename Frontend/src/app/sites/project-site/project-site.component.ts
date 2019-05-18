@@ -42,13 +42,16 @@ export class ProjectSiteComponent implements OnInit {
                 parentid: this.Project.id
               };
               this.projectSaved = response => {
-                this.PanelMenu[2].items.push({
+                let newMenuItem: MenuItem = {
                   label: response.title,
                   icon: "fa fa-fw fa-list-ol",
                   command: (event) => {
                     this.router.navigateByUrl("/project/" + response.id);
-                  },
-                });
+                  }
+                };
+
+                let nextItem = this.PanelMenu[2].items.length;
+                this.PanelMenu[2].items[nextItem] = newMenuItem;
               };
               this.showProjectEditModal = true;
             },
