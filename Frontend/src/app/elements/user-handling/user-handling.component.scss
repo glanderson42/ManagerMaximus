@@ -6,6 +6,8 @@
     display: flex;
     min-width: 300px;
     justify-content: center;
+    align-items: center;
+    margin-top:5px;
 
     .name {
       flex-grow: 1;

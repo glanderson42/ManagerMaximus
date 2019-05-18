@@ -491,11 +491,19 @@ const userAdd = (req, res) => {
           statusCode: 200,
           label: newUser.name + ' set as a contributor.',
         };
-      } else {
-        throw {
-          statusCode: 500,
-          label: 'Unknown error.',
-        };
+        return database.asyncQuery('SELECT `id`, `username`, `email` FROM `users` WHERE `id`=' + newUser.id + ';');
+      }
+      throw {
+        statusCode: 500,
+        label: 'Unknown error.',
+      };
+    })
+    .then((result) => {
+      if (result.length > 0) {
+        const label = data.label;
+        data = result[0];
+        data.statusCode = 200;
+        data.label = label;
       }
     })
     .then(() => {

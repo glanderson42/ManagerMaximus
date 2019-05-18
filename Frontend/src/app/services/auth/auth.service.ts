@@ -79,11 +79,11 @@ export class AuthService {
       });
     }
 
-    addUserForProject(projectID: Number, userID: Number) {
+    addUserForProject(projectID: Number, userID: any) {
       const user = JSON.parse(localStorage.getItem("user"));
       const headers = new HttpHeaders({ Authorization: "Bearer " + user.token });
 
-      return this.httpClient.put(config.backendUrl + "projects/" + projectID + "/user/" + userID, {
+      return this.httpClient.put(config.backendUrl + "projects/" + projectID + "/user/" + userID, {}, {
         headers
       });
     }

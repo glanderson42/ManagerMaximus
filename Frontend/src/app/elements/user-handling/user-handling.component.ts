@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ProjectSiteComponent } from '../../sites/project-site/project-site.component';
 import { AuthService } from "../../services/auth/auth.service";
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: 'app-user-handling',
@@ -11,17 +12,18 @@ export class UserHandlingComponent implements OnInit {
 
   constructor(
     private projectSite: ProjectSiteComponent,
-    private authService: AuthService
+    private authService: AuthService,
+    public messageService: MessageService,
   ) { }
 
   Users: any = [];
   projectID: any = {};
-  newValue: any = "as";
+  newValue: any = "";
 
   ngOnInit() {
   }
 
-  closeUserHandling(event) {
+  closeUserHandling() {
     this.projectSite.DisplayUserHandling = false;
   }
 
@@ -30,15 +32,41 @@ export class UserHandlingComponent implements OnInit {
     this.authService.listUsersForProject(id).subscribe(
       (response: any) => {
         this.Users = response;
-        console.log(this.Users)
       }
     )
   }
 
   userDelete(id: Number) {
-    console.log(id)
+    this.authService.removeUserFromProject(this.projectID, id).subscribe(
+      (response: any) => {
+        this.messageService.add({severity: 'success', summary: 'Success', detail: response.label});
+        for(let i=0; i<this.Users.length; i++) {
+          if(this.Users[i].id === id) {
+            this.Users.splice(i, 1)
+            break;
+          }
+        }
+      },
+      (response: any) => {
+        this.messageService.add({severity: 'error', summary: 'Error Message', detail: response.error.label});
+      }
+    );
   }
   addNewUser() {
-    console.log(this.newValue)
+    if(this.newValue === "") {
+      return;
+    }
+
+    this.authService.addUserForProject(this.projectID, this.newValue).subscribe(
+      (response: any) => {
+        this.messageService.add({severity: 'success', summary: 'Success', detail: response.label});
+        this.Users.push(response);
+        this.newValue = "";
+      },
+      (response: any) => {
+        this.messageService.add({severity: 'error', summary: 'Error Message', detail: response.error.label});
+        this.newValue = "";
+      }
+    );
   }
 }
