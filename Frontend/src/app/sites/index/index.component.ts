@@ -127,19 +127,28 @@ export class IndexComponent implements OnInit {
   public showUserEdit: boolean = false;
 
   showDialog(item, event) {
-    if (typeof item != 'object') {
+    let newProject = false;
+    if (typeof item != 'object' || !item.id) {
       item = {};
+      newProject = true;
     }
     this.showProjectEditModal = true;
     this.selectedProject = Object.assign({}, item);
-    this.projectSaved = response => {
-      for(let i=0; i<this.Projects.own.length; i++) {
-        if(this.Projects.own[i].id === response.id) {
-          console.log(this.Projects.own[i], response)
-          this.Projects.own[i] = response;
+    if(newProject) {
+      this.projectSaved = response => {
+        console.log(this.Projects.own)
+        this.Projects.own.push(response);
+      };
+    } else {
+      this.projectSaved = response => {
+        for(let i=0; i<this.Projects.own.length; i++) {
+          if(this.Projects.own[i].id === response.id) {
+            console.log(this.Projects.own[i], response)
+            this.Projects.own[i] = response;
+          }
         }
-      }
-    };
+      };
+    }
     if (event && event.stopPropagation) {
       event.stopPropagation();
     }

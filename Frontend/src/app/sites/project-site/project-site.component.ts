@@ -36,7 +36,22 @@ export class ProjectSiteComponent implements OnInit {
         items: [
           {
             label: "1. Subproject",
-            icon: "fa fa-fw fa-files-o"
+            icon: "fa fa-fw fa-files-o",
+            command: ()=> {
+              this.selectedProject = {
+                parentid: this.Project.id
+              };
+              this.projectSaved = response => {
+                this.PanelMenu[2].items.push({
+                  label: response.title,
+                  icon: "fa fa-fw fa-list-ol",
+                  command: (event) => {
+                    this.router.navigateByUrl("/project/" + response.id);
+                  },
+                });
+              };
+              this.showProjectEditModal = true;
+            },
           },
           {
             label: "2. Widget",
