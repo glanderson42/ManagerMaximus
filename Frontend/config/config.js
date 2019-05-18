@@ -1,5 +1,5 @@
 const defaultConfig = {
-  backendUrl: "http://managermaximus.tk:3000/",
+  backendUrl: "http://managermaximus.tk:30000/",
 };
 
 //// END OF CONFIG DEFAULTS ////
