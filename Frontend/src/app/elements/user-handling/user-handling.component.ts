@@ -12,6 +12,8 @@ export class UserHandlingComponent implements OnInit {
   constructor(private projectSite: ProjectSiteComponent,
               private authService: AuthService) { }
 
+Users: any = {};
+
 @Input() projectID;
 
   ngOnInit() {
@@ -22,6 +24,15 @@ export class UserHandlingComponent implements OnInit {
   
   closeUserHandling(event) {
     this.projectSite.DisplayUserHandling = false;
+  }
+
+  getUsers(projectID: Number) {
+    this.authService.listUsersForProject(projectID).subscribe(
+      (response: any) => {
+        this.Users = response;
+
+      }
+    )
   }
 
 }

@@ -8,7 +8,6 @@ import { WrongtokenComponent } from '../../sites/emailconfirm/wrongtoken/wrongto
 import { IndexComponent } from '../../sites/index/index.component';
 import { PageNotFoundComponent } from '../../sites/page-not-found/page-not-found.component';
 import { ProjectSiteComponent } from '../../sites/project-site/project-site.component';
-import { UserSettingsComponent } from 'src/app/elements/user-settings/user-settings.component';
 
 const routes: Routes = [ {path: 'login', component: LoginComponent },
                          {path: 'registration', component: RegistrationComponent },
