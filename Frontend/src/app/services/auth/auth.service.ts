@@ -60,4 +60,22 @@ export class AuthService {
       headers
     });
   }
+
+  saveWidget(widgetData) {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const headers = new HttpHeaders({ Authorization: "Bearer " + user.token });
+
+    return this.httpClient.put(config.backendUrl + "widget", widgetData, {
+      headers
+    });
+  }
+
+  deleteWidget(widgetId) {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const headers = new HttpHeaders({ Authorization: "Bearer " + user.token });
+
+    return this.httpClient.delete(config.backendUrl + "widget/" + widgetId, {
+      headers
+    });
+  }
 }
