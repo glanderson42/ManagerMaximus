@@ -1,0 +1,40 @@
+.fileuploaderImage {
+  max-width: 300px;
+}
+
+.chartValue {
+  display: flex;
+  align-items: center;
+
+  > .grow {
+    flex-grow: 1;
+    width: 100px;
+    input {
+      width: 100%;
+    }
+  }
+}
+
+.widgetData {
+  margin: 10px 0;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  > * {
+    display: block;
+    flex-grow: 1;
+  }
+  > label {
+    width: 100px;
+    flex-grow: 0;
+  }
+}
+
+.addButton {
+  display: block;
+  margin: 10px auto;
+}

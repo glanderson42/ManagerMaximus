@@ -5,7 +5,7 @@
   </label>
   <input id="title" type="text" size="30" pInputText [(ngModel)]="widget.title">
 </div>
-<div [ngSwitch]="widget.type">
+<div [ngSwitch]="widget.type" class="widgetData">
   <div *ngSwitchCase="'textWidget'">
     <div class="form-group">
       <label for="text">
@@ -25,28 +25,30 @@
       </div>
     </div>
   </div>
-  <div *ngSwitchCase="'chartWidget'">
-    <div *ngFor="let chartData of chartDataArray">
-      <div class="form-group">
-        <label for="label">
-          Label
-        </label>
-        <input id="label" type="text" size="30" pInputText [(ngModel)]="chartData.label">
+  <div *ngSwitchCase="'chartWidget'" class="chartWidget">
+    <div class="chartValue">
+      <div class="grow">
+        Label
       </div>
-      <div class="form-group">
-        <label for="value">
-          Value
-        </label>
-        <input id="value" type="number" size="30" pInputText [(ngModel)]="chartData.value">
+      <div class="grow">
+        Value
       </div>
-      <div class="form-group">
-        <label for="color">
-          Color
-        </label>
-        <p-colorPicker id="color" [(ngModel)]="chartData.color"></p-colorPicker>
+      <div>
+        Color
       </div>
     </div>
-    <button pButton type="button" icon="pi pi-plus" (click)="addPieChart()"></button>
+    <div *ngFor="let chartData of chartDataArray" class="chartValue">
+      <div class="grow">
+        <input type="text" size="30" pInputText [(ngModel)]="chartData.label">
+      </div>
+      <div class="grow">
+        <input type="number" size="30" pInputText [(ngModel)]="chartData.value">
+      </div>
+      <div>
+        <p-colorPicker appendTo="body" [(ngModel)]="chartData.color"></p-colorPicker>
+      </div>
+    </div>
+    <button class="addButton" pButton type="button" icon="pi pi-plus" (click)="addPieChart()"></button>
   </div>
   <div *ngSwitchDefault>Error: Undefined widget type.</div>
 </div>

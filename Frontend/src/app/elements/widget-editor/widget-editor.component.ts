@@ -33,11 +33,11 @@ export class WidgetEditorComponent implements OnInit {
   set widgetData(widget) {
     this.widget = widget;
     this.widget.visibility = 'PUBLIC';
+    this.chartDataArray = [];
     if (!this.widget.id) {
       this.widget.data = '';
       this.widget.title = '';
       if (this.widget.type === 'chartWidget') {
-        this.chartDataArray = [];
         this.chartDataArray.push(
           {
             label: '',
