@@ -45,12 +45,12 @@ This SQL will make the database, datatables, table connections and one database 
 You can connect to the database called `manager_maximus` with username `manager_maximus` and password `3Pi14159265`.
 
 ### Status
-- [ x ] Registartion and login system
-- [ x ] Project creating system
-- [ x ] Invite people to projects
-- [ x ] Subprojets creating
+- [x] Registartion and login system
+- [x] Project creating system
+- [x] Invite people to projects
+- [x] Subprojets creating
 - [ ] TODO list
-- [ x ] Widget based content uploading
+- [x] Widget based content uploading
 - [ ] Chat for individual projects
 - [ ] Deadline calendar
 - [ ] Email notifications
