@@ -1,5 +1,7 @@
 ## ManagerMaximus
 
+Project is available on [this](https://managermaximus.tk) link
+
 ### Group members
  * Garai Adam
  * Herczog Attila
